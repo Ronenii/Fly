@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "93330892660",
+    "project_id": "fly-project-cb66f",
+    "storage_bucket": "fly-project-cb66f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93330892660:android:ce0e4c202be6dcd716ee21",
+        "android_client_info": {
+          "package_name": "om.GroupC.fly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93330892660-9hs0utu2cpqur65mln750ua823r7s20d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr8FlnWhuUkkWuWPWILV14jtdm04LUqQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93330892660-9hs0utu2cpqur65mln750ua823r7s20d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
