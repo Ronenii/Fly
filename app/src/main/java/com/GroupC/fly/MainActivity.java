@@ -18,11 +18,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     public void onSignUpClick (View view)
     {
-        Intent  moveToSignUp = new Intent(MainActivity.this,SignUpActivity.class);
+        Intent moveToSignUp = new Intent(this,SignUpActivity.class);
         startActivity(moveToSignUp);
     }
 }
