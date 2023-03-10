@@ -2,53 +2,63 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcome_page_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/welcome_page_page"
     android:background="#BDF3FA"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/text_welcome"
+        android:id="@+id/textWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome_to_fly"
-        android:textSize="25sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403" />
+        app:layout_constraintVertical_bias="0.251" />
 
     <Button
-        android:id="@+id/button_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/buttonSignIn"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="144dp"
         android:backgroundTint="#03A9F4"
         android:onClick="onSignInClick"
         android:text="@string/sign_in"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_welcome"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintTop_toBottomOf="@+id/flyIconImage" />
 
     <Button
-        android:id="@+id/button_sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/buttonSignUp"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
         android:backgroundTint="#03A9F4"
         android:onClick="onSignUpClick"
         android:text="@string/sign_up"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/button_sign_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_welcome"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintEnd_toEndOf="@+id/buttonSignIn"
+        app:layout_constraintStart_toStartOf="@+id/buttonSignIn"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn" />
+
+    <ImageView
+        android:id="@+id/flyIconImage"
+        android:layout_width="187dp"
+        android:layout_height="166dp"
+        android:layout_marginTop="20dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:layout_constraintEnd_toEndOf="@+id/textWelcome"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="@+id/textWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/textWelcome"
+        app:srcCompat="@drawable/fly_icon"
+        android:contentDescription="Fly_Icon_Image" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
