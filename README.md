@@ -2,10 +2,12 @@
 
 ## File naming
 
-### 1.1 Class files
+### 1.1 Classes
 Class names are written in [UpperCamelCase](http://en.wikipedia.org/wiki/CamelCase).
 
 For classes that extend an Android component, the name of the class should end with the name of the component; for example: `SignInActivity`, `SignInFragment`, `ImageUploaderService`, `ChangePasswordDialog`.
+
+Methods are written in [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase).
 
 ### 1.2 Resources files
 
