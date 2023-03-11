@@ -61,12 +61,27 @@
         android:layout_below="@id/et_password_si"
         android:layout_margin="20dp"
         android:text="Forgot Password"
+        android:onClick="onForgotPasswordClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password_si"
         app:layout_constraintVertical_bias="0.11" />
+
+    <Button
+        android:id="@+id/btn_return_home"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="#03A9F4"
+        android:onClick="onReturnClick"
+        android:text="return home"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

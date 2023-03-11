@@ -32,4 +32,8 @@ public class SignInActivity extends AppCompatActivity {
         Intent moveToHome = new Intent(this,MainActivity.class);
         startActivity(moveToHome);
     }
+
+    public void onForgotPasswordClick(View view) {
+        // TODO: add forgot password activity
+    }
 }
