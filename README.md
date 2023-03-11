@@ -28,18 +28,18 @@ Naming conventions for drawables:
 | Text View     | `tv_`	   |
 |     ---       |	   |
 | Button        | `btn_`   | 
-| Check Box     | `cbx_`   |
+| Check Box     | `cb_`   |
 | Switch	| `sw_`	   |
 | Toggle Button | `tbtn_`  | 
 | Image Button  | `ibtn_`  | 
 | Image View    | `iv_`	   |
 | Progress Bar  | `pbr_`   | 
 | Seek Bar      | `sbr_`   |
-| Spinner       | `spn_`   |
+| Spinner       | `sp_`   |
 | WebView       | `wv_`    |
 | Edit Text     | `et_`    |
 |     ---       |	   |
-| Radio Group   | `rgp_`   |
+| Radio Group   | `rg_`   |
 | List View     | `lv_`    |
 | Grid View     | `gv_`    |
 | Expandable List View    | `elst_` |
