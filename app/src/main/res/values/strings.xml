@@ -3,4 +3,9 @@
     <string name="welcome_to_fly">Welcome To Fly</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">
+        Repeat
+        Password</string>
+    <string name="repeat_npassword">Repeat\nPassword</string>
 </resources>
