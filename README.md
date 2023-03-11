@@ -9,33 +9,60 @@ For classes that extend an Android component, the name of the class should end w
 
 ### 1.2 Resources files
 
-Resources file names are written in __lowercase_underscore__.
+Resources file names are written in lowercase_underscore.
 
-#### 1.2.1 Drawable files
+#### 1.2.1 Drawables
 
 Naming conventions for drawables:
 
-| Asset Type   | Prefix            |		Example               |
-|--------------| ------------------|-----------------------------|
-| Action bar   | `ab_`             | `ab_stacked.9.png`          |
-| Button       | `btn_`	            | `btn_send_pressed.9.png`    |
-| Dialog       | `dialog_`         | `dialog_top.9.png`          |
-| Divider      | `divider_`        | `divider_horizontal.9.png`  |
-| Icon         | `ic_`	            | `ic_star.png`               |
-| Menu         | `menu_	`           | `menu_submenu_bg.9.png`     |
-| Notification | `notification_`	| `notification_bg.9.png`     |
-| Tabs         | `tab_`            | `tab_pressed.9.png`         |
+| Asset Type   | Prefix    |
+|--------------| ----------|
+| Frame Layout  | `fly_`   |
+| Linear Layout | `lly_`   |
+| Table Layout  | `tly_`   |
+| Table Row     | `tr_`    |
+| Grid Layout   | `gly_`   |
+| Relative Layout | `rly_` |
+| Text View     | `tv_`	   |
+|     ---       |	   |
+| Button        | `btn_`   | 
+| Check Box     | `cbx_`   |
+| Switch	| `sw_`	   |
+| Toggle Button | `tbtn_`  | 
+| Image Button  | `ibtn_`  | 
+| Image View    | `iv_`	   |
+| Progress Bar  | `pbr_`   | 
+| Seek Bar      | `sbr_`   |
+| Spinner       | `spn_`   |
+| WebView       | `wv_`    |
+| Edit Text     | `et_`    |
+|     ---       |	   |
+| Radio Group   | `rgp_`   |
+| List View     | `lv_`    |
+| Grid View     | `gv_`    |
+| Expandable List View    | `elst_` |
+| Scroll View   | `sv`     |
+| Horizontal Scroll View  | `hsv_`  |
+| Search View   | `sev_`   |
+| Tab Host      | `th_`    |
+| Horizontal Scroll View  | `hs_`   |
+| Video View   | `vv_`     |
+| Dialer Filter | `df_`    |
+|     ---       |	   |
+| Include       | `ic_`    |
+| Fragment      | `fr_`    |
+| Custom View (other)     | `cv_`   |
 
 Naming conventions for icons (taken from [Android iconography guidelines](http://developer.android.com/design/style/iconography.html)):
 
 | Asset Type                      | Prefix             | Example                      |
 | --------------------------------| ----------------   | ---------------------------- |
 | Icons                           | `ic_`              | `ic_star.png`                |
-| Launcher icons                  | `ic_launcher`      | `ic_launcher_calendar.png`   |
-| Menu icons and Action Bar icons | `ic_menu`          | `ic_menu_archive.png`        |
-| Status bar icons                | `ic_stat_notify`   | `ic_stat_notify_msg.png`     |
-| Tab icons                       | `ic_tab`           | `ic_tab_recent.png`          |
-| Dialog icons                    | `ic_dialog`        | `ic_dialog_info.png`         |
+| Launcher icons                  | `ic_launcher_`      | `ic_launcher_calendar.png`   |
+| Menu icons and Action Bar icons | `ic_menu_`          | `ic_menu_archive.png`        |
+| Status bar icons                | `ic_stat_notify_`   | `ic_stat_notify_msg.png`     |
+| Tab icons                       | `ic_tab_`           | `ic_tab_recent.png`          |
+| Dialog icons                    | `ic_dialog_`        | `ic_dialog_info.png`         |
 
 Naming conventions for selector states:
 
