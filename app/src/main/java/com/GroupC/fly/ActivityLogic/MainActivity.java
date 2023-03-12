@@ -1,6 +1,5 @@
-package com.GroupC.fly;
+package com.GroupC.fly.ActivityLogic;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.GroupC.fly.R;
 
 public class MainActivity extends AppCompatActivity {
 
