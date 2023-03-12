@@ -1,4 +1,4 @@
-package com.GroupC.fly;
+package com.GroupC.fly.ActivityLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(com.GroupC.fly.R.layout.activity_main);
 
         //These lines hide the title and action bar at the top of the screen
         this.getSupportActionBar().hide();
