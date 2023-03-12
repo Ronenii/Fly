@@ -1,4 +1,4 @@
-package com.GroupC.fly;
+package com.GroupC.fly.ActivityLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSignInClick(View view)
     {
+
+        //test
         //sets a new dialog on this activity and shows the sign in activity
         Dialog sign_in_dialog = new Dialog(this);
         sign_in_dialog.setContentView(R.layout.activity_sign_in);
