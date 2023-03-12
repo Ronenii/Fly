@@ -14,7 +14,7 @@ abstract class Entity {
         private Address address;
         //Post posts[];
         //img profile_picture;
-
+        private Entity blocked[];
 
         /* Functions */
         public String getName() {
@@ -40,4 +40,13 @@ abstract class Entity {
         public void setAddress(Address address) {
                 this.address = address;
         }
+
+        public Entity[] getBlocked() {
+                return blocked;
+        }
+
+        public void setBlocked(Entity[] blocked) {
+                this.blocked = blocked;
+        }
 }
+
