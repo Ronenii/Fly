@@ -1,4 +1,4 @@
-package com.GroupC.fly.ActivityLogic;
+package com.GroupC.fly;
 
 import androidx.appcompat.app.AppCompatActivity;
 
