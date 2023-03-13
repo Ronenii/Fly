@@ -15,9 +15,9 @@
     <color name="colorGradient3">#4796FE</color>
 
     // theme colors
-    <color name="colorLighBlue1">#ACF0FF</color>
-    <color name="colorLighBlue2">##7AE7FF</color>
-    <color name="colorLighBlue3">#E0FBFF</color>
+    <color name="colorLightBlue1">#ACF0FF</color>
+    <color name="colorLightBlue2">#7AE7FF</color>
+    <color name="colorLightBlue3">#E0FBFF</color>
     <color name="colorTeal">#3D7380</color>
     <color name="colorMidGray">#707D80</color>
 
