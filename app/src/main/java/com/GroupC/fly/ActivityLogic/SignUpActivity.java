@@ -53,7 +53,10 @@ public class SignUpActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 getCredentials();
-                credentialsCheck(passwordRepeat,password,email);
+                if(credentialsCheck(passwordRepeat,password,email))
+                {
+                    //TODO: Save/Create new user and redirect to profile creation
+                }
             }
         });
     }
@@ -68,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity{
 
     //Checks if the credentials are ok returns true, if not will show error and return false
     private boolean credentialsCheck(String passwordRepeat, String password, String email)
-    {  //TODO: finish method, figure out what we want to be the credential requierments
+    {  //TODO: finish method, figure out what we want to be the credential requirements
         if(password.length() < 8 || password == null) {
             displayErrorToast("Password must contain 8 characters");
             return false;
@@ -89,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity{
         displayMessage.setText(message);
         Toast toast = Toast.makeText(this,message, Toast.LENGTH_SHORT);
         toast.setView(toast_layout);
-        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER, 0, 120);
+        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER, 0, 180);
         toast.show();
 
     }

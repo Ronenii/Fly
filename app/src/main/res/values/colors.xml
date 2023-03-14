@@ -13,6 +13,7 @@
     <color name="colorGradient1">#60DDFD</color>
     <color name="colorGradient2">#51AFFC</color>
     <color name="colorGradient3">#4796FE</color>
+    <color name="blueBtnColor">#03A9F4</color>
 
     // theme colors
     <color name="colorLightBlue1">#ACF0FF</color>
