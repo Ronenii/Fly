@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
     <EditText
-        android:id="@+id/et_password_check"
+        android:id="@+id/et_password_repeat"
         android:layout_width="211dp"
         android:layout_height="38dp"
         android:layout_marginTop="20dp"
@@ -88,9 +88,9 @@
         android:layout_height="48dp"
         android:layout_marginEnd="4dp"
         android:text="Type Password again:"
-        app:layout_constraintBottom_toBottomOf="@+id/et_password_check"
-        app:layout_constraintEnd_toStartOf="@+id/et_password_check"
-        app:layout_constraintTop_toTopOf="@+id/et_password_check"
+        app:layout_constraintBottom_toBottomOf="@+id/et_password_repeat"
+        app:layout_constraintEnd_toStartOf="@+id/et_password_repeat"
+        app:layout_constraintTop_toTopOf="@+id/et_password_repeat"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -106,7 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password_check" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password_repeat" />
 
     <Button
         android:id="@+id/btn_return_home"
