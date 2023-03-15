@@ -3,107 +3,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sign_up_page"
-    android:background="@drawable/gradient_animation"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_animation">
+
 
     <TextView
         android:id="@+id/tv_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Sign Up"
+        android:layout_marginTop="-10dp"
+        android:text="@string/sign_up"
         android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/et_password"
-        android:layout_width="211dp"
-
-        android:layout_height="38dp"
-        android:layout_marginTop="16dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="************"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.741"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
-
-    <EditText
-        android:id="@+id/et_password_check"
-        android:layout_width="211dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="20dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="************"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.741"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password" />
-
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="20dp"
-        android:text="Email:"
-        app:layout_constraintEnd_toStartOf="@+id/et_email"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
 
     <EditText
         android:id="@+id/et_email"
-        android:background="#30ffffff"
-        android:layout_width="213dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="example@mail.com"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.741"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up" />
-
-    <TextView
-        android:id="@+id/tv_password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:text="Password:"
-        app:layout_constraintBottom_toBottomOf="@+id/et_password"
-        app:layout_constraintEnd_toStartOf="@+id/et_password"
-        app:layout_constraintTop_toTopOf="@+id/et_password"
-        app:layout_constraintVertical_bias="0.423" />
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/input_bar_color"
+        android:drawableLeft="@drawable/baseline_alternate_email_24"
+        android:gravity="center"
+        android:hint="@string/email"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936" />
 
-    <TextView
-        android:id="@+id/tv_password_check"
-        android:layout_width="109dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="4dp"
-        android:text="Type Password again:"
-        app:layout_constraintBottom_toBottomOf="@+id/et_password_check"
-        app:layout_constraintEnd_toStartOf="@+id/et_password_check"
-        app:layout_constraintTop_toTopOf="@+id/et_password_check"
-        app:layout_constraintVertical_bias="0.0" />
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_email"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="516dp"
+        android:background="@color/input_bar_color"
+        android:drawableLeft="@drawable/baseline_password_24"
+        android:gravity="center"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/et_password_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_email"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/input_bar_color"
+        android:drawableLeft="@drawable/baseline_password_24"
+        android:gravity="center"
+        android:hint="@string/re_password"
+        android:padding="20dp"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btn_submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_password"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="228dp"
+        android:backgroundTint="@color/blueBtnColor"
+        android:text="submit"
+        android:typeface="normal"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_return_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_return_home"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="52dp"
-        android:backgroundTint="#03A9F4"
+        android:layout_marginBottom="68dp"
+        android:backgroundTint="@color/blueBtnColor"
         android:onClick="onReturnClick"
         android:text="return home"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

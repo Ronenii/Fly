@@ -9,4 +9,5 @@
 
     <item android:duration="5000"
         android:drawable="@drawable/gradient3"/>
+
 </animation-list>
