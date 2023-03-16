@@ -74,7 +74,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/ti_layout_gender"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             android:background="@drawable/input_text_box_layout"
             android:inputType="none"
             android:padding="14dp"
-            android:text="Male" />
+            android:text="@string/choose_gender_msg" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
@@ -114,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/ti_layout_gender"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText

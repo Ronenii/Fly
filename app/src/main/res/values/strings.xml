@@ -13,10 +13,6 @@
     <string name="first_name_msg">First Name</string>
     <string name="last_name_msg">Last Name</string>
     <string name="nickname_msg">Nickname</string>
-    <string name="gender_msg">Gender:</string>
-    <string name="gender_male_msg">Male</string>
-    <string name="gender_female_msg">Female</string>
-    <string name="gender_other_msg">Other</string>
     <string name="age_msg">Age:</string>
     <string name="job_msg">Job</string>
     <string name="city_msg">City</string>
@@ -25,8 +21,9 @@
     <string name="relationship_single_msg">Single</string>
     <string name="relationship_married_msg">Married</string>
     <string name="relationship_in_relationship_msg">In Relationship</string>
+    <string name="choose_gender_msg">Gender</string>
 
-    <string-array name="genders">
+    <string-array name="genders_options">
         <item>Male</item>
         <item>Female</item>
         <item>Your Mom</item>
