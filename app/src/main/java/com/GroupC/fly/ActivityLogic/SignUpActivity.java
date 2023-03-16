@@ -78,9 +78,9 @@ public class SignUpActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(getCredentials())
                 {
-                    verifyEmail();
-                    verifyPassword();
-                    //TODO: Save/Create new user and redirect to profile creation
+                    if(verifyEmail() && verifyPassword()) {
+                        //TODO: Save/Create new user and redirect to profile creation
+                    }
                 }
             }
         });
@@ -121,23 +121,23 @@ public class SignUpActivity extends AppCompatActivity{
         return password.matches(password_PAT);
     }
 
-    private void verifyEmail() {
+    private boolean verifyEmail() {
         if (!etEmail.getText().toString().matches(EMAIL_PATH)) {
             displayErrorToast("Email is not valid");
+            return false;
         } else {
-
+            return true;
         }
     }
 
-    private void verifyPassword() {
+    private boolean verifyPassword() {
         if (!password.equals(passwordRepeat)) {
-            // prompt an unmatching password error.
             displayErrorToast("Passwords does not match");
+            return false;
         } else {
-            // Move to another screen etc.
+            return true;
         }
     }
-
 
     //Shows Toast error message because of bad credentials input
     private void displayErrorToast(String message)
