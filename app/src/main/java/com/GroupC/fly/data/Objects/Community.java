@@ -2,19 +2,24 @@ package com.GroupC.fly.data.Objects;
 
 public class Community extends Entity{
 
-    // Data Members
+    /** DATA MEMBERS **/
 
-    private Person members[];
-    private Person admins[];
-    private Person moderators[];
+    private Person[] members;
+    private Person[] admins;
+    private Person[] moderators;
 
-    // Methods
+
+    /** IMPLEMENTATION OF ABSTRACT METHODS **/
+    public void createEntityInDB(){}
+    public void updateEntityInDB(){}
+    public void deleteEntityInDB(){}
+
+    /** METHODS **/
 
     public Community(int i_id, String i_name){
         setId(i_id);
         setName(i_name);
     }
-    public void createEntityInDB(){}
 
     public Person[] getMembers() {
         return members;

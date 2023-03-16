@@ -7,17 +7,25 @@ package com.GroupC.fly.data.Objects;
 
 abstract class Entity {
 
-        /* Data Members */
+        /** DATA MEMBERS **/
 
         private String m_name;
         private int m_id;
         private Address m_address;
         //Post posts[];
         //img profile_picture;
-        private Entity blocked[];
+        private Entity[] blocked;
 
-        /* Functions */
+        /** ABSTRACT METHODS **/
         abstract public void createEntityInDB();
+
+        abstract public void deleteEntityInDB();
+
+        abstract public void updateEntityInDB();
+
+
+        /** METHODS **/
+
         public String getName() {
                 return m_name;
         }

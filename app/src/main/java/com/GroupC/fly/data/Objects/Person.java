@@ -10,14 +10,19 @@ enum relationshipStatus{
 
 public class Person  extends Entity{
 
-    // Data Members
+    /** DATA MEMBERS **/
 
     private String m_email, m_job, m_alma_matter, m_username;
     private int m_age;
     private relationshipStatus m_relationship_status;
-    private Person friends[];
+    private Person[] friends;
 
-    // Methods
+    /** IMPLEMENTATION OF ABSTRACT METHODS **/
+    public void createEntityInDB(){}
+    public void updateEntityInDB(){}
+    public void deleteEntityInDB(){}
+
+    /** METHODS **/
 
     //Person c'tor.
     public Person(String i_email, String i_name, String i_username, String i_job, String i_almaMatter, int i_age, Address i_address,
@@ -33,7 +38,7 @@ public class Person  extends Entity{
         // TODO: id generator via firebase.
     }
 
-    public void createEntityInDB(){}
+
 
     public String getEmail() {
         return m_email;

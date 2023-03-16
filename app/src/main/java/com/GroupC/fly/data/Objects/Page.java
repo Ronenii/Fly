@@ -1,20 +1,26 @@
 package com.GroupC.fly.data.Objects;
 
 public class Page extends Entity{
-    // Data Members
 
-    private Person followers[];
-    private Person admins[];
+    /** DATA MEMBERS **/
+    private Person[] followers;
+    private Person[] admins;
 
-    // Methods
+    private Community[] communities;
+
+
+    /** IMPLEMENTATION OF ABSTRACT METHODS **/
+    public void createEntityInDB(){}
+    public void updateEntityInDB(){}
+    public void deleteEntityInDB(){}
+
+    /** METHODS **/
 
     // Page c'tor
     public Page(int i_id, String i_name){
         setId(i_id);
         setName(i_name);
     }
-
-    public void createEntityInDB(){}
 
     public Person[] getFollowers() {
         return followers;
