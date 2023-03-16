@@ -17,6 +17,7 @@ abstract class Entity {
         private Entity blocked[];
 
         /* Functions */
+        abstract public void createEntityInDB();
         public String getName() {
                 return m_name;
         }

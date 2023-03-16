@@ -10,11 +10,14 @@ enum relationshipStatus{
 
 public class Person  extends Entity{
 
+    // Data Members
 
     private String m_email, m_job, m_alma_matter, m_username;
     private int m_age;
     private relationshipStatus m_relationship_status;
     private Person friends[];
+
+    // Methods
 
     //Person c'tor.
     public Person(String i_email, String i_name, String i_username, String i_job, String i_almaMatter, int i_age, Address i_address,
@@ -29,6 +32,8 @@ public class Person  extends Entity{
         m_age = i_age;
         // TODO: id generator via firebase.
     }
+
+    public void createEntityInDB(){}
 
     public String getEmail() {
         return m_email;
