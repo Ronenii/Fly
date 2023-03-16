@@ -20,7 +20,7 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         //These lines hide the title and action bar at the top of the screen
         this.getSupportActionBar().hide();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Animation Declaration & Start
         ConstraintLayout sign_up_page2 = findViewById(R.id.sign_up_page2);

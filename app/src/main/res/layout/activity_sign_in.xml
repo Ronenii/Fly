@@ -21,9 +21,10 @@
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.263" />
+        app:layout_constraintVertical_bias="0.215" />
 
     <EditText
         android:id="@+id/et_password_si"
@@ -36,13 +37,13 @@
         android:drawableLeft="@drawable/baseline_password_24"
         android:gravity="center"
         android:hint="@string/password_msg"
+        android:inputType="textPassword"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_email_si"
         app:layout_constraintVertical_bias="0.0" />
-
 
     <TextView
         android:id="@+id/tv_forgot_password"
@@ -54,9 +55,10 @@
         android:text="@string/forgot_password_msg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password_si"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.252" />
 
     <Button
         android:id="@+id/btn_sign_in"
@@ -70,6 +72,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password_si"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.88" />
+
+    <CheckBox
+        android:id="@+id/btn_show_password"
+        android:layout_width="209dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="228dp"
+        android:scaleY="1"
+        android:text="Show Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
