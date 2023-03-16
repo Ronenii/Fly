@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText email_sign_in;
     private Button sign_in_btn;*/
 
-    private CheckBox m_showPassword;
+    private CheckBox btnShowPassword;
+    Dialog signInDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
     {
         //test
         //sets a new dialog on this activity and shows the sign in activity
-        Dialog sign_in_dialog = new Dialog(this);
-        sign_in_dialog.setContentView(R.layout.activity_sign_in);
+        signInDialog = new Dialog(this);
+        signInDialog.setContentView(R.layout.activity_sign_in);
 
         //For storing the values from input - later on....
         View popup = getLayoutInflater().inflate(R.layout.activity_sign_in, null);
@@ -61,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         Button sign_in_btn = popup.findViewById(R.id.btn_sign_in);
 
         //Makes round edges of popup more refined
-        sign_in_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        signInDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        sign_in_dialog.show();
+        signInDialog.show();
 
        sign_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,16 +72,20 @@ public class MainActivity extends AppCompatActivity {
                 //define sign in button here!
             }
         });
+    }
 
-        m_showPassword = sign_in_dialog.findViewById(R.id.btn_show_password);
-        m_showPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            EditText tmpPassword = sign_in_dialog.findViewById(R.id.et_password_si);
+    /**
+     * This function registers a listener for the check box button that shows/hides the passwords.
+     * @param view The view that was set by 'onCreate'
+     */
+    public void onShowPassword(View view) {
+        btnShowPassword = signInDialog.findViewById(R.id.btn_show_password);
+        btnShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            EditText tmpPassword = signInDialog.findViewById(R.id.et_password_si);
             if (isChecked) {
                 tmpPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                m_showPassword.setChecked(true);
             } else {
                 tmpPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                m_showPassword.setChecked(false);
             }
         });
     }

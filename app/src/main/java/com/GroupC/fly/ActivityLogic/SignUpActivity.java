@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity{
     EditText etPassword;
     EditText etPasswordRepeat;
     Button nextButton;
+    CheckBox btnShowPassword;
 
     static private final String SHA_TYPE = "SHA-256";
 
@@ -90,6 +93,7 @@ public class SignUpActivity extends AppCompatActivity{
         });
     }
 
+    // This function creates a SHA-256 hash of the password, will be later stored in the db.
     private String digestPassword(@NonNull String password) {
         try {
             MessageDigest md = MessageDigest.getInstance(SHA_TYPE);
@@ -104,6 +108,7 @@ public class SignUpActivity extends AppCompatActivity{
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             // handle exception
+            Log.v("[digestPasswordError]:", e.toString());
         }
 
         return null;
@@ -121,10 +126,12 @@ public class SignUpActivity extends AppCompatActivity{
         }
     }
 
+    // This function verifies whether the password contains all the valid chars and of a valid length.
     private boolean isValidPassword(String password) {
         return password.matches(password_PAT);
     }
 
+    // This function verifies the email address.
     private boolean verifyEmail() {
         if (!etEmail.getText().toString().matches(EMAIL_PATH)) {
             displayErrorToast("Email is not valid");
@@ -134,6 +141,7 @@ public class SignUpActivity extends AppCompatActivity{
         }
     }
 
+    // This function verifies the password against the 'passwordRepeat'.
     private boolean verifyPassword() {
         if (!password.equals(passwordRepeat)) {
             displayErrorToast("Passwords do not match");
@@ -143,23 +151,44 @@ public class SignUpActivity extends AppCompatActivity{
         }
     }
 
-    //Shows Toast error message because of bad credentials input
-    private void displayErrorToast(String message)
-    {
+    // This function displays an error toast.
+    private void displayErrorToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
         View toast_layout = inflater.inflate(R.layout.credentials_error_toast,(ViewGroup) findViewById(R.id.error_toast_layout));
         TextView displayMessage = toast_layout.findViewById(R.id.toast_message);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+
         displayMessage.setText(message);
-        Toast toast = Toast.makeText(this,message, Toast.LENGTH_SHORT);
         toast.setView(toast_layout);
         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER, 0, 180);
-        toast.show();
 
+        toast.show();
     }
+
+    /**
+     * This function moves back from the current view to the home screen.
+     * @param view The view that was set by 'onCreate'
+     */
     public void onReturnClick(View view) {
-        Intent moveToHome = new Intent(this,MainActivity.class);
+        Intent moveToHome = new Intent(this, MainActivity.class);
         startActivity(moveToHome);
     }
 
+    /**
+     * This function registers a listener for the check box button that shows/hides the passwords.
+     * @param view The view that was set by 'onCreate'
+     */
+    public void onShowPassword(View view) {
+        btnShowPassword = findViewById(R.id.btn_show_password);
+        btnShowPassword.setOnCheckedChangeListener((tempView, isChecked) -> {
+            if (isChecked) {
+                etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                etPasswordRepeat.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                etPasswordRepeat.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+        });
+    }
 }
 
