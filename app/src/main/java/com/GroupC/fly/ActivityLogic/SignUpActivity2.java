@@ -3,6 +3,7 @@ package com.GroupC.fly.ActivityLogic;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     }
 
     public void onGoBackClick(View view) {
-
+        Intent moveBack = new Intent(this, SignUpActivity.class);
+        startActivity(moveBack);
     }
 }
