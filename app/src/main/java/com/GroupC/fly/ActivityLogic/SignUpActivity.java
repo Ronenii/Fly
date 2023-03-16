@@ -45,12 +45,11 @@ public class SignUpActivity extends AppCompatActivity{
 
     /* A regex to match password of length 8 - 20, must contain:
         Password must contain at least one digit [0-9].
-        Password must contain at least one lowercase Latin character [a-z].
-        Password must contain at least one uppercase Latin character [A-Z].
-        Password must contain at least one special character like ! @ # & ( ).
+        Password must contain at least one lowercase/uppercase Latin character [a-z]/[A-Z].
+        Password must contain at least one special character like ! @ # & % * ? $ ^.
         Password must contain a length of at least 8 characters and a maximum of 20 characters.
      */
-    static private final String password_PAT = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+    static private final String password_PAT = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&^])[A-Za-z\\d@$!%*#?&^]{8,20}$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +79,8 @@ public class SignUpActivity extends AppCompatActivity{
                 {
                     if(verifyEmail() && verifyPassword()) {
                         //TODO: Save/Create new user and redirect to profile creation
+                        //the following is a temporary message to make sure our credentials check is ok
+                        displayErrorToast("Succeeded");
                     }
                 }
             }
@@ -107,9 +108,9 @@ public class SignUpActivity extends AppCompatActivity{
 
     //Gets credentials from user
     private boolean getCredentials() {
-        if (isValidPassword(etPassword.toString()) && isValidPassword(etPasswordRepeat.toString())) {
-            password = digestPassword(etPassword.toString());
-            passwordRepeat = digestPassword(etPasswordRepeat.toString());
+        if (isValidPassword(etPassword.getText().toString()) && isValidPassword(etPasswordRepeat.getText().toString())) {
+            password = digestPassword(etPassword.getText().toString());
+            passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
             return true;
         } else {
             displayErrorToast("Password invalid");
