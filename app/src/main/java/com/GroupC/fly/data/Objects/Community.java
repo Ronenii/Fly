@@ -1,12 +1,14 @@
 package com.GroupC.fly.data.Objects;
 
+import java.util.Vector;
+
 public class Community extends Entity{
 
     /** DATA MEMBERS **/
 
-    private Person[] members;
-    private Person[] admins;
-    private Person[] moderators;
+    private Vector<Person> members;
+    private Vector<Person> admins;
+    private Vector<Person> moderators;
 
 
     /** IMPLEMENTATION OF ABSTRACT METHODS **/
@@ -21,27 +23,27 @@ public class Community extends Entity{
         setName(i_name);
     }
 
-    public Person[] getMembers() {
+    public Vector<Person> getMembers() {
         return members;
     }
 
-    public void setMembers(Person[] members) {
+    public void setMembers(Vector<Person> members) {
         this.members = members;
     }
 
-    public Person[] getAdmins() {
+    public Vector<Person> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(Person[] admins) {
+    public void setAdmins(Vector<Person> admins) {
         this.admins = admins;
     }
 
-    public Person[] getModerators() {
+    public Vector<Person> getModerators() {
         return moderators;
     }
 
-    public void setModerators(Person[] moderators) {
+    public void setModerators(Vector<Person> moderators) {
         this.moderators = moderators;
     }
 }

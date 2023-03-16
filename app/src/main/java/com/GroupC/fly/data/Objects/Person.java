@@ -1,5 +1,7 @@
 package com.GroupC.fly.data.Objects;
 
+import java.util.Vector;
+
 enum relationshipStatus{
     SINGLE,
     MARRIED,
@@ -15,7 +17,7 @@ public class Person  extends Entity{
     private String m_email, m_job, m_alma_matter, m_username;
     private int m_age;
     private relationshipStatus m_relationship_status;
-    private Person[] friends;
+    private Vector<Person> friends;
 
     /** IMPLEMENTATION OF ABSTRACT METHODS **/
     public void createEntityInDB(){}
@@ -80,11 +82,11 @@ public class Person  extends Entity{
         this.m_age = i_age;
     }
 
-    public Person[] getFriends() {
+    public Vector<Person> getFriends() {
         return friends;
     }
 
-    public void setFriends(Person[] friends) {
+    public void setFriends(Vector<Person> friends) {
         this.friends = friends;
     }
 

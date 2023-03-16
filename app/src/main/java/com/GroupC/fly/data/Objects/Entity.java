@@ -1,5 +1,7 @@
 package com.GroupC.fly.data.Objects;
 
+import java.util.Vector;
+
 /**
  * This class handles the abstract entity class, which is the "father" of the different types of users we have
  * like: person, page etc.
@@ -14,7 +16,7 @@ abstract class Entity {
         private Address m_address;
         //Post posts[];
         //img profile_picture;
-        private Entity[] blocked;
+        private Vector<Integer> blocked;
 
         /** ABSTRACT METHODS **/
         abstract public void createEntityInDB();
@@ -50,11 +52,11 @@ abstract class Entity {
                 this.m_address = i_address;
         }
 
-        public Entity[] getBlocked() {
+        public Vector<Integer> getBlocked() {
                 return blocked;
         }
 
-        public void setBlocked(Entity[] blocked) {
+        public void setBlocked(Vector<Integer> blocked) {
                 this.blocked = blocked;
         }
 }
