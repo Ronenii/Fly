@@ -7,10 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="fly_blue">#65DBFB</color>
+    <color name="fly_blue">#CC65DBFB</color>
     <color name="input_bar_color">#30FFFFFF</color>
     <color name="Transparent">#00FFFFFF</color>
     <color name="colorGradient1">#60DDFD</color>
     <color name="colorGradient2">#51AFFC</color>
     <color name="colorGradient3">#4796FE</color>
+    <color name="blueBtnColor">#03A9F4</color>
+
+    // theme colors
+    <color name="colorLightBlue1">#ACF0FF</color>
+    <color name="colorLightBlue2">#7AE7FF</color>
+    <color name="colorLightBlue3">#E0FBFF</color>
+    <color name="colorTeal">#3D7380</color>
+    <color name="colorMidGray">#707D80</color>
+
 </resources>
