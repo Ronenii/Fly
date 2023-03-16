@@ -105,7 +105,7 @@
         android:layout_height="60dp"
         android:layout_marginBottom="28dp"
         android:backgroundTint="@color/blueBtnColor"
-        android:onClick="onGoBackClick"
+        android:onClick="onReturnClick"
         android:text="@string/back_msg"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

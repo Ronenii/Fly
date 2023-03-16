@@ -36,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity{
     EditText etEmail;
     EditText etPassword;
     EditText etPasswordRepeat;
-    Button submitButton;
+    Button nextButton;
 
     static private final String SHA_TYPE = "SHA-256";
 
@@ -71,8 +71,8 @@ public class SignUpActivity extends AppCompatActivity{
         etEmail = (EditText) findViewById(R.id.et_email);
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
-        submitButton = (Button) findViewById(R.id.btn_submit);
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        nextButton = (Button) findViewById(R.id.btn_next);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(getCredentials())
@@ -81,6 +81,8 @@ public class SignUpActivity extends AppCompatActivity{
                         //TODO: Save/Create new user and redirect to profile creation
                         //the following is a temporary message to make sure our credentials check is ok
                         displayErrorToast("Succeeded");
+                        Intent moveToNext = new Intent(getApplicationContext(),SignUpActivity2.class);
+                        startActivity(moveToNext);
                     }
                 }
             }
@@ -133,7 +135,7 @@ public class SignUpActivity extends AppCompatActivity{
 
     private boolean verifyPassword() {
         if (!password.equals(passwordRepeat)) {
-            displayErrorToast("Passwords does not match");
+            displayErrorToast("Passwords do not match");
             return false;
         } else {
             return true;
@@ -157,4 +159,6 @@ public class SignUpActivity extends AppCompatActivity{
         Intent moveToHome = new Intent(this,MainActivity.class);
         startActivity(moveToHome);
     }
+
 }
+
