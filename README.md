@@ -9,6 +9,10 @@ For classes that extend an Android component, the name of the class should end w
 
 Methods are written in [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase).
 
+Variables are written in [snake_case](https://en.wikipedia.org/wiki/Snake_case).
+
+Constants are written in snake case with ALL_CAPS.
+
 ### 1.2 Resources files
 
 Resources file names are written in lowercase_underscore.
