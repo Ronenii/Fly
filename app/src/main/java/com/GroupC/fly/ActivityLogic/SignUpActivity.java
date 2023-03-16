@@ -75,16 +75,17 @@ public class SignUpActivity extends AppCompatActivity{
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getCredentials())
+                Intent moveToNext = new Intent(getApplicationContext(),SignUpActivity2.class);
+                startActivity(moveToNext);
+                /*if(getCredentials())
                 {
                     if(verifyEmail() && verifyPassword()) {
                         //TODO: Save/Create new user and redirect to profile creation
                         //the following is a temporary message to make sure our credentials check is ok
                         displayErrorToast("Succeeded");
-                        Intent moveToNext = new Intent(getApplicationContext(),SignUpActivity2.class);
-                        startActivity(moveToNext);
+
                     }
-                }
+                }*/
             }
         });
     }

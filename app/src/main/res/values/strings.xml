@@ -6,7 +6,7 @@
     <string name="forgot_password_msg">Forgot Password</string>
     <string name="email_msg">Email</string>
     <string name="password_msg">Password</string>
-    <string name="retype_password_msg">Retype Password</string>
+    <string name="retype_password_msg">Confirm Password</string>
     <string name="back_msg">Go Back</string>
     <string name="next_msg">Next</string>
     <string name="sign_up_person_info_msg">Personal Information</string>
@@ -25,4 +25,10 @@
     <string name="relationship_single_msg">Single</string>
     <string name="relationship_married_msg">Married</string>
     <string name="relationship_in_relationship_msg">In Relationship</string>
+
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Your Mom</item>
+    </string-array>
 </resources>
