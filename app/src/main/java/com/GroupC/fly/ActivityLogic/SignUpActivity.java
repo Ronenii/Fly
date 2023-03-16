@@ -4,14 +4,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +24,6 @@ public class SignUpActivity extends AppCompatActivity{
     EditText etEmail;
     EditText etPassword;
     EditText etPasswordRepeat;
-    Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +45,6 @@ public class SignUpActivity extends AppCompatActivity{
         etEmail = (EditText) findViewById(R.id.et_email);
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
-        submitButton = (Button) findViewById(R.id.btn_submit);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getCredentials();
-                if(credentialsCheck(passwordRepeat,password,email))
-                {
-                    //TODO: Save/Create new user and redirect to profile creation
-                }
-            }
-        });
     }
 
     //Gets credentials from user
@@ -72,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity{
     //Checks if the credentials are ok returns true, if not will show error and return false
     private boolean credentialsCheck(String passwordRepeat, String password, String email)
     {  //TODO: finish method, figure out what we want to be the credential requirements
-        if(password.length() < 8 || password == null) {
+        if(password == null || password.length() < 8) {
             displayErrorToast("Password must contain 8 characters");
             return false;
         }
@@ -96,8 +82,16 @@ public class SignUpActivity extends AppCompatActivity{
         toast.show();
 
     }
-    public void onReturnClick(View view) {
-        Intent moveToHome = new Intent(this,MainActivity.class);
+    public void onGoBackClick(View view) {
+        Intent moveToHome = new Intent(this, MainActivity.class);
         startActivity(moveToHome);
+    }
+
+    public void onNextClick(View view) {
+        getCredentials();
+        if(credentialsCheck(passwordRepeat,password,email)) {
+            Intent moveToNext = new Intent(this, SignUpActivity2.class);
+            startActivity(moveToNext);
+        }
     }
 }

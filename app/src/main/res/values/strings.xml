@@ -1,9 +1,28 @@
 <resources>
     <string name="app_name">Fly</string>
-    <string name="welcome_to_fly">Welcome To Fly</string>
-    <string name="sign_in">Sign In</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="re_password">Retype Password</string>
+    <string name="welcome_msg">Welcome To Fly</string>
+    <string name="sign_in_msg">Sign In</string>
+    <string name="sign_up_msg">Sign Up</string>
+    <string name="forgot_password_msg">Forgot Password</string>
+    <string name="email_msg">Email</string>
+    <string name="password_msg">Password</string>
+    <string name="retype_password_msg">Retype Password</string>
+    <string name="back_msg">Go Back</string>
+    <string name="next_msg">Next</string>
+    <string name="sign_up_person_info_msg">Personal Information</string>
+    <string name="first_name_msg">First Name</string>
+    <string name="last_name_msg">Last Name</string>
+    <string name="nickname_msg">Nickname</string>
+    <string name="gender_msg">Gender:</string>
+    <string name="gender_male_msg">Male</string>
+    <string name="gender_female_msg">Female</string>
+    <string name="gender_other_msg">Other</string>
+    <string name="age_msg">Age:</string>
+    <string name="job_msg">Job</string>
+    <string name="city_msg">City</string>
+    <string name="education_msg">Education</string>
+    <string name="relationship_msg">Relationship:</string>
+    <string name="relationship_single_msg">Single</string>
+    <string name="relationship_married_msg">Married</string>
+    <string name="relationship_in_relationship_msg">In Relationship</string>
 </resources>
