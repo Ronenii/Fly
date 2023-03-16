@@ -10,55 +10,62 @@ package com.GroupC.fly.data.Objects;
 public class Address {
 
     /* Data Members */
-    private String country, region, city, street, street_number;
+    private String m_country, m_region, m_city, m_street, m_street_number;
 
 
     /* Functions */
 
-    public Address(){}
-    public Address(String country, String city)
+    // Adrress c'tor.
+    public Address(String i_country, String i_region, String i_city, String i_street, String i_streetNumber){
+        m_country = i_country;
+        m_region = i_region;
+        m_city = i_city;
+        m_street = i_street;
+        m_street_number = i_streetNumber;
+    }
+    public Address(String i_country, String i_city)
     {
-        this.country = country;
-        this.city = city;
+        this.m_country = i_country;
+        this.m_city = i_city;
     }
 
     public String getCountry() {
-        return country;
+        return m_country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountry(String i_country) {
+        this.m_country = i_country;
     }
 
     public String getRegion() {
-        return region;
+        return m_region;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setRegion(String i_region) {
+        this.m_region = i_region;
     }
 
     public String getCity() {
-        return city;
+        return m_city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity(String i_city) {
+        this.m_city = i_city;
     }
 
     public String getStreet() {
-        return street;
+        return m_street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setStreet(String i_street) {
+        this.m_street = i_street;
     }
 
     public String getStreet_number() {
-        return street_number;
+        return m_street_number;
     }
 
-    public void setStreet_number(String street_number) {
-        this.street_number = street_number;
+    public void set_streetNumber(String i_streetNumber) {
+        this.m_street_number = i_streetNumber;
     }
 }

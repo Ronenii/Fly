@@ -9,36 +9,36 @@ abstract class Entity {
 
         /* Data Members */
 
-        private String name;
-        private int id;
-        private Address address;
+        private String m_name;
+        private int m_id;
+        private Address m_address;
         //Post posts[];
         //img profile_picture;
         private Entity blocked[];
 
         /* Functions */
         public String getName() {
-                return name;
+                return m_name;
         }
 
-        public void setName(String name) {
-                this.name = name;
+        public void setName(String i_name) {
+                this.m_name = i_name;
         }
 
         public int getId() {
-                return id;
+                return m_id;
         }
 
-        public void setId(int id) {
-                this.id = id;
+        public void setId(int i_id) {
+                this.m_id = i_id;
         }
 
         public Address getAddress() {
-                return address;
+                return m_address;
         }
 
-        public void setAddress(Address address) {
-                this.address = address;
+        public void setAddress(Address i_address) {
+                this.m_address = i_address;
         }
 
         public Entity[] getBlocked() {

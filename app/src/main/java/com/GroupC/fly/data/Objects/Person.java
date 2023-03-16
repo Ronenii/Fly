@@ -11,52 +11,63 @@ enum relationshipStatus{
 public class Person  extends Entity{
 
 
-    private String email, job, alma_matter, username;
-    private int age;
-    private relationshipStatus relationship_status;
+    private String m_email, m_job, m_alma_matter, m_username;
+    private int m_age;
+    private relationshipStatus m_relationship_status;
     private Person friends[];
 
-
-    public Person(){}
-
-    public String getEmail() {
-        return email;
+    //Person c'tor.
+    public Person(String i_email, String i_name, String i_username, String i_job, String i_almaMatter, int i_age, Address i_address,
+                  relationshipStatus i_relationshipStatus){
+        setName(i_name);
+        setAddress(i_address);
+        m_email = i_email;
+        m_username = i_username;
+        m_job = i_job;
+        m_alma_matter = i_almaMatter;
+        m_relationship_status = i_relationshipStatus;
+        m_age = i_age;
+        // TODO: id generator via firebase.
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmail() {
+        return m_email;
+    }
+
+    public void setEmail(String i_email) {
+        this.m_email = i_email;
     }
 
     public String getJob() {
-        return job;
+        return m_job;
     }
 
-    public void setJob(String job) {
-        this.job = job;
+    public void setJob(String i_job) {
+        this.m_job = i_job;
     }
 
-    public String getAlma_matter() {
-        return alma_matter;
+    public String get_almaMatter() {
+        return m_alma_matter;
     }
 
-    public void setAlma_matter(String alma_matter) {
-        this.alma_matter = alma_matter;
+    public void set_almaMatter(String i_almaMatter) {
+        this.m_alma_matter = i_almaMatter;
     }
 
     public String getUsername() {
-        return username;
+        return m_username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String i_username) {
+        this.m_username = i_username;
     }
 
     public int getAge() {
-        return age;
+        return m_age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(int i_age) {
+        this.m_age = i_age;
     }
 
     public Person[] getFriends() {
@@ -69,7 +80,7 @@ public class Person  extends Entity{
 
     //Returns the relationship status of the user as a string
     public String getRelationship_status_string() {
-        switch (relationship_status){
+        switch (m_relationship_status){
             case MARRIED:
                 return "Married";
             case SINGLE:
@@ -86,10 +97,10 @@ public class Person  extends Entity{
     }
 
     public relationshipStatus getRelationship_status() {
-        return relationship_status;
+        return m_relationship_status;
     }
 
-    public void setRelationship_status(relationshipStatus relationship_status) {
-        this.relationship_status = relationship_status;
+    public void setRelationship_status(relationshipStatus i_relationshipStatus) {
+        this.m_relationship_status = i_relationshipStatus;
     }
 }
