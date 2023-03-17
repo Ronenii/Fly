@@ -60,14 +60,7 @@ public class SignUpActivity extends AppCompatActivity{
         setContentView(R.layout.activity_sign_up);
 
         GlobalFuncs.hideActionBar(this); // Hide annoying action bar.
-
-        //Animation Declaration & Start
-        ConstraintLayout sign_up_page = findViewById(R.id.sign_up_page);
-        AnimationDrawable animation = (AnimationDrawable) sign_up_page.getBackground();
-
-        animation.setEnterFadeDuration(10);
-        animation.setExitFadeDuration(5000);
-        animation.start();
+        GlobalFuncs.startBackgroundAnimation(this); // Start Background animation.
 
         etEmail = (EditText) findViewById(R.id.et_email);
         etPassword = (EditText) findViewById(R.id.et_password);

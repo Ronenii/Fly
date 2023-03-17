@@ -48,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSignInClick(View view)
     {
-        //test
-        //sets a new dialog on this activity and shows the sign in activity
+        // test
+        // sets a new dialog on this activity and shows the sign in activity
         signInDialog = new Dialog(this);
         signInDialog.setContentView(R.layout.activity_sign_in);
 
-        //For storing the values from input - later on....
+        // For storing the values from input - later on....
         View popup = getLayoutInflater().inflate(R.layout.activity_sign_in, null);
-      //  EditText password_sign_in = popup.findViewById(R.id.et_password_si);
+        // EditText password_sign_in = popup.findViewById(R.id.et_password_si);
         EditText email_sign_in = popup.findViewById(R.id.et_email_si);
         Button sign_in_btn = popup.findViewById(R.id.btn_sign_in);
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
        sign_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //define sign in button here!
+                // TODO: define sign in button
             }
         });
     }
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void onForgotPasswordClick(View view) {
         // TODO: go to forgot password activity.

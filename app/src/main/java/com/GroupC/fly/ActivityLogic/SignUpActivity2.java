@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -19,21 +17,14 @@ public class SignUpActivity2 extends AppCompatActivity {
     String[] gender_drop_down;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up2);
 
         GlobalFuncs.hideActionBar(this); // Hide annoying action bar.
-
-        //Animation Declaration & Start
-        ConstraintLayout sign_up_page2 = findViewById(R.id.sign_up_page2);
-        AnimationDrawable animation = (AnimationDrawable) sign_up_page2.getBackground();
-
-        animation.setEnterFadeDuration(10);
-        animation.setExitFadeDuration(5000);
-        animation.start();
-
+        GlobalFuncs.startBackgroundAnimation(this); // Start Background animation.
 
         //Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
