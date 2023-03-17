@@ -26,6 +26,8 @@
     <string-array name="genders_options">
         <item>Male</item>
         <item>Female</item>
-        <item>Your Mom</item>
+        <item>Non-Binary</item>
+        <item>Attack Helicopter</item>
+        <item>Seal</item>
     </string-array>
 </resources>

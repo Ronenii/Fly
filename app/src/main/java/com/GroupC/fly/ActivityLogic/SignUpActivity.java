@@ -59,9 +59,7 @@ public class SignUpActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        //These lines hide the title and action bar at the top of the screen
-        this.getSupportActionBar().hide();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        GlobalFuncs.hideActionBar(this); // Hide annoying action bar.
 
         //Animation Declaration & Start
         ConstraintLayout sign_up_page = findViewById(R.id.sign_up_page);
