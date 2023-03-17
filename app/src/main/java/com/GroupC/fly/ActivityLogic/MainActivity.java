@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
 
-        GlobalFuncs.hideActionBar(this); // Hide annoying action bar.
+        globalFuncs.hideActionBar(); // Hide annoying action bar.
     }
 
     public void onSignUpClick (View view)

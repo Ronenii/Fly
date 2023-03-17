@@ -22,14 +22,15 @@ public class SignUpActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up2);
+        GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page2);
 
-        GlobalFuncs.hideActionBar(this); // Hide annoying action bar.
-        GlobalFuncs.startBackgroundAnimation(this); // Start Background animation.
+        globalFuncs.hideActionBar(); // Hide annoying action bar.
+        globalFuncs.startBackgroundAnimation(); // Start Background animation.
 
         //Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
         gender_drop_down=getResources().getStringArray(R.array.genders_options);
-        adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.drop_down,gender_drop_down);
+        adapter = new ArrayAdapter<>(getApplicationContext(),R.layout.drop_down,gender_drop_down);
         autoCompleteTV.setAdapter(adapter);
 
     }

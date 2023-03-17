@@ -1,17 +1,13 @@
 package com.GroupC.fly.ActivityLogic;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,14 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import android.util.Log;
-import android.view.Window;
-
-import com.google.firebase.annotations.concurrent.Background;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import kotlin.Result;
 
 import com.GroupC.fly.R;
 
@@ -58,9 +49,10 @@ public class SignUpActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
 
-        GlobalFuncs.hideActionBar(this); // Hide annoying action bar.
-        GlobalFuncs.startBackgroundAnimation(this); // Start Background animation.
+        globalFuncs.hideActionBar(); // Hide annoying action bar.
+        globalFuncs.startBackgroundAnimation(); // Start Background animation.
 
         etEmail = (EditText) findViewById(R.id.et_email);
         etPassword = (EditText) findViewById(R.id.et_password);
@@ -73,9 +65,9 @@ public class SignUpActivity extends AppCompatActivity{
                 if(getCredentials())
                 {
                     if(verifyEmail() && verifyPassword()) {
-                        //TODO: Save/Create new user and redirect to profile creation
-                        //the following is a temporary message to make sure our credentials check is ok
-                        displayErrorToast("Succeeded");
+                        //TODO: Save/Create new user
+
+                        // Move to the profile information activity.
                         Intent moveToNext = new Intent(getApplicationContext(),SignUpActivity2.class);
                         startActivity(moveToNext);
                     }
@@ -112,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity{
             passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
             return true;
         } else {
-            displayErrorToast("Password invalid");
+            displayErrorToast(values.INVALID_PASSWORD);
             return false;
         }
     }
@@ -125,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity{
     // This function verifies the email address.
     private boolean verifyEmail() {
         if (!etEmail.getText().toString().matches(EMAIL_PATH)) {
-            displayErrorToast("Email is not valid");
+            displayErrorToast(values.INVALID_EMAIL);
             return false;
         } else {
             return true;
@@ -135,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity{
     // This function verifies the password against the 'passwordRepeat'.
     private boolean verifyPassword() {
         if (!password.equals(passwordRepeat)) {
-            displayErrorToast("Passwords do not match");
+            displayErrorToast(values.PASSWORDS_UNMATCHED);
             return false;
         } else {
             return true;

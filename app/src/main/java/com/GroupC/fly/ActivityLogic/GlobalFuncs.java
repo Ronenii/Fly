@@ -1,5 +1,6 @@
 package com.GroupC.fly.ActivityLogic;
 
+import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.WindowManager;
 
@@ -8,26 +9,38 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.GroupC.fly.R;
 
+/**
+ * Create an instance to use the functions.
+ * Receives the activity used and the ID of the XML page.
+ */
 public class GlobalFuncs {
-    /**
-     * Hides title and action bar on the top of the screen.
-     * Receives the current activity.
-     */
-    public static void hideActionBar(AppCompatActivity activity)
+    Activity activity; // Current activity using the functions.
+    final Integer ID; // ID of the XML page for that activity.
+
+    public GlobalFuncs(Activity _activity, Integer _id)
     {
-        //These lines hide the title and action bar at the top of the screen
-        if(activity.getSupportActionBar().isShowing()) activity.getSupportActionBar().hide();
-        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        activity = _activity;
+        ID = _id;
     }
 
     /**
-     * Starts the background animation.
-     * Receives the current activity.
+     * Hides title and action bar on the top of the screen.
      */
-    public static void startBackgroundAnimation(AppCompatActivity activity)
+    public void hideActionBar()
     {
-        //Animation Declaration & Start
-        ConstraintLayout sign_up_page2 = activity.findViewById(R.id.sign_up_page2);
+        AppCompatActivity act = (AppCompatActivity) activity;
+        if(act.getSupportActionBar().isShowing()) act.getSupportActionBar().hide();
+        act.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+
+    /**
+     * Starts the background animation.
+     * To change the duration and speed go to 'values.java'.
+     */
+    public void startBackgroundAnimation()
+    {
+        ConstraintLayout sign_up_page2 = activity.findViewById(ID);
         AnimationDrawable animation = (AnimationDrawable) sign_up_page2.getBackground();
 
         animation.setEnterFadeDuration(values.BG_ANIMATION_ENTER_FADE_DURATION);
