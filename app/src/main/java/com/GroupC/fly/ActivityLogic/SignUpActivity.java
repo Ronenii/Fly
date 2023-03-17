@@ -1,9 +1,12 @@
 package com.GroupC.fly.ActivityLogic;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import android.util.Log;
@@ -22,7 +27,7 @@ import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
 
-public class SignUpActivity extends AppCompatActivity{
+public class SignUpActivity extends AppCompatActivity {
     String email = null;
     String password = null;
     String passwordRepeat = null;
@@ -31,6 +36,15 @@ public class SignUpActivity extends AppCompatActivity{
     EditText etPasswordRepeat;
     Button nextButton;
     CheckBox btnShowPassword;
+
+    ImageView ivEightDigitsCheck;
+    ImageView ivOneUpperCaseCheck;
+    ImageView ivOneLowerCaseCheck;
+    ImageView ivOneNumberCheck;
+    ImageView ivOneSpecialCharCheck;
+
+    private static int validity_counter = 0;
+
 
     static private final String SHA_TYPE = "SHA-256";
 
@@ -58,22 +72,30 @@ public class SignUpActivity extends AppCompatActivity{
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
         nextButton = (Button) findViewById(R.id.btn_next);
+
+        ivEightDigitsCheck = (ImageView) findViewById(R.id.iv_8_digits_check);
+        ivOneUpperCaseCheck = (ImageView) findViewById(R.id.iv_one_uppercase_check);
+        ivOneLowerCaseCheck = (ImageView) findViewById(R.id.iv_one_lowercase_check);
+        ivOneNumberCheck = (ImageView) findViewById(R.id.iv_one_number_check);
+        ivOneSpecialCharCheck = (ImageView) findViewById(R.id.iv_one_special_char_check);
+
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(getCredentials())
-                {
-                    if(verifyEmail() && verifyPassword()) {
+                if (getCredentials()) {
+                    if (verifyEmail() && verifyPassword()) {
                         //TODO: Save/Create new user
 
                         // Move to the profile information activity.
-                        Intent moveToNext = new Intent(getApplicationContext(),SignUpActivity2.class);
+                        Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
                         startActivity(moveToNext);
                     }
                 }
             }
         });
+        passwordChange();
     }
 
     // This function creates a SHA-256 hash of the password, will be later stored in the db.
@@ -99,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity{
 
     //Gets credentials from user
     private boolean getCredentials() {
-        if (isValidPassword(etPassword.getText().toString()) && isValidPassword(etPasswordRepeat.getText().toString())) {
+        if (isValidPassword()) {
             password = digestPassword(etPassword.getText().toString());
             passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
             return true;
@@ -109,9 +131,114 @@ public class SignUpActivity extends AppCompatActivity{
         }
     }
 
-    // This function verifies whether the password contains all the valid chars and of a valid length.
-    private boolean isValidPassword(String password) {
-        return password.matches(password_PAT);
+    /**
+     * // This function verifies whether the password contains all the valid chars and of a valid length.
+     * private boolean isValidPassword(String password) {
+     * return password.matches(password_PAT);
+     * }
+     **/
+
+    private boolean isValidPassword() {
+        boolean isValidLength = false, hasNumber = false, hasUpperCase = false, hasLowerCase = false, hasSpecialChar = false;
+        String password = etPassword.getText().toString();
+        isValidLength = passwordIsCorrectLength(password);
+        hasNumber = passwordHasNumbers(password);
+        hasUpperCase = passwordHasUpperCase(password);
+        hasLowerCase = passwordHasLowerCase(password);
+        hasSpecialChar = passwordHasSpecialChar(password);
+
+        return isValidLength && validity_counter >= 3;
+    }
+
+    private boolean passwordIsCorrectLength(String i_password) {
+        final String PASSWORD_LENGTH_SCOPE = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
+        if (password.matches(PASSWORD_LENGTH_SCOPE)) {
+            ivEightDigitsCheck.setImageDrawable(getDrawable(R.drawable.check));
+            return true;
+        } else {
+            ivEightDigitsCheck.setImageDrawable(null);
+            return false;
+
+        }
+    }
+
+    private boolean passwordHasNumbers(String i_password) {
+        final String NUMBERS = "^\\d$";
+        if (password.matches(NUMBERS)) {
+            ivOneNumberCheck.setImageDrawable(getDrawable(R.drawable.check));
+            validity_counter++;
+            return true;
+        } else {
+            ivOneNumberCheck.setImageDrawable(null);
+            if (validity_counter > 0) validity_counter--;
+            return false;
+
+        }
+    }
+
+    private boolean passwordHasUpperCase(String i_password) {
+        final String UPPER_CASE = "^.*[A-Z]$";
+        if (password.matches(UPPER_CASE)) {
+            ivOneUpperCaseCheck.setImageDrawable(getDrawable(R.drawable.check));
+            validity_counter++;
+            return true;
+        } else {
+            ivOneUpperCaseCheck.setImageDrawable(null);
+            if (validity_counter > 0) validity_counter--;
+            return false;
+
+        }
+    }
+
+    private boolean passwordHasLowerCase(String i_password) {
+        final String LOWER_CASE = "^.*[a-z]$";
+        if (password.matches(LOWER_CASE)) {
+            ivOneLowerCaseCheck.setImageDrawable(getDrawable(R.drawable.check));
+            validity_counter++;
+            return true;
+        } else {
+            ivOneLowerCaseCheck.setImageDrawable(null);
+            if (validity_counter > 0) validity_counter--;
+            return false;
+
+        }
+    }
+
+    private boolean passwordHasSpecialChar(String i_password) {
+        final String SPECIAL_CHARS = "[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]";
+        if (password.matches(SPECIAL_CHARS)) {
+            ivOneSpecialCharCheck.setImageDrawable(getDrawable(R.drawable.check));
+            validity_counter++;
+            return true;
+        } else {
+            ivOneSpecialCharCheck.setImageDrawable(null);
+            if (validity_counter > 0) validity_counter--;
+            return false;
+
+        }
+    }
+
+    private void passwordChange() {
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+                ivEightDigitsCheck.setImageDrawable(null);
+                ivOneUpperCaseCheck.setImageDrawable(null);
+                ivOneLowerCaseCheck.setImageDrawable(null);
+                ivOneNumberCheck.setImageDrawable(null);
+                ivOneSpecialCharCheck.setImageDrawable(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                isValidPassword();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     // This function verifies the email address.
@@ -137,19 +264,20 @@ public class SignUpActivity extends AppCompatActivity{
     // This function displays an error toast.
     private void displayErrorToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
-        View toast_layout = inflater.inflate(R.layout.credentials_error_toast,(ViewGroup) findViewById(R.id.error_toast_layout));
+        View toast_layout = inflater.inflate(R.layout.credentials_error_toast, (ViewGroup) findViewById(R.id.error_toast_layout));
         TextView displayMessage = toast_layout.findViewById(R.id.toast_message);
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
 
         displayMessage.setText(message);
         toast.setView(toast_layout);
-        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER, 0, 180);
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 180);
 
         toast.show();
     }
 
     /**
      * This function moves back from the current view to the home screen.
+     *
      * @param view The view that was set by 'onCreate'
      */
     public void onReturnClick(View view) {
@@ -159,6 +287,7 @@ public class SignUpActivity extends AppCompatActivity{
 
     /**
      * This function registers a listener for the check box button that shows/hides the passwords.
+     *
      * @param view The view that was set by 'onCreate'
      */
     public void onShowPassword(View view) {
