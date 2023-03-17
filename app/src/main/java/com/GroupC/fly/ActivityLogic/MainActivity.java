@@ -1,5 +1,8 @@
 package com.GroupC.fly.ActivityLogic;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -20,6 +23,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.GroupC.fly.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //These lines hide the title and action bar at the top of the screen
         this.getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
     }
 
     public void onSignUpClick (View view)
