@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView ivOneNumberCheck;
     ImageView ivOneSpecialCharCheck;
 
-    private static int validity_counter = 0;
+    private static int sPasswordValidityCounter = 0;
 
 
     static private final String SHA_TYPE = "SHA-256";
@@ -72,12 +72,13 @@ public class SignUpActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
         nextButton = (Button) findViewById(R.id.btn_next);
+        btnShowPassword = findViewById(R.id.btn_show_password);
 
-        ivEightDigitsCheck = (ImageView) findViewById(R.id.iv_8_digits_check);
-        ivOneUpperCaseCheck = (ImageView) findViewById(R.id.iv_one_uppercase_check);
-        ivOneLowerCaseCheck = (ImageView) findViewById(R.id.iv_one_lowercase_check);
-        ivOneNumberCheck = (ImageView) findViewById(R.id.iv_one_number_check);
-        ivOneSpecialCharCheck = (ImageView) findViewById(R.id.iv_one_special_char_check);
+        ivEightDigitsCheck = findViewById(R.id.iv_8_digits_check);
+        ivOneUpperCaseCheck = findViewById(R.id.iv_one_uppercase_check);
+        ivOneLowerCaseCheck = findViewById(R.id.iv_one_lowercase_check);
+        ivOneNumberCheck = findViewById(R.id.iv_one_number_check);
+        ivOneSpecialCharCheck = findViewById(R.id.iv_one_special_char_check);
 
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +96,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
-        passwordChange();
+        onPasswordChange();
     }
 
     // This function creates a SHA-256 hash of the password, will be later stored in the db.
@@ -147,13 +148,13 @@ public class SignUpActivity extends AppCompatActivity {
         hasLowerCase = passwordHasLowerCase(password);
         hasSpecialChar = passwordHasSpecialChar(password);
 
-        return isValidLength && validity_counter >= 3;
+        return isValidLength && sPasswordValidityCounter >= 3;
     }
 
     private boolean passwordIsCorrectLength(String i_password) {
         final String PASSWORD_LENGTH_SCOPE = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
-        if (password.matches(PASSWORD_LENGTH_SCOPE)) {
-            ivEightDigitsCheck.setImageDrawable(getDrawable(R.drawable.check));
+        if (i_password.matches(PASSWORD_LENGTH_SCOPE)) {
+            ivEightDigitsCheck.setImageResource(R.drawable.check);
             return true;
         } else {
             ivEightDigitsCheck.setImageDrawable(null);
@@ -163,70 +164,65 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean passwordHasNumbers(String i_password) {
-        final String NUMBERS = "^\\d$";
-        if (password.matches(NUMBERS)) {
-            ivOneNumberCheck.setImageDrawable(getDrawable(R.drawable.check));
-            validity_counter++;
+        final String NUMBERS = ".*\\d.*";
+        if (i_password.matches(NUMBERS)) {
+            ivOneNumberCheck.setImageResource(R.drawable.check);
+            sPasswordValidityCounter++;
             return true;
         } else {
             ivOneNumberCheck.setImageDrawable(null);
-            if (validity_counter > 0) validity_counter--;
+            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
             return false;
 
         }
     }
 
     private boolean passwordHasUpperCase(String i_password) {
-        final String UPPER_CASE = "^.*[A-Z]$";
-        if (password.matches(UPPER_CASE)) {
-            ivOneUpperCaseCheck.setImageDrawable(getDrawable(R.drawable.check));
-            validity_counter++;
+        final String UPPER_CASE = ".*[A-Z].*";
+        if (i_password.matches(UPPER_CASE)) {
+            ivOneUpperCaseCheck.setImageResource(R.drawable.check);
+            sPasswordValidityCounter++;
             return true;
         } else {
             ivOneUpperCaseCheck.setImageDrawable(null);
-            if (validity_counter > 0) validity_counter--;
+            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
             return false;
 
         }
     }
 
     private boolean passwordHasLowerCase(String i_password) {
-        final String LOWER_CASE = "^.*[a-z]$";
-        if (password.matches(LOWER_CASE)) {
-            ivOneLowerCaseCheck.setImageDrawable(getDrawable(R.drawable.check));
-            validity_counter++;
+        final String LOWER_CASE = ".*[a-z].*";
+        if (i_password.matches(LOWER_CASE)) {
+            ivOneLowerCaseCheck.setImageResource(R.drawable.check);
+            sPasswordValidityCounter++;
             return true;
         } else {
             ivOneLowerCaseCheck.setImageDrawable(null);
-            if (validity_counter > 0) validity_counter--;
+            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
             return false;
 
         }
     }
 
     private boolean passwordHasSpecialChar(String i_password) {
-        final String SPECIAL_CHARS = "[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]";
-        if (password.matches(SPECIAL_CHARS)) {
-            ivOneSpecialCharCheck.setImageDrawable(getDrawable(R.drawable.check));
-            validity_counter++;
+        final String SPECIAL_CHARS = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*";
+        if (i_password.matches(SPECIAL_CHARS)) {
+            ivOneSpecialCharCheck.setImageResource(R.drawable.check);
+            sPasswordValidityCounter++;
             return true;
         } else {
             ivOneSpecialCharCheck.setImageDrawable(null);
-            if (validity_counter > 0) validity_counter--;
+            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
             return false;
 
         }
     }
 
-    private void passwordChange() {
+    private void onPasswordChange() {
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                ivEightDigitsCheck.setImageDrawable(null);
-                ivOneUpperCaseCheck.setImageDrawable(null);
-                ivOneLowerCaseCheck.setImageDrawable(null);
-                ivOneNumberCheck.setImageDrawable(null);
-                ivOneSpecialCharCheck.setImageDrawable(null);
             }
 
             @Override
@@ -290,8 +286,10 @@ public class SignUpActivity extends AppCompatActivity {
      *
      * @param view The view that was set by 'onCreate'
      */
+
+    //TODO: Currentyl from some reason, this only workds on the 2nd click of the checkbox. We need to fix this.
     public void onShowPassword(View view) {
-        btnShowPassword = findViewById(R.id.btn_show_password);
+
         btnShowPassword.setOnCheckedChangeListener((tempView, isChecked) -> {
             if (isChecked) {
                 etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -302,5 +300,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
 

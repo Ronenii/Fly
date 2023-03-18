@@ -167,8 +167,7 @@
                     android:id="@+id/iv_8_digits_check"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/check" />
+                    android:layout_gravity="center" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -221,8 +220,7 @@
                 android:id="@+id/iv_one_number_check"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:background="@drawable/check" />
+                android:layout_gravity="center" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -261,8 +259,7 @@
                 android:id="@+id/iv_one_uppercase_check"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:background="@drawable/check" />
+                android:layout_gravity="center" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -301,8 +298,7 @@
                 android:id="@+id/iv_one_lowercase_check"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:background="@drawable/check" />
+                android:layout_gravity="center" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -340,8 +336,7 @@
                 android:id="@+id/iv_one_special_char_check"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:background="@drawable/check" />
+                android:layout_gravity="center" />
             </androidx.cardview.widget.CardView>
 
             <TextView
