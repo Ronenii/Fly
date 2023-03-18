@@ -43,21 +43,13 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView ivOneNumberCheck;
     ImageView ivOneSpecialCharCheck;
 
-    private static int sPasswordValidityCounter = 0;
+    private int passwordValidityCounter = 0;
 
 
     static private final String SHA_TYPE = "SHA-256";
 
     // A regex to match an email address.
     static private final String EMAIL_PATH = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
-
-    /* A regex to match password of length 8 - 20, must contain:
-        Password must contain at least one digit [0-9].
-        Password must contain at least one lowercase/uppercase Latin character [a-z]/[A-Z].
-        Password must contain at least one special character like ! @ # & % * ? $ ^.
-        Password must contain a length of at least 8 characters and a maximum of 20 characters.
-     */
-    static private final String password_PAT = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&^])[A-Za-z\\d@$!%*#?&^]{8,20}$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,26 +124,25 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * // This function verifies whether the password contains all the valid chars and of a valid length.
-     * private boolean isValidPassword(String password) {
-     * return password.matches(password_PAT);
-     * }
-     **/
 
+    //The function that validates that the password is up to the correct requirements. Returns true if the password is of valid length
+    //and contains at least character 3 out of 4 requirements.
     private boolean isValidPassword() {
-        boolean isValidLength = false, hasNumber = false, hasUpperCase = false, hasLowerCase = false, hasSpecialChar = false;
+        boolean isValidLength = false;
         String password = etPassword.getText().toString();
         isValidLength = passwordIsCorrectLength(password);
-        hasNumber = passwordHasNumbers(password);
-        hasUpperCase = passwordHasUpperCase(password);
-        hasLowerCase = passwordHasLowerCase(password);
-        hasSpecialChar = passwordHasSpecialChar(password);
+        passwordHasNumbers(password);
+        passwordHasUpperCase(password);
+        passwordHasLowerCase(password);
+        passwordHasSpecialChar(password);
 
-        return isValidLength && sPasswordValidityCounter >= 3;
+        return isValidLength && passwordValidityCounter >= 3;
     }
 
+    //Returns true if the password is between 8-20 chars long. Also makes a checkmark appear.
+    //Otherwise removes the checkmark and returns false.
     private boolean passwordIsCorrectLength(String i_password) {
+        //A regex that checks if a string containing the specified chars is between 8-20 chars long.
         final String PASSWORD_LENGTH_SCOPE = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
         if (i_password.matches(PASSWORD_LENGTH_SCOPE)) {
             ivEightDigitsCheck.setImageResource(R.drawable.check);
@@ -163,62 +154,64 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    private boolean passwordHasNumbers(String i_password) {
+    //Adds 1 to the validity counter if the password contains a number letter. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasNumbers(String i_password) {
+        //The regex that checks if the string contains a number.
         final String NUMBERS = ".*\\d.*";
         if (i_password.matches(NUMBERS)) {
             ivOneNumberCheck.setImageResource(R.drawable.check);
-            sPasswordValidityCounter++;
-            return true;
+            passwordValidityCounter++;
         } else {
             ivOneNumberCheck.setImageDrawable(null);
-            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
-            return false;
-
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
 
-    private boolean passwordHasUpperCase(String i_password) {
+    //Adds 1 to the validity counter if the password contains an upper case letter. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasUpperCase(String i_password) {
+        //The regex that checks if the string contains an upper case letter.
         final String UPPER_CASE = ".*[A-Z].*";
         if (i_password.matches(UPPER_CASE)) {
             ivOneUpperCaseCheck.setImageResource(R.drawable.check);
-            sPasswordValidityCounter++;
-            return true;
+            passwordValidityCounter++;
         } else {
             ivOneUpperCaseCheck.setImageDrawable(null);
-            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
-            return false;
-
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
 
-    private boolean passwordHasLowerCase(String i_password) {
+    //Adds 1 to the validity counter if the password contains a lower case letter. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasLowerCase(String i_password) {
+        //The regex that checks if the string contains a lower case letter.
         final String LOWER_CASE = ".*[a-z].*";
         if (i_password.matches(LOWER_CASE)) {
             ivOneLowerCaseCheck.setImageResource(R.drawable.check);
-            sPasswordValidityCounter++;
-            return true;
+            passwordValidityCounter++;
         } else {
             ivOneLowerCaseCheck.setImageDrawable(null);
-            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
-            return false;
-
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
 
-    private boolean passwordHasSpecialChar(String i_password) {
+    //Adds 1 to the validity counter if the password contains a special char. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasSpecialChar(String i_password) {
+        //The regex that checks if the string contains a special char.
         final String SPECIAL_CHARS = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*";
         if (i_password.matches(SPECIAL_CHARS)) {
             ivOneSpecialCharCheck.setImageResource(R.drawable.check);
-            sPasswordValidityCounter++;
-            return true;
+            passwordValidityCounter++;
         } else {
             ivOneSpecialCharCheck.setImageDrawable(null);
-            if (sPasswordValidityCounter > 0) sPasswordValidityCounter--;
-            return false;
-
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
 
+    //The function that listens for changes in the password and allows for live updates of the checkmarks
+    //in the signup screen.
     private void onPasswordChange() {
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
