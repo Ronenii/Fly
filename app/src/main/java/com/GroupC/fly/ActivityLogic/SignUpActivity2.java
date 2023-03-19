@@ -16,19 +16,15 @@ import android.widget.AutoCompleteTextView;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.data.Objects.Address;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.GroupC.fly.data.model.FirebaseModel;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignUpActivity2 extends AppCompatActivity {
 
     String[] gender_drop_down;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
+    private FirebaseModel fbModel = new FirebaseModel();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,35 +56,6 @@ public class SignUpActivity2 extends AppCompatActivity {
         startActivity(moveBack);
     }
 
-    public void insertUserToDB(String name, String username, Address address, String email, String job, String almaMatter, int age){
-        // Access a Cloud Firestore
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Create a new user
-        Map<String, Object> user = new HashMap<>();
-        user.put("name", name);
-        user.put("username", username);
-        user.put("address", address);
-        user.put("email", email);
-        user.put("job", job);
-        user.put("alma matter", almaMatter);
-        user.put("age", age);
 
-        // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("TAG", "Error adding document", e);
-                    }
-                });
-
-    }
 
 }
