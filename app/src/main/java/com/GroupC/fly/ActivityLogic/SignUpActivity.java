@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -285,11 +287,11 @@ public class SignUpActivity extends AppCompatActivity {
 
         btnShowPassword.setOnCheckedChangeListener((tempView, isChecked) -> {
             if (isChecked) {
-                etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                etPasswordRepeat.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                etPasswordRepeat.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             } else {
-                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                etPasswordRepeat.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                etPasswordRepeat.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
     }
