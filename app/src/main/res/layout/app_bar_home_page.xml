@@ -22,13 +22,16 @@
 
     <include layout="@layout/content_home_page" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_marginRight="16dp"
+        app:elevation="10dp"
+        android:text="CREATE"
+        app:icon="@android:drawable/ic_input_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
