@@ -19,6 +19,7 @@ import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.GroupC.fly.HomePageActivity;
 import com.GroupC.fly.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -92,5 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onForgotPasswordClick(View view) {
         // TODO: go to forgot password activity.
+    }
+
+    public void goToHomePage(View view){
+        Intent moveToHomePage= new Intent(this, HomePageActivity.class);
+        startActivity(moveToHomePage);
     }
 }
