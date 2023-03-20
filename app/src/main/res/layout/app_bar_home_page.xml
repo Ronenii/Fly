@@ -15,8 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Fly.PopupOverlay" />
+            android:background="@drawable/gradient4" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -28,10 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="POST"
+        app:backgroundTint="@color/colorLightBlue2"
         app:elevation="10dp"
-        android:text="CREATE"
-        app:icon="@android:drawable/ic_input_add" />
+        app:icon="@drawable/baseline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
