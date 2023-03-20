@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -14,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,24 +25,26 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class SignUpActivity extends AppCompatActivity {
     String email = null;
     String password = null;
     String passwordRepeat = null;
-    EditText etEmail;
-    EditText etPassword;
-    EditText etPasswordRepeat;
+    TextInputEditText etEmail;
+    TextInputEditText etPassword;
+    TextInputEditText etPasswordRepeat;
     Button nextButton;
-    CheckBox btnShowPassword;
 
-    ImageView ivEightDigitsCheck;
-    ImageView ivOneUpperCaseCheck;
-    ImageView ivOneLowerCaseCheck;
-    ImageView ivOneNumberCheck;
-    ImageView ivOneSpecialCharCheck;
+    boolean ivEightDigitsCheckBool;
+    boolean ivOneUpperCaseCheckBool;
+    boolean ivOneLowerCaseCheckBool;
+    boolean ivOneNumberCheckBool;
+    boolean ivOneSpecialCharCheckBool;
 
     private int passwordValidityCounter = 0;
+    boolean showHideIconToggleOn = false;
 
 
     static private final String SHA_TYPE = "SHA-256";
@@ -62,19 +61,13 @@ public class SignUpActivity extends AppCompatActivity {
         globalFuncs.hideActionBar(); // Hide annoying action bar.
         globalFuncs.startBackgroundAnimation(); // Start Background animation.
 
-        etEmail = (EditText) findViewById(R.id.et_email);
-        etPassword = (EditText) findViewById(R.id.et_password);
-        etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
+        etEmail = (TextInputEditText) findViewById(R.id.et_email);
+        etPassword = (TextInputEditText) findViewById(R.id.et_password);
+        etPasswordRepeat = (TextInputEditText) findViewById(R.id.et_password_repeat);
         nextButton = (Button) findViewById(R.id.btn_next);
-        btnShowPassword = findViewById(R.id.btn_show_password);
 
-        ivEightDigitsCheck = findViewById(R.id.iv_8_digits_check);
-        ivOneUpperCaseCheck = findViewById(R.id.iv_one_uppercase_check);
-        ivOneLowerCaseCheck = findViewById(R.id.iv_one_lowercase_check);
-        ivOneNumberCheck = findViewById(R.id.iv_one_number_check);
-        ivOneSpecialCharCheck = findViewById(R.id.iv_one_special_char_check);
-
-
+        onShowPasswordToggle();
+        onPasswordChange();
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +83,6 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
-        onPasswordChange();
     }
 
     // This function creates a SHA-256 hash of the password, will be later stored in the db.
@@ -147,10 +139,10 @@ public class SignUpActivity extends AppCompatActivity {
         //A regex that checks if a string containing the specified chars is between 8-20 chars long.
         final String PASSWORD_LENGTH_SCOPE = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
         if (i_password.matches(PASSWORD_LENGTH_SCOPE)) {
-            ivEightDigitsCheck.setImageResource(R.drawable.check);
+            ivEightDigitsCheckBool = true;
             return true;
         } else {
-            ivEightDigitsCheck.setImageDrawable(null);
+            ivEightDigitsCheckBool = false;
             return false;
 
         }
@@ -162,10 +154,10 @@ public class SignUpActivity extends AppCompatActivity {
         //The regex that checks if the string contains a number.
         final String NUMBERS = ".*\\d.*";
         if (i_password.matches(NUMBERS)) {
-            ivOneNumberCheck.setImageResource(R.drawable.check);
+            ivOneNumberCheckBool =true;
             passwordValidityCounter++;
         } else {
-            ivOneNumberCheck.setImageDrawable(null);
+            ivOneNumberCheckBool = false;
             if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
@@ -176,10 +168,10 @@ public class SignUpActivity extends AppCompatActivity {
         //The regex that checks if the string contains an upper case letter.
         final String UPPER_CASE = ".*[A-Z].*";
         if (i_password.matches(UPPER_CASE)) {
-            ivOneUpperCaseCheck.setImageResource(R.drawable.check);
+            ivOneUpperCaseCheckBool = true;
             passwordValidityCounter++;
         } else {
-            ivOneUpperCaseCheck.setImageDrawable(null);
+            ivOneUpperCaseCheckBool = false;
             if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
@@ -190,10 +182,10 @@ public class SignUpActivity extends AppCompatActivity {
         //The regex that checks if the string contains a lower case letter.
         final String LOWER_CASE = ".*[a-z].*";
         if (i_password.matches(LOWER_CASE)) {
-            ivOneLowerCaseCheck.setImageResource(R.drawable.check);
+            ivOneLowerCaseCheckBool = true;
             passwordValidityCounter++;
         } else {
-            ivOneLowerCaseCheck.setImageDrawable(null);
+            ivOneLowerCaseCheckBool = false;
             if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
@@ -204,10 +196,10 @@ public class SignUpActivity extends AppCompatActivity {
         //The regex that checks if the string contains a special char.
         final String SPECIAL_CHARS = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*";
         if (i_password.matches(SPECIAL_CHARS)) {
-            ivOneSpecialCharCheck.setImageResource(R.drawable.check);
+            ivOneSpecialCharCheckBool = true;
             passwordValidityCounter++;
         } else {
-            ivOneSpecialCharCheck.setImageDrawable(null);
+            ivOneSpecialCharCheckBool = true;
             if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }
@@ -261,7 +253,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         displayMessage.setText(message);
         toast.setView(toast_layout);
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 180);
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, -60);
 
         toast.show();
     }
@@ -277,23 +269,42 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     /**
-     * This function registers a listener for the check box button that shows/hides the passwords.
-     *
-     * @param view The view that was set by 'onCreate'
+     * This Method creates a listener on the Eye icon on the password field and controls the hide/show behavior.
      */
+    public void onShowPasswordToggle() {
 
-    //TODO: Currentyl from some reason, this only workds on the 2nd click of the checkbox. We need to fix this.
-    public void onShowPassword(View view) {
-
-        btnShowPassword.setOnCheckedChangeListener((tempView, isChecked) -> {
-            if (isChecked) {
-                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                etPasswordRepeat.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            } else {
-                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                etPasswordRepeat.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        TextInputLayout ilPassword = findViewById(R.id.textInputLayout2);
+        ilPassword.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!showHideIconToggleOn) {
+                    showHideIconToggleOn = true;
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    etPasswordRepeat.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else
+                {
+                    showHideIconToggleOn = false;
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPasswordRepeat.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
+    }
+
+    /**
+    * Sends controlling booleans to the Password REQ popup activity so that the
+     * check marks will appear at the corresponding positions.
+    */
+    public void onQuestionMarkClick(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), PasswordRequirementPopup.class);
+        intent.putExtra("LengthCheck", ivEightDigitsCheckBool);
+        intent.putExtra("NumberCheck", ivOneNumberCheckBool);
+        intent.putExtra("LowerCheck",ivOneLowerCaseCheckBool);
+        intent.putExtra("UpperCheck", ivOneUpperCaseCheckBool);
+        intent.putExtra("SpecialCheck", ivOneSpecialCharCheckBool);
+        startActivity(intent);
     }
 
 
