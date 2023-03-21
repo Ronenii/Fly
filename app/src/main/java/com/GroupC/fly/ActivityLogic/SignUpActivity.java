@@ -7,6 +7,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity{
     // A regex to match an email address.
     static private final String EMAIL_PATH = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
 
-    /* A regex to match password of length 8 - 20, must contain:
+    /*  A regex to match password of length 8 - 20, must contain:
         Password must contain at least one digit [0-9].
         Password must contain at least one lowercase/uppercase Latin character [a-z]/[A-Z].
         Password must contain at least one special character like ! @ # & % * ? $ ^.
@@ -60,7 +62,6 @@ public class SignUpActivity extends AppCompatActivity{
         setContentView(R.layout.activity_sign_up);
 
         //These lines hide the title and action bar at the top of the screen
-        this.getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Animation Declaration & Start
@@ -71,21 +72,19 @@ public class SignUpActivity extends AppCompatActivity{
         animation.setExitFadeDuration(5000);
         animation.start();
 
-        etEmail = (EditText) findViewById(R.id.et_email);
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
         nextButton = (Button) findViewById(R.id.btn_next);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(getCredentials())
                 {
-                    if(verifyEmail() && verifyPassword()) {
+                    if(verifyPassword()) {
                         //TODO: Save/Create new user and redirect to profile creation
                         //the following is a temporary message to make sure our credentials check is ok
                         displayErrorToast("Succeeded");
-                        Intent moveToNext = new Intent(getApplicationContext(),SignUpActivity2.class);
+                        Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
                         startActivity(moveToNext);
                     }
                 }
@@ -116,14 +115,26 @@ public class SignUpActivity extends AppCompatActivity{
 
     //Gets credentials from user
     private boolean getCredentials() {
-        if (isValidPassword(etPassword.getText().toString()) && isValidPassword(etPasswordRepeat.getText().toString())) {
-            password = digestPassword(etPassword.getText().toString());
-            passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
-            return true;
-        } else {
-            displayErrorToast("Password invalid");
+        etEmail = findViewById(R.id.et_email);
+
+        if (!verifyEmail()) {
+            displayErrorToast("Invalid email !");
             return false;
         }
+        if (!isValidPassword(etPassword.getText().toString()) || !isValidPassword(etPasswordRepeat.getText().toString())) {
+            displayErrorToast("Passwords are invalid !");
+            return false;
+        }
+
+        password = digestPassword(etPassword.getText().toString());
+        passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
+
+        if (!verifyPassword()) {
+            displayErrorToast("Passwords do not match !");
+            return false;
+        }
+
+        return true;
     }
 
     // This function verifies whether the password contains all the valid chars and of a valid length.
@@ -133,22 +144,12 @@ public class SignUpActivity extends AppCompatActivity{
 
     // This function verifies the email address.
     private boolean verifyEmail() {
-        if (!etEmail.getText().toString().matches(EMAIL_PATH)) {
-            displayErrorToast("Email is not valid");
-            return false;
-        } else {
-            return true;
-        }
+        return etEmail.getText().toString().matches(EMAIL_PATH);
     }
 
     // This function verifies the password against the 'passwordRepeat'.
     private boolean verifyPassword() {
-        if (!password.equals(passwordRepeat)) {
-            displayErrorToast("Passwords do not match");
-            return false;
-        } else {
-            return true;
-        }
+        return password.equals(passwordRepeat);
     }
 
     // This function displays an error toast.
@@ -182,11 +183,11 @@ public class SignUpActivity extends AppCompatActivity{
         btnShowPassword = findViewById(R.id.btn_show_password);
         btnShowPassword.setOnCheckedChangeListener((tempView, isChecked) -> {
             if (isChecked) {
-                etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                etPasswordRepeat.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                etPasswordRepeat.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             } else {
-                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                etPasswordRepeat.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                etPasswordRepeat.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
     }
