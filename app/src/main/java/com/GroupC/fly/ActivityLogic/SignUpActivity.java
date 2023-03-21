@@ -3,6 +3,7 @@ package com.GroupC.fly.ActivityLogic;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
@@ -31,14 +32,20 @@ import java.security.NoSuchAlgorithmException;
 import com.GroupC.fly.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.tomergoldst.tooltips.ToolTip;
+import com.tomergoldst.tooltips.ToolTipsManager;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
     String email = null;
     String password = null;
     String passwordRepeat = null;
     TextInputEditText etEmail;
     TextInputEditText etPassword;
     TextInputEditText etPasswordRepeat;
+
+    ViewGroup layout;
+    ToolTipsManager toolTipsManager;
+    ImageView ivQuestionMark;
     Button nextButton;
 
     boolean ivEightDigitsCheckBool;
@@ -65,10 +72,15 @@ public class SignUpActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         globalFuncs.startBackgroundAnimation(); // Start Background animation.
 
-        etEmail = (TextInputEditText) findViewById(R.id.et_email);
-        etPassword = (TextInputEditText) findViewById(R.id.et_password);
-        etPasswordRepeat = (TextInputEditText) findViewById(R.id.et_password_repeat);
-        nextButton = (Button) findViewById(R.id.btn_next);
+        etEmail = findViewById(R.id.et_email);
+        etPassword = findViewById(R.id.et_password);
+        etPasswordRepeat = findViewById(R.id.et_password_repeat);
+        nextButton = findViewById(R.id.btn_next);
+        layout = findViewById(R.id.sign_up_page);
+        ivQuestionMark = findViewById(R.id.ic_question_mark);
+
+        //Initialize tooltip manager
+        toolTipsManager = new ToolTipsManager(this);
 
         onShowPasswordToggle();
         onPasswordChange();
@@ -226,6 +238,15 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus) {
+                    if (!isValidPassword())
+                        displayErrorTooltip();
+                }
+            }
+        });
     }
 
     // This function verifies the email address.
@@ -260,6 +281,16 @@ public class SignUpActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, -60);
 
         toast.show();
+    }
+
+    private void displayErrorTooltip()
+    {
+        toolTipsManager.findAndDismiss(ivQuestionMark);
+        ToolTip.Builder builder = new ToolTip.Builder(this,ivQuestionMark
+        ,layout,"Password Requirements", ToolTip.POSITION_LEFT_TO);
+        builder.setAlign(ToolTip.ALIGN_LEFT);
+        builder.setBackgroundColor(R.color.blueBtnColor);
+        toolTipsManager.show(builder.build());
     }
 
     /**
@@ -302,6 +333,7 @@ public class SignUpActivity extends AppCompatActivity {
     */
     public void onQuestionMarkClick(View view)
     {
+        toolTipsManager.dismissAll();
         Intent intent = new Intent(getApplicationContext(), PasswordRequirementPopup.class);
         intent.putExtra("LengthCheck", ivEightDigitsCheckBool);
         intent.putExtra("NumberCheck", ivOneNumberCheckBool);
@@ -312,5 +344,9 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onTipDismissed(View view, int anchorViewId, boolean byUser) {
+
+    }
 }
 

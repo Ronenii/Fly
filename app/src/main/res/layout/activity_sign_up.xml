@@ -104,14 +104,14 @@
         android:layout_marginEnd="10dp"
         android:background="@drawable/input_text_box_layout"
         android:gravity="center"
-        app:expandedHintEnabled="false"
         android:hint="@string/retype_password_msg"
         android:inputType="textPassword"
-        app:hintEnabled="false"
-        app:hintAnimationEnabled="false"
         android:padding="12dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="false"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,15 +123,15 @@
             android:id="@+id/et_password_repeat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/retype_password_msg"
-            android:inputType="textPassword"
             android:background="@color/Transparent"
             android:drawablePadding="0dp"
             android:gravity="center"
+            android:hint="@string/retype_password_msg"
             android:importantForAutofill="no"
+            android:inputType="textPassword"
             android:paddingStart="0dp"
-            android:paddingEnd="55dp"
-            android:paddingTop="4dp"/>
+            android:paddingTop="4dp"
+            android:paddingEnd="55dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,13 +140,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="380dp"
         android:onClick="onQuestionMarkClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
         app:srcCompat="@drawable/question_mark" />
 
     <Button
