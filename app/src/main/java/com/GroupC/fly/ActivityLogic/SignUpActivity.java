@@ -1,89 +1,85 @@
 package com.GroupC.fly.ActivityLogic;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import android.util.Log;
-import android.view.Window;
-
-import com.google.firebase.annotations.concurrent.Background;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import kotlin.Result;
-
 import com.GroupC.fly.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
-public class SignUpActivity extends AppCompatActivity{
+public class SignUpActivity extends AppCompatActivity {
     String email = null;
     String password = null;
     String passwordRepeat = null;
-    EditText etEmail;
-    EditText etPassword;
-    EditText etPasswordRepeat;
+    TextInputEditText etEmail;
+    TextInputEditText etPassword;
+    TextInputEditText etPasswordRepeat;
     Button nextButton;
-    CheckBox btnShowPassword;
+
+    boolean ivEightDigitsCheckBool;
+    boolean ivOneUpperCaseCheckBool;
+    boolean ivOneLowerCaseCheckBool;
+    boolean ivOneNumberCheckBool;
+    boolean ivOneSpecialCharCheckBool;
+
+    private int passwordValidityCounter = 0;
+    boolean showHideIconToggleOn = false;
+
 
     static private final String SHA_TYPE = "SHA-256";
 
     // A regex to match an email address.
     static private final String EMAIL_PATH = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
 
-    /*  A regex to match password of length 8 - 20, must contain:
-        Password must contain at least one digit [0-9].
-        Password must contain at least one lowercase/uppercase Latin character [a-z]/[A-Z].
-        Password must contain at least one special character like ! @ # & % * ? $ ^.
-        Password must contain a length of at least 8 characters and a maximum of 20 characters.
-     */
-    static private final String password_PAT = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&^])[A-Za-z\\d@$!%*#?&^]{8,20}$";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
 
-        //These lines hide the title and action bar at the top of the screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        globalFuncs.hideActionBar(); // Hide annoying action bar.
+        globalFuncs.startBackgroundAnimation(); // Start Background animation.
 
-        //Animation Declaration & Start
-        ConstraintLayout sign_up_page = findViewById(R.id.sign_up_page);
-        AnimationDrawable animation = (AnimationDrawable) sign_up_page.getBackground();
-
-        animation.setEnterFadeDuration(10);
-        animation.setExitFadeDuration(5000);
-        animation.start();
-
-        etPassword = (EditText) findViewById(R.id.et_password);
-        etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
+        etEmail = (TextInputEditText) findViewById(R.id.et_email);
+        etPassword = (TextInputEditText) findViewById(R.id.et_password);
+        etPasswordRepeat = (TextInputEditText) findViewById(R.id.et_password_repeat);
         nextButton = (Button) findViewById(R.id.btn_next);
+
+        onShowPasswordToggle();
+        onPasswordChange();
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getCredentials())
-                {
-                    if(verifyPassword()) {
-                        //TODO: Save/Create new user and redirect to profile creation
-                        //the following is a temporary message to make sure our credentials check is ok
-                        displayErrorToast("Succeeded");
+
+                if (getCredentials()) {
+                    if (verifyEmail() && verifyPassword()) {
+                        //TODO: Save/Create new user
+
+                        // Move to the profile information activity.
                         Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
                         startActivity(moveToNext);
                     }
@@ -115,59 +111,161 @@ public class SignUpActivity extends AppCompatActivity{
 
     //Gets credentials from user
     private boolean getCredentials() {
-        etEmail = findViewById(R.id.et_email);
-
-        if (!verifyEmail()) {
-            displayErrorToast("Invalid email !");
+        if (isValidPassword()) {
+            password = digestPassword(etPassword.getText().toString());
+            passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
+            return true;
+        } else {
+            displayErrorToast(values.INVALID_PASSWORD);
             return false;
         }
-        if (!isValidPassword(etPassword.getText().toString()) || !isValidPassword(etPasswordRepeat.getText().toString())) {
-            displayErrorToast("Passwords are invalid !");
+    }
+
+
+    //The function that validates that the password is up to the correct requirements. Returns true if the password is of valid length
+    //and contains at least character 3 out of 4 requirements.
+    private boolean isValidPassword() {
+        boolean isValidLength = false;
+        String password = etPassword.getText().toString();
+        isValidLength = passwordIsCorrectLength(password);
+        passwordHasNumbers(password);
+        passwordHasUpperCase(password);
+        passwordHasLowerCase(password);
+        passwordHasSpecialChar(password);
+
+        return isValidLength && passwordValidityCounter >= 3;
+    }
+
+    //Returns true if the password is between 8-20 chars long. Also makes a checkmark appear.
+    //Otherwise removes the checkmark and returns false.
+    private boolean passwordIsCorrectLength(String i_password) {
+        //A regex that checks if a string containing the specified chars is between 8-20 chars long.
+        final String PASSWORD_LENGTH_SCOPE = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
+        if (i_password.matches(PASSWORD_LENGTH_SCOPE)) {
+            ivEightDigitsCheckBool = true;
+            return true;
+        } else {
+            ivEightDigitsCheckBool = false;
             return false;
+
         }
+    }
 
-        password = digestPassword(etPassword.getText().toString());
-        passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
+    //Adds 1 to the validity counter if the password contains a number letter. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasNumbers(String i_password) {
+        //The regex that checks if the string contains a number.
+        final String NUMBERS = ".*\\d.*";
+        if (i_password.matches(NUMBERS)) {
+            ivOneNumberCheckBool =true;
+            passwordValidityCounter++;
+        } else {
+            ivOneNumberCheckBool = false;
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
+        }
+    }
 
-        if (!verifyPassword()) {
-            displayErrorToast("Passwords do not match !");
-            return false;
+    //Adds 1 to the validity counter if the password contains an upper case letter. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasUpperCase(String i_password) {
+        //The regex that checks if the string contains an upper case letter.
+        final String UPPER_CASE = ".*[A-Z].*";
+        if (i_password.matches(UPPER_CASE)) {
+            ivOneUpperCaseCheckBool = true;
+            passwordValidityCounter++;
+        } else {
+            ivOneUpperCaseCheckBool = false;
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
 
         return true;
     }
 
-    // This function verifies whether the password contains all the valid chars and of a valid length.
-    private boolean isValidPassword(String password) {
-        return password.matches(password_PAT);
+    //Adds 1 to the validity counter if the password contains a lower case letter. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasLowerCase(String i_password) {
+        //The regex that checks if the string contains a lower case letter.
+        final String LOWER_CASE = ".*[a-z].*";
+        if (i_password.matches(LOWER_CASE)) {
+            ivOneLowerCaseCheckBool = true;
+            passwordValidityCounter++;
+        } else {
+            ivOneLowerCaseCheckBool = false;
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
+        }
+    }
+
+    //Adds 1 to the validity counter if the password contains a special char. Also makes the relevant checkmark appear.
+    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
+    private void passwordHasSpecialChar(String i_password) {
+        //The regex that checks if the string contains a special char.
+        final String SPECIAL_CHARS = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*";
+        if (i_password.matches(SPECIAL_CHARS)) {
+            ivOneSpecialCharCheckBool = true;
+            passwordValidityCounter++;
+        } else {
+            ivOneSpecialCharCheckBool = true;
+            if (passwordValidityCounter > 0) passwordValidityCounter--;
+        }
+    }
+
+    //The function that listens for changes in the password and allows for live updates of the checkmarks
+    //in the signup screen.
+    private void onPasswordChange() {
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                isValidPassword();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     // This function verifies the email address.
     private boolean verifyEmail() {
-        return etEmail.getText().toString().matches(EMAIL_PATH);
+        if (!etEmail.getText().toString().matches(EMAIL_PATH)) {
+            displayErrorToast(values.INVALID_EMAIL);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // This function verifies the password against the 'passwordRepeat'.
     private boolean verifyPassword() {
-        return password.equals(passwordRepeat);
+        if (!password.equals(passwordRepeat)) {
+            displayErrorToast(values.PASSWORDS_UNMATCHED);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // This function displays an error toast.
     private void displayErrorToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
-        View toast_layout = inflater.inflate(R.layout.credentials_error_toast,(ViewGroup) findViewById(R.id.error_toast_layout));
+        View toast_layout = inflater.inflate(R.layout.credentials_error_toast, (ViewGroup) findViewById(R.id.error_toast_layout));
         TextView displayMessage = toast_layout.findViewById(R.id.toast_message);
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
 
         displayMessage.setText(message);
         toast.setView(toast_layout);
-        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER, 0, 180);
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, -60);
 
         toast.show();
     }
 
     /**
      * This function moves back from the current view to the home screen.
+     *
      * @param view The view that was set by 'onCreate'
      */
     public void onReturnClick(View view) {
@@ -176,20 +274,44 @@ public class SignUpActivity extends AppCompatActivity{
     }
 
     /**
-     * This function registers a listener for the check box button that shows/hides the passwords.
-     * @param view The view that was set by 'onCreate'
+     * This Method creates a listener on the Eye icon on the password field and controls the hide/show behavior.
      */
-    public void onShowPassword(View view) {
-        btnShowPassword = findViewById(R.id.btn_show_password);
-        btnShowPassword.setOnCheckedChangeListener((tempView, isChecked) -> {
-            if (isChecked) {
-                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                etPasswordRepeat.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            } else {
-                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                etPasswordRepeat.setTransformationMethod(PasswordTransformationMethod.getInstance());
+    public void onShowPasswordToggle() {
+
+        TextInputLayout ilPassword = findViewById(R.id.textInputLayout2);
+        ilPassword.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!showHideIconToggleOn) {
+                    showHideIconToggleOn = true;
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    etPasswordRepeat.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else
+                {
+                    showHideIconToggleOn = false;
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPasswordRepeat.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }
+
+    /**
+    * Sends controlling booleans to the Password REQ popup activity so that the
+     * check marks will appear at the corresponding positions.
+    */
+    public void onQuestionMarkClick(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), PasswordRequirementPopup.class);
+        intent.putExtra("LengthCheck", ivEightDigitsCheckBool);
+        intent.putExtra("NumberCheck", ivOneNumberCheckBool);
+        intent.putExtra("LowerCheck",ivOneLowerCaseCheckBool);
+        intent.putExtra("UpperCheck", ivOneUpperCaseCheckBool);
+        intent.putExtra("SpecialCheck", ivOneSpecialCharCheckBool);
+        startActivity(intent);
+    }
+
+
 }
 

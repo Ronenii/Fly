@@ -20,6 +20,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.AppCompat.PopUp">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
     <style name="Theme.Fly.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
             <item name="color">@color/navy_blue</item>
             <item name="android:textColor">@color/navy_blue</item>

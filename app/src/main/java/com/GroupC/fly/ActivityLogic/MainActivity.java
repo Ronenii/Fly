@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.GroupC.fly.HomePageActivity;
 import com.GroupC.fly.R;
@@ -37,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
 
+        globalFuncs.hideActionBar(); // Hide annoying action bar.
         //These lines hide the title and action bar at the top of the screen
        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
@@ -50,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSignInClick(View view)
     {
-        //test
-        //sets a new dialog on this activity and shows the sign in activity
+        // test
+        // sets a new dialog on this activity and shows the sign in activity
         signInDialog = new Dialog(this);
         signInDialog.setContentView(R.layout.activity_sign_in);
 
-        //For storing the values from input - later on....
+        // For storing the values from input - later on....
         View popup = getLayoutInflater().inflate(R.layout.activity_sign_in, null);
-      //  EditText password_sign_in = popup.findViewById(R.id.et_password_si);
+        // EditText password_sign_in = popup.findViewById(R.id.et_password_si);
         EditText email_sign_in = popup.findViewById(R.id.et_email_si);
         Button sign_in_btn = popup.findViewById(R.id.btn_sign_in);
 
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
        sign_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //define sign in button here!
+                // TODO: define sign in button
             }
         });
     }
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void onForgotPasswordClick(View view) {
         // TODO: go to forgot password activity.

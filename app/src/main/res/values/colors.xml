@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="fly_blue">#CC65DBFB</color>
+    <color name="navy_blue">#03254C</color>
     <color name="input_bar_color">#30FFFFFF</color>
     <color name="Transparent">#00FFFFFF</color>
     <color name="colorGradient1">#60DDFD</color>
