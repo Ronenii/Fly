@@ -8,19 +8,7 @@
     android:background="@drawable/gradient_animation">
 
 
-    <ImageView
-        android:id="@+id/ic_question_mark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="100dp"
-        android:onClick="onQuestionMarkClick"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_question_mark_24" />
+
 
     <TextView
         android:id="@+id/tv_sign_up"
@@ -148,6 +136,20 @@
             android:paddingTop="4dp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ic_question_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="100dp"
+        android:onClick="onQuestionMarkClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/question_mark" />
 
     <Button
         android:id="@+id/btn_next"
