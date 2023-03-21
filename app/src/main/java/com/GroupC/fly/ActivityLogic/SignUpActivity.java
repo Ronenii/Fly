@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
 
-        globalFuncs.hideActionBar(); // Hide annoying action bar.
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         globalFuncs.startBackgroundAnimation(); // Start Background animation.
 
         etEmail = (TextInputEditText) findViewById(R.id.et_email);
@@ -177,8 +178,6 @@ public class SignUpActivity extends AppCompatActivity {
             ivOneUpperCaseCheckBool = false;
             if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
-
-        return true;
     }
 
     //Adds 1 to the validity counter if the password contains a lower case letter. Also makes the relevant checkmark appear.

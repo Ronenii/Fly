@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-
 import com.GroupC.fly.R;
 
 public class SignUpActivity2 extends AppCompatActivity {

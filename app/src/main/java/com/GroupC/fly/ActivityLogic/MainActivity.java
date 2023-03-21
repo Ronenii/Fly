@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
 
-        globalFuncs.hideActionBar(); // Hide annoying action bar.
         //These lines hide the title and action bar at the top of the screen
        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
