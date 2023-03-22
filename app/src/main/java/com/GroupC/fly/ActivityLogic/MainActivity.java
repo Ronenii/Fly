@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         //These lines hide the title and action bar at the top of the screen
        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       globalFuncs.hideActionBar();
     }
 
     public void onSignUpClick (View view)

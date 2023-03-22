@@ -3,6 +3,7 @@ package com.GroupC.fly.ActivityLogic;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -69,6 +70,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         setContentView(R.layout.activity_sign_up);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
 
+        globalFuncs.hideActionBar();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         globalFuncs.startBackgroundAnimation(); // Start Background animation.
 

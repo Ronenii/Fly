@@ -23,17 +23,11 @@ public class SignUpActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up2);
 
-        //These lines hide the title and action bar at the top of the screen
-        this.getSupportActionBar().hide();
+        GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page2);
+
+        globalFuncs.hideActionBar();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        //Animation Declaration & Start
-        ConstraintLayout sign_up_page2 = findViewById(R.id.sign_up_page2);
-        AnimationDrawable animation = (AnimationDrawable) sign_up_page2.getBackground();
-
-        animation.setEnterFadeDuration(10);
-        animation.setExitFadeDuration(5000);
-        animation.start();
+        globalFuncs.startBackgroundAnimation();
 
 
         //Makes drop down menu of gender work with spam with the design provided
