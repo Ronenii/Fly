@@ -29,6 +29,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
+        android:onClick="onPost"
         android:text="POST"
         app:backgroundTint="@color/colorLightBlue2"
         app:elevation="10dp"

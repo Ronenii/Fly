@@ -21,6 +21,11 @@
             android:label="@string/title_activity_home_page"
             android:theme="@style/Theme.Fly.NoActionBar" />
         <activity
+            android:name=".FragmentBlogPost"
+            android:exported="false"
+            android:label="FragmentBlogPost"
+            android:theme="@style/Theme.Fly.NoActionBar" />
+        <activity
             android:name=".ActivityLogic.SignUpActivity2"
             android:exported="false" />
         <activity
