@@ -31,6 +31,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
+import com.GroupC.fly.data.Objects.Person;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
@@ -61,8 +62,10 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
 
     static private final String SHA_TYPE = "SHA-256";
 
+    static public Person user;
+
     // A regex to match an email address.
-    static private final String EMAIL_PATH = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+    static private final String EMAIL_PATH = "^[a-zA-Z\\d.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z\\d-]+(?:\\.[a-zA-Z\\d-]+)*$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,21 +89,22 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
 
         onShowPasswordToggle();
         onPasswordChange();
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
 
-                if (getCredentials()) {
-                    if (verifyEmail() && verifyPassword()) {
-                        //TODO: Save/Create new user
-
-                        // Move to the profile information activity.
-                        Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
-                        startActivity(moveToNext);
-                    }
-                }
+    //Responsible for what happens when next is clicked in the first sign up screen.
+    //Credentials are verified and afterwards the email is drawn into the person object that represents the user.
+    //Afterward we are redirected to the next screen.
+    private void onNextClickPartOne()
+    {
+        if (getCredentials()) {
+            if (verifyEmail() && verifyPassword()) {
+                user = new Person();
+                user.setEmail(etEmail.toString());
+                // Move to the profile information activity.
+                Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
+                startActivity(moveToNext);
             }
-        });
+        }
     }
 
     // This function creates a SHA-256 hash of the password, will be later stored in the db.
@@ -217,7 +221,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
             ivOneSpecialCharCheckBool = true;
             passwordValidityCounter++;
         } else {
-            ivOneSpecialCharCheckBool = true;
+            ivOneSpecialCharCheckBool = false;
             if (passwordValidityCounter > 0) passwordValidityCounter--;
         }
     }

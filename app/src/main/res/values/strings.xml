@@ -20,7 +20,9 @@
     <string name="relationship_msg">Relationship:</string>
     <string name="relationship_single_msg">Single</string>
     <string name="relationship_married_msg">Married</string>
-    <string name="relationship_in_relationship_msg">In Relationship</string>
+    <string name="relationship_in_relationship_msg">In a relationship</string>
+    <string name="relationship_divorced">Divorced</string>
+    <string name="relationship_widow">Widow</string>
     <string name="choose_gender_msg">Gender</string>
     <string name="app_icon">Fly_Icon_Image</string>
 

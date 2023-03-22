@@ -29,6 +29,12 @@ public class Address {
         this.m_city = i_city;
     }
 
+    //TODO: Temporary until we sort out the address in the signup process
+    public Address(String i_city)
+    {
+        this.m_city = i_city;
+    }
+
     public String getCountry() {
         return m_country;
     }

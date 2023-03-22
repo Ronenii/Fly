@@ -14,7 +14,7 @@ public class Person  extends Entity{
 
     /** DATA MEMBERS **/
 
-    private String m_email, m_job, m_alma_matter, m_username;
+    private String m_email, m_job, m_alma_matter, m_username, m_first_name, m_last_name, m_nickname;
     private int m_age;
     private relationshipStatus m_relationship_status;
     private Vector<Person> friends;
@@ -27,6 +27,8 @@ public class Person  extends Entity{
     /** METHODS **/
 
     //Person c'tor.
+
+    public Person(){}
     public Person(String i_email, String i_name, String i_username, String i_job, String i_almaMatter, int i_age, Address i_address,
                   relationshipStatus i_relationshipStatus){
         setName(i_name);
@@ -40,7 +42,29 @@ public class Person  extends Entity{
         // TODO: id generator via firebase.
     }
 
+    public String getFirstName() {
+        return m_first_name;
+    }
 
+    public void setFirstName(String m_first_name) {
+        this.m_first_name = m_first_name;
+    }
+
+    public String getLastName() {
+        return m_last_name;
+    }
+
+    public void setLastName(String m_last_name) {
+        this.m_last_name = m_last_name;
+    }
+
+    public String getNickname() {
+        return m_nickname;
+    }
+
+    public void setNickname(String m_nickname) {
+        this.m_nickname = m_nickname;
+    }
 
     public String getEmail() {
         return m_email;

@@ -10,11 +10,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+
+import com.GroupC.fly.HomePageActivity;
 import com.GroupC.fly.R;
+import com.GroupC.fly.data.Objects.Address;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class SignUpActivity2 extends AppCompatActivity {
 
     String[] gender_drop_down;
+
+    EditText etFirstName, etLastName, etNickname, etJob, etEducation, etCity;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
 
@@ -29,6 +36,12 @@ public class SignUpActivity2 extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         globalFuncs.startBackgroundAnimation();
 
+        etFirstName = findViewById(R.id.et_first_name);
+        etLastName = findViewById(R.id.et_last_name);
+        etNickname = findViewById(R.id.et_nickname);
+        etJob = findViewById(R.id.et_job);
+        etEducation = findViewById(R.id.et_city);
+        etCity = findViewById(R.id.et_education);
 
         //Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
@@ -41,5 +54,24 @@ public class SignUpActivity2 extends AppCompatActivity {
     public void onGoBackClick(View view) {
         Intent moveBack = new Intent(this, SignUpActivity.class);
         startActivity(moveBack);
+    }
+
+    private void onNextClickPartTwo()
+    {
+        Address userCity = new Address(etCity.toString());
+        SignUpActivity.user.setFirstName(etFirstName.toString());
+        SignUpActivity.user.setFirstName(etLastName.toString());
+        SignUpActivity.user.setNickname(etNickname.toString());
+        SignUpActivity.user.setJob(etJob.toString());
+        SignUpActivity.user.setAddress(userCity);
+        SignUpActivity.user.set_almaMatter(etEducation.toString());
+        //TODO: add the option to draw users birthday when implemented into the 2nd sign up activity
+        //TODO: Check validity of data
+        //TODO: this will redirect to and activity where a user can add a profile picture
+        //TODO: Upload this data to firebase
+
+
+        Intent moveToHome = new Intent(this, HomePageActivity.class);
+        startActivity(moveToHome);
     }
 }
