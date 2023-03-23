@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -56,10 +57,11 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void onPost(View view) {
-        mFragManager.addFragmentOnAttachListener();
         binding.appBarHomePage.fab.setOnClickListener(tmpView -> {
-            Intent moveToBlogPost = new Intent(this, FragmentBlogPost.class);
-            startActivity(moveToBlogPost);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.postContainer, new FragmentBlogPost())
+                    .commit();
         });
     }
 
