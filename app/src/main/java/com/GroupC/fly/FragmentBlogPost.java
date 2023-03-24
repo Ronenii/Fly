@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.lang.ref.WeakReference;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
@@ -36,16 +37,16 @@ public class FragmentBlogPost extends Fragment {
         mViewModel.mMediaLauncher = getActivityLauncher();
 
         // Create the variables.
-        mViewModel.uploadImg = Objects.requireNonNull(rootView).findViewById(R.id.addPostImg);
-        mViewModel.mPostTitle = Objects.requireNonNull(rootView).findViewById(R.id.addPostTitle);
-        mViewModel.mPostDesc = Objects.requireNonNull(rootView).findViewById(R.id.addPostDesc);
-        mViewModel.mBtnUpload = Objects.requireNonNull(rootView).findViewById(R.id.buttonUpload);
+        mViewModel.uploadImg = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostImg));
+        mViewModel.mPostTitle = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostTitle));
+        mViewModel.mPostDesc = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostDesc));
+        mViewModel.mBtnUpload = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.buttonUpload));
 
         // Register listeners
-        mViewModel.uploadImg.setOnClickListener(this::onPickImage);
-        mViewModel.mPostTitle.setOnClickListener(mViewModel::onUpdateText);
-        mViewModel.mPostDesc.setOnClickListener(mViewModel::onUpdateText);
-        mViewModel.mBtnUpload.setOnClickListener(mViewModel::onUpdateText);
+        mViewModel.uploadImg.get().setOnClickListener(this::onPickImage);
+        mViewModel.mPostTitle.get().setOnClickListener(mViewModel::onUpdateText);
+        mViewModel.mPostDesc.get().setOnClickListener(mViewModel::onUpdateText);
+        mViewModel.mBtnUpload.get().setOnClickListener(mViewModel::onUpdateText);
 
         return rootView;
     }

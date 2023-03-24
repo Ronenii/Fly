@@ -22,6 +22,7 @@ import com.GroupC.fly.data.Objects.MasterPost;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -29,11 +30,10 @@ import java.util.Objects;
 public class FragmentBlogPostViewModel extends ViewModel {
     ActivityResultLauncher<Intent> mMediaLauncher;
     Uri mImgUri;
-    TextInputEditText mPostTitle;
-    TextInputEditText mPostDesc;
-
-    Button mBtnUpload;
-    ImageView uploadImg;
+    WeakReference<TextInputEditText> mPostTitle;
+    WeakReference<TextInputEditText> mPostDesc;
+    WeakReference<Button> mBtnUpload;
+    WeakReference<ImageView> uploadImg;
 
 
     // Function for when the user pick the cancel option.
@@ -71,13 +71,13 @@ public class FragmentBlogPostViewModel extends ViewModel {
     }
 
     public void onUpdateText(View view) {
-        mPostTitle.addTextChangedListener(new TextWatcher() {
+        mPostTitle.get().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mPostTitle.setText(charSequence);
+                mPostTitle.get().setText(charSequence);
             }
 
             @Override
@@ -89,12 +89,12 @@ public class FragmentBlogPostViewModel extends ViewModel {
         MasterPost postData = new MasterPost();
 
         if (mPostTitle != null) {
-            postData.setPostTitle(mPostTitle);
-            Log.i("[onUpload]:", Objects.requireNonNull(mPostTitle.getText()).toString());
+            postData.setPostTitle(mPostTitle.get());
+            Log.i("[onUpload]:", Objects.requireNonNull(mPostTitle.get().getText()).toString());
         }
         if (mPostDesc != null) {
-            postData.setPostDesc(mPostDesc);
-            Log.i("[onUpload]:", Objects.requireNonNull(mPostDesc.getText()).toString());
+            postData.setPostDesc(mPostDesc.get());
+            Log.i("[onUpload]:", Objects.requireNonNull(mPostDesc.get().getText()).toString());
         }
         if (mImgUri != null) {
             postData.setImgUri(mImgUri);
