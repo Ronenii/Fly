@@ -1,4 +1,8 @@
 package com.GroupC.fly.data.Objects;
+import android.net.Uri;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.time.LocalDateTime;
 
 /**
@@ -14,6 +18,10 @@ abstract class Post {
 
     private LocalDateTime m_dateTime = null;
     private Reply[] replies;
+
+    private TextView mPostTitle;
+    private TextView mPostDesc;
+    private Uri mImageUri;
 
     // TODO: Content type;
     //TODO: Content;
@@ -68,6 +76,14 @@ abstract class Post {
         this.m_owner = m_owner;
     }
 
+    public void setPostTitle(TextView postTitle) { mPostTitle = postTitle;}
+    public void setPostDesc(TextView postDesc) { mPostDesc = postDesc;}
+    public void setImgUri(Uri img) { mImageUri = img;}
+
+    public TextView getTitle() { return mPostTitle; }
+    public TextView getDesc() { return mPostDesc; }
+    public Uri getImageUri() { return mImageUri; }
+
     public LocalDateTime get_dateTime() {
         return m_dateTime;
     }
@@ -94,8 +110,4 @@ abstract class Post {
     public void recieveUnlike() {
         m_likes--;
     }
-
-
-
-
 }

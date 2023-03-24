@@ -28,14 +28,15 @@
                 android:singleLine="true"
                 android:text="Add Post" />
 
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addPostTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/rounded_corners"
                 android:singleLine="true"
                 android:minHeight="20dp"
                 android:padding="10dp"
+                android:onClick="onUpdateText"
                 android:layout_marginBottom="15dp"
                 android:hint="Enter Title" />
 
@@ -50,11 +51,16 @@
                 android:layout_marginBottom="15dp"
                 android:src="@drawable/add_img" />
 
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addPostDesc"
                 android:layout_width="match_parent"
                 android:layout_height="162dp"
                 android:background="@drawable/rounded_corners"
+                android:singleLine="true"
+                android:minHeight="20dp"
+                android:padding="10dp"
+                android:onClick="onUpdateText"
+                android:layout_marginBottom="15dp"
                 android:hint="Enter Description" />
 
             <Button
