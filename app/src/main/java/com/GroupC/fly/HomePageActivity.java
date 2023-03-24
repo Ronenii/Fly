@@ -43,6 +43,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarHomePage.toolbar);
 
+        binding.appBarHomePage.fab.setOnClickListener(this::onPost);
+
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -57,12 +59,10 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void onPost(View view) {
-        binding.appBarHomePage.fab.setOnClickListener(tmpView -> {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.postContainer, new FragmentBlogPost())
-                    .commit();
-        });
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.postContainer, new FragmentBlogPost())
+                .commit();
     }
 
     @Override
