@@ -1,4 +1,4 @@
-package com.GroupC.fly;
+package com.GroupC.fly.FragmentLogic;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -18,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModel;
 
+import com.GroupC.fly.BuildConfig;
 import com.GroupC.fly.data.Objects.MasterPost;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -37,19 +38,19 @@ public class FragmentBlogPostViewModel extends ViewModel {
 
 
     // Function for when the user pick the cancel option.
-     void dispatchCancel(DialogInterface dialogInterface) {
+     public void dispatchCancel(DialogInterface dialogInterface) {
         dialogInterface.dismiss();
     }
 
     // Function for opening the gallery.
-    void dispatchChooseFromGallery() {
+    public void dispatchChooseFromGallery() {
         Intent iGallery = new Intent(Intent.ACTION_PICK);
         iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         mMediaLauncher.launch(iGallery);
     }
 
     // Function for opening the camera for a picture.
-    void dispatchCameraSnapShot(Activity hostingActivity) {
+    public void dispatchCameraSnapShot(Activity hostingActivity) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if (intent.resolveActivity(hostingActivity.getPackageManager()) != null) {

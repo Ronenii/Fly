@@ -24,10 +24,6 @@ public class SignUpActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up2);
 
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page2);
-
-        // Hides Title
-        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         globalFuncs.startBackgroundAnimation();
 
         //Makes drop down menu of gender work with spam with the design provided

@@ -70,9 +70,6 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         setContentView(R.layout.activity_sign_up);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
 
-        // Hides Title
-        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         globalFuncs.startBackgroundAnimation(); // Start Background animation.
 
         etEmail = findViewById(R.id.et_email);
