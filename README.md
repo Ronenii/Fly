@@ -7,9 +7,9 @@ Class names are written in [UpperCamelCase](http://en.wikipedia.org/wiki/CamelCa
 
 For classes that extend an Android component, the name of the class should end with the name of the component; for example: `SignInActivity`, `SignInFragment`, `ImageUploaderService`, `ChangePasswordDialog`.
 
-Methods are written in [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase).
+Methods and Variables are written in [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase).
 
-Variables are written in [snake_case](https://en.wikipedia.org/wiki/Snake_case).
+XML Element IDs are written in [snake_case](https://en.wikipedia.org/wiki/Snake_case).
 
 Constants are written in snake case with ALL_CAPS.
 
