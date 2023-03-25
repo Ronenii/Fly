@@ -84,21 +84,6 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
 
         onShowPasswordToggle();
         onPasswordChange();
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (getCredentials()) {
-                    if (verifyEmail() && verifyPassword()) {
-                        //TODO: Save/Create new user
-
-                        // Move to the profile information activity.
-                        Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
-                        startActivity(moveToNext);
-                    }
-                }
-            }
-        });
     }
 
     // This function creates a SHA-256 hash of the password, will be later stored in the db.
@@ -348,6 +333,18 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     @Override
     public void onTipDismissed(View view, int anchorViewId, boolean byUser) {
 
+    }
+
+    public void onNextClick(View view) {
+        if (getCredentials()) {
+            if (verifyEmail() && verifyPassword()) {
+                //TODO: Save/Create new user
+
+                // Move to the profile information activity.
+                Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
+                startActivity(moveToNext);
+            }
+        }
     }
 }
 

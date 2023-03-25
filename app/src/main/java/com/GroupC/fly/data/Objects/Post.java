@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 /**
  * This class handles the abstract post class that is the "father" of the different types of posts we will have.
- *
  * **/
 
 abstract class Post {
