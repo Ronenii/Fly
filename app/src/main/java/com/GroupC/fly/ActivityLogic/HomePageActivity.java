@@ -35,8 +35,8 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //These lines hide the title and action bar at the top of the screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // Hides Title
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -75,7 +75,11 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    public void onLogoutClick(View view) {
+        Intent moveToWelcomeScreen = new Intent(this, MainActivity.class);
+        startActivity(moveToWelcomeScreen);
     }
 }

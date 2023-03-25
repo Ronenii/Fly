@@ -1,7 +1,5 @@
 package com.GroupC.fly.ActivityLogic;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.GroupC.fly.R;
@@ -67,27 +64,27 @@ public class PasswordRequirementPopup extends Activity {
         ivOneSpecialCharCheckBool = i.getBooleanExtra("SpecialCheck", false);
 
         if(ivEightDigitsCheckBool)
-            ivEightDigitsCheck.setImageResource(R.drawable.check);
+            ivEightDigitsCheck.setImageResource(R.drawable.ic_check);
         else
             ivEightDigitsCheck.setImageDrawable(null);
 
         if(ivOneNumberCheckBool)
-            ivOneNumberCheck.setImageResource(R.drawable.check);
+            ivOneNumberCheck.setImageResource(R.drawable.ic_check);
         else
             ivOneNumberCheck.setImageDrawable(null);
 
         if(ivOneLowerCaseCheckBool)
-            ivOneLowerCaseCheck.setImageResource(R.drawable.check);
+            ivOneLowerCaseCheck.setImageResource(R.drawable.ic_check);
         else
             ivOneLowerCaseCheck.setImageDrawable(null);
 
         if(ivOneUpperCaseCheckBool)
-            ivOneUpperCaseCheck.setImageResource(R.drawable.check);
+            ivOneUpperCaseCheck.setImageResource(R.drawable.ic_check);
         else
            ivOneUpperCaseCheck.setImageDrawable(null);
 
         if(ivOneSpecialCharCheckBool)
-            ivOneSpecialCharCheck.setImageResource(R.drawable.check);
+            ivOneSpecialCharCheck.setImageResource(R.drawable.ic_check);
         else
             ivOneSpecialCharCheck.setImageDrawable(null);
 

@@ -45,7 +45,7 @@
             android:theme="@style/Theme.AppCompat.PopUp"
             android:exported="false" />
         <activity
-            android:name=".HomePageActivity"
+            android:name=".ActivityLogic.HomePageActivity"
             android:exported="false"
             android:label="@string/title_activity_home_page"
             android:theme="@style/Theme.Fly.NoActionBar" />
