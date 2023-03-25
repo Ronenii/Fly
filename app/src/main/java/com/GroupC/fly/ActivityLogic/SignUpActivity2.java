@@ -25,10 +25,10 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page2);
 
-        globalFuncs.hideActionBar();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        globalFuncs.startBackgroundAnimation();
+        // Hides Title
+        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        globalFuncs.startBackgroundAnimation();
 
         //Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
