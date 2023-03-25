@@ -46,7 +46,7 @@ public class FragmentBlogPost extends Fragment {
         mViewModel.uploadImg.get().setOnClickListener(this::onPickImage);
         mViewModel.mPostTitle.get().setOnClickListener(mViewModel::onUpdateText);
         mViewModel.mPostDesc.get().setOnClickListener(mViewModel::onUpdateText);
-        mViewModel.mBtnUpload.get().setOnClickListener(mViewModel::onUpdateText);
+        mViewModel.mBtnUpload.get().setOnClickListener(mViewModel::onUpload);
 
         return rootView;
     }
