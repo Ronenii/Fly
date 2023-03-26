@@ -60,7 +60,6 @@ public class FragmentBlogPost extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     public void onGoBackClick(View view) {
         startActivity(new Intent(getActivity(), HomePageActivity.class));
     }

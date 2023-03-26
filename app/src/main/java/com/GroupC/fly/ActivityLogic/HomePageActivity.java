@@ -50,9 +50,9 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void onPost(View view) {
+        setContentView(R.layout.fragment_blog_post);
         getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.postContainer, new FragmentBlogPost())
+                .beginTransaction().replace(R.id.con_post,new FragmentBlogPost())
                 .commit();
     }
 
