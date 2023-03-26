@@ -146,8 +146,8 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         ivOneLowerCaseCheckBool = checkPasswordRegex(password, LOWER_CASE_REGEX);       // Check for a lower case letter in password.
         ivOneSpecialCharCheckBool = checkPasswordRegex(password, SPECIAL_CHARS_REGEX);  // Check for a special character letter in password.
 
-        for(boolean i : new boolean[] {ivOneNumberCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool ,ivOneSpecialCharCheckBool})
-            passwordValidityCounter += i ? 1 : 0; // Add 1 to counter for each boolean variable that is value it 'true'.
+        for(boolean bool : new boolean[] {ivOneNumberCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool ,ivOneSpecialCharCheckBool})
+            passwordValidityCounter += bool ? 1 : 0; // Add 1 to counter for each boolean variable that its value is 'true'.
 
         return isValidLength && passwordValidityCounter >= 3;
     }
