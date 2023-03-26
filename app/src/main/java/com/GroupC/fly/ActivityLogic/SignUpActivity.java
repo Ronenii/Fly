@@ -67,12 +67,9 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
-
-        // Hides Title
-        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        globalFuncs.startBackgroundAnimation(); // Start Background animation.
+        globalFuncs.startBackgroundAnimation();
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -80,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         layout = findViewById(R.id.sign_up_page);
         ivQuestionMark = findViewById(R.id.ic_question_mark);
 
-        //Initialize tooltip manager
+        // Initialize tooltip manager
         toolTipsManager = new ToolTipsManager(this);
 
         onShowPasswordToggle();
@@ -106,7 +103,6 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
             // handle exception
             Log.v("[digestPasswordError]:", e.toString());
         }
-
         return null;
     }
 
@@ -118,10 +114,9 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
             password = digestPassword(etPassword.getText().toString());
             passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
             return true;
-        } else {
-            displayErrorToast(values.INVALID_PASSWORD);
-            return false;
         }
+        displayErrorToast(values.INVALID_PASSWORD);
+        return false;
     }
 
 
