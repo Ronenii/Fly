@@ -19,7 +19,7 @@ public class Reply extends PostBase {
 
     /** IMPLEMENTATION OF ABSTRACT FUNCTIONS **/
     //TODO: this method will update the post in the post DB on firebase.
-    //A virtual method that differs between MasterPost and Reply.
+    /**A virtual method that differs between MasterPost and Reply.**/
     public void updatePostInDB()
     {
 
@@ -27,7 +27,7 @@ public class Reply extends PostBase {
 
 
     //TODO: this method will add the post into the post DB on firebase.
-    //A virtual method that differs between MasterPost and Reply.
+    /**A virtual method that differs between MasterPost and Reply.**/
     public void createPostInDB()
     {
 
@@ -35,7 +35,7 @@ public class Reply extends PostBase {
 
 
     //TODO: this method will delete the post from the post DB on firebase.
-    //A virtual method that differs between MasterPost and Reply.
+    /**A virtual method that differs between MasterPost and Reply.**/
     public void deletePostInDB()
     {
 
