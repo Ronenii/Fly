@@ -46,9 +46,17 @@
                 android:text="@string/menu_logout"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
+
         </RelativeLayout>
 
     </com.google.android.material.navigation.NavigationView>
+
+    <FrameLayout
+        android:id="@+id/postContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

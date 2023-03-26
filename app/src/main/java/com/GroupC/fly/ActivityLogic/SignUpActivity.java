@@ -61,7 +61,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     static private final String SHA_TYPE = "SHA-256";
 
     // A regex to match an email address.
-    static private final String EMAIL_PATH = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+    static private final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
      * Gets credentials from user
      */
     private boolean getCredentials() {
+        email = etEmail.getText().toString();
         if (isValidPassword()) {
             password = digestPassword(etPassword.getText().toString());
             passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
@@ -193,7 +194,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
      * Verifies the email address.
      */
     private boolean verifyEmail() {
-        if (!etEmail.getText().toString().matches(EMAIL_PATH)) {
+        if (!email.matches(EMAIL_PATTERN)) {
             displayErrorToast(values.INVALID_EMAIL);
             return false;
         } else {
