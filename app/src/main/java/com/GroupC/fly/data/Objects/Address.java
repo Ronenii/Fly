@@ -15,7 +15,7 @@ public class Address {
 
     /* Functions */
 
-    // Adrress c'tor.
+    // Address c'tor.
     public Address(String i_country, String i_region, String i_city, String i_street, String i_streetNumber){
         m_country = i_country;
         m_region = i_region;

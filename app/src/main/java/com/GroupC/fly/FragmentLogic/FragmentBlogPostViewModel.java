@@ -14,12 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModel;
 
 import com.GroupC.fly.BuildConfig;
-import com.GroupC.fly.data.Objects.MasterPost;
+import com.GroupC.fly.data.Objects.Post;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
@@ -86,8 +85,8 @@ public class FragmentBlogPostViewModel extends ViewModel {
         });
     }
 
-    public MasterPost onUpload(View view) {
-        MasterPost postData = new MasterPost();
+    public Post onUpload(View view) {
+        Post postData = new Post();
 
         if (mPostTitle != null) {
             postData.setPostTitle(mPostTitle.get());

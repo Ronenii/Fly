@@ -10,16 +10,15 @@ enum relationshipStatus{
     IAR //in a relationship
 }
 
-public class Person  extends Entity{
+public class Person extends Entity{
 
-    /** DATA MEMBERS **/
-
-    private String m_email, m_job, m_alma_matter, m_username;
-    private int m_age;
-    private relationshipStatus m_relationship_status;
+    /* DATA MEMBERS */
+    private String email, job, alma_matter, username;
+    private int age;
+    private relationshipStatus relationship_status;
     private Vector<Person> friends;
 
-    /** IMPLEMENTATION OF ABSTRACT METHODS **/
+    /* IMPLEMENTATION OF ABSTRACT METHODS */
     public void createEntityInDB(){}
     public void updateEntityInDB(){}
     public void deleteEntityInDB(){}
@@ -31,55 +30,54 @@ public class Person  extends Entity{
                   relationshipStatus i_relationshipStatus){
         setName(i_name);
         setAddress(i_address);
-        m_email = i_email;
-        m_username = i_username;
-        m_job = i_job;
-        m_alma_matter = i_almaMatter;
-        m_relationship_status = i_relationshipStatus;
-        m_age = i_age;
+        email = i_email;
+        username = i_username;
+        job = i_job;
+        alma_matter = i_almaMatter;
+        relationship_status = i_relationshipStatus;
+        age = i_age;
         // TODO: id generator via firebase.
     }
 
 
-
     public String getEmail() {
-        return m_email;
+        return email;
     }
 
-    public void setEmail(String i_email) {
-        this.m_email = i_email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getJob() {
-        return m_job;
+        return job;
     }
 
-    public void setJob(String i_job) {
-        this.m_job = i_job;
+    public void setJob(String job) {
+        this.job = job;
     }
 
     public String get_almaMatter() {
-        return m_alma_matter;
+        return alma_matter;
     }
 
-    public void set_almaMatter(String i_almaMatter) {
-        this.m_alma_matter = i_almaMatter;
+    public void set_almaMatter(String almaMatter) {
+        this.alma_matter = almaMatter;
     }
 
     public String getUsername() {
-        return m_username;
+        return username;
     }
 
-    public void setUsername(String i_username) {
-        this.m_username = i_username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getAge() {
-        return m_age;
+        return age;
     }
 
-    public void setAge(int i_age) {
-        this.m_age = i_age;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Vector<Person> getFriends() {
@@ -92,7 +90,7 @@ public class Person  extends Entity{
 
     //Returns the relationship status of the user as a string
     public String getRelationship_status_string() {
-        switch (m_relationship_status){
+        switch (relationship_status){
             case MARRIED:
                 return "Married";
             case SINGLE:
@@ -109,10 +107,10 @@ public class Person  extends Entity{
     }
 
     public relationshipStatus getRelationship_status() {
-        return m_relationship_status;
+        return relationship_status;
     }
 
-    public void setRelationship_status(relationshipStatus i_relationshipStatus) {
-        this.m_relationship_status = i_relationshipStatus;
+    public void setRelationship_status(relationshipStatus relationshipStatus) {
+        this.relationship_status = relationshipStatus;
     }
 }
