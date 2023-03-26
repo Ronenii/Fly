@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.GroupC.fly.ActivityLogic.HomePageActivity;
 import com.GroupC.fly.R;
 
 import java.lang.ref.WeakReference;
@@ -43,12 +44,14 @@ public class FragmentBlogPost extends Fragment {
         mViewModel.mPostTitle = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostTitle));
         mViewModel.mPostDesc = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostDesc));
         mViewModel.mBtnUpload = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.buttonUpload));
+        mViewModel.goBackButton = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.btn_goBack));
 
         // Register listeners
         mViewModel.uploadImg.get().setOnClickListener(this::onPickImage);
         mViewModel.mPostTitle.get().setOnClickListener(mViewModel::onUpdateText);
         mViewModel.mPostDesc.get().setOnClickListener(mViewModel::onUpdateText);
         mViewModel.mBtnUpload.get().setOnClickListener(mViewModel::onUpload);
+        mViewModel.goBackButton.get().setOnClickListener(this::onGoBackClick);
 
         return rootView;
     }
@@ -56,6 +59,10 @@ public class FragmentBlogPost extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public void onGoBackClick(View view) {
+        startActivity(new Intent(getActivity(), HomePageActivity.class));
     }
 
     public void onPickImage(View view) {

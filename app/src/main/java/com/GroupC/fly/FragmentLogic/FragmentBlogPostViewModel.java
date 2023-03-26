@@ -11,14 +11,17 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModel;
 
+import com.GroupC.fly.ActivityLogic.HomePageActivity;
 import com.GroupC.fly.BuildConfig;
 import com.GroupC.fly.data.Objects.Post;
+import com.GroupC.fly.databinding.ActivityHomePageBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
@@ -34,6 +37,7 @@ public class FragmentBlogPostViewModel extends ViewModel {
     WeakReference<TextInputEditText> mPostDesc;
     WeakReference<Button> mBtnUpload;
     WeakReference<ImageView> uploadImg;
+    WeakReference<ImageButton> goBackButton;
 
 
     // Function for when the user pick the cancel option.
