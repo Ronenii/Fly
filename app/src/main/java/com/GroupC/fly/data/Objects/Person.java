@@ -25,7 +25,7 @@ public class Person extends Entity{
 
     /** METHODS **/
 
-    //Person c'tor.
+    /**Person c'tor.**/
     public Person(String i_email, String i_name, String i_username, String i_job, String i_almaMatter, int i_age, Address i_address,
                   relationshipStatus i_relationshipStatus){
         setName(i_name);
@@ -88,7 +88,7 @@ public class Person extends Entity{
         this.friends = friends;
     }
 
-    //Returns the relationship status of the user as a string
+    /**Returns the relationship status of the user as a string**/
     public String getRelationship_status_string() {
         switch (relationship_status){
             case MARRIED:

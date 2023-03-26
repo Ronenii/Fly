@@ -26,18 +26,18 @@ abstract class PostBase {
 
     /** ABSTRACT METHODS **/
 
-    //This method will update the post in the post DB on firebase.
-    //A virtual method that differs between MasterPost and Reply.
+    /**This method will update the post in the post DB on firebase.
+    A virtual method that differs between MasterPost and Reply.**/
     abstract public void updatePostInDB();
 
 
-    //This method will add the post into the post DB on firebase.
-    //A virtual method that differs between MasterPost and Reply.
+    /**This method will add the post into the post DB on firebase.
+    A virtual method that differs between MasterPost and Reply.**/
     abstract public void createPostInDB();
 
 
-    //This method will delete the post from the post DB on firebase.
-    //A virtual method that differs between MasterPost and Reply.
+    /**This method will delete the post from the post DB on firebase.
+    A virtual method that differs between MasterPost and Reply.**/
     abstract public void deletePostInDB();
 
     /** METHODS **/
