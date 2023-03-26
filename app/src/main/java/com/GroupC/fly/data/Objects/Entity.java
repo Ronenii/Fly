@@ -6,14 +6,12 @@ import java.util.Vector;
  * This class handles the abstract entity class, which is the "father" of the different types of users we have
  * like: person, page etc.
  * **/
-
 abstract class Entity {
 
         /** DATA MEMBERS **/
-
-        private String m_name;
-        private int m_id;
-        private Address m_address;
+        private String name;
+        private int id;
+        private Address address;
         //Post posts[];
         //img profile_picture;
         private Vector<Integer> blocked;
@@ -27,29 +25,28 @@ abstract class Entity {
 
 
         /** METHODS **/
-
         public String getName() {
-                return m_name;
+                return name;
         }
 
-        public void setName(String i_name) {
-                this.m_name = i_name;
+        public void setName(String name) {
+                this.name = name;
         }
 
         public int getId() {
-                return m_id;
+                return id;
         }
 
-        public void setId(int i_id) {
-                this.m_id = i_id;
+        public void setId(int id) {
+                this.id = id;
         }
 
         public Address getAddress() {
-                return m_address;
+                return address;
         }
 
-        public void setAddress(Address i_address) {
-                this.m_address = i_address;
+        public void setAddress(Address address) {
+                this.address = address;
         }
 
         public Vector<Integer> getBlocked() {

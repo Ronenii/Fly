@@ -4,68 +4,63 @@ package com.GroupC.fly.data.Objects;
  * This class handles the address data type that will be users for regular users as well as pages.
  *
  * **/
-
-
-
 public class Address {
 
-    /* Data Members */
-    private String m_country, m_region, m_city, m_street, m_street_number;
+    /** Data Members **/
+    private String country, region, city, street, streetNumber;
 
 
-    /* Functions */
-
-    // Address c'tor.
-    public Address(String i_country, String i_region, String i_city, String i_street, String i_streetNumber){
-        m_country = i_country;
-        m_region = i_region;
-        m_city = i_city;
-        m_street = i_street;
-        m_street_number = i_streetNumber;
+    /** Methods **/
+    public Address(String country, String region, String city, String street, String streetNumber){
+        this.country = country;
+        this.region = region;
+        this.city = city;
+        this.street = street;
+        this.streetNumber = streetNumber;
     }
-    public Address(String i_country, String i_city)
+    public Address(String country, String city)
     {
-        this.m_country = i_country;
-        this.m_city = i_city;
+        this.country = country;
+        this.city = city;
     }
 
     public String getCountry() {
-        return m_country;
+        return country;
     }
 
-    public void setCountry(String i_country) {
-        this.m_country = i_country;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getRegion() {
-        return m_region;
+        return region;
     }
 
-    public void setRegion(String i_region) {
-        this.m_region = i_region;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getCity() {
-        return m_city;
+        return city;
     }
 
-    public void setCity(String i_city) {
-        this.m_city = i_city;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getStreet() {
-        return m_street;
+        return street;
     }
 
-    public void setStreet(String i_street) {
-        this.m_street = i_street;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getStreet_number() {
-        return m_street_number;
+        return streetNumber;
     }
 
-    public void set_streetNumber(String i_streetNumber) {
-        this.m_street_number = i_streetNumber;
+    public void set_streetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
     }
 }
