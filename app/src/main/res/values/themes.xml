@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:colorControlActivated">@color/navy_blue</item>
+        <!-- Remove Title From All Activities. -->
         <item name="android:windowFullscreen">true</item>
     </style>
 
