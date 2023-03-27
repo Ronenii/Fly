@@ -32,5 +32,11 @@
             <item name="android:textColor">@color/navy_blue</item>
     </style>
 
+    <style name="DatePickerTheme" parent="@android:style/Theme.Holo.Light.Dialog.MinWidth">
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:background">@color/Transparent</item>
+    </style>
+
     <style name="Theme.Fly.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
