@@ -56,15 +56,15 @@ public class SignUpActivity2 extends AppCompatActivity {
         startActivity(moveBack);
     }
 
-    private void onNextClickPartTwo()
+    public void onNextClickPartTwo(View view)
     {
-        Address userCity = new Address(etCity.toString());
-        SignUpActivity.user.setFirstName(etFirstName.toString());
-        SignUpActivity.user.setFirstName(etLastName.toString());
-        SignUpActivity.user.setNickname(etNickname.toString());
-        SignUpActivity.user.setJob(etJob.toString());
+        Address userCity = new Address(etCity.getText().toString());
+        SignUpActivity.user.setFirstName(etFirstName.getText().toString());
+        SignUpActivity.user.setLastName(etLastName.getText().toString());
+        SignUpActivity.user.setNickname(etNickname.getText().toString());
+        SignUpActivity.user.setJob(etJob.getText().toString());
         SignUpActivity.user.setAddress(userCity);
-        SignUpActivity.user.set_almaMatter(etEducation.toString());
+        SignUpActivity.user.setAlmaMatter(etEducation.getText().toString());
         //TODO: add the option to draw users birthday when implemented into the 2nd sign up activity
         //TODO: Check validity of data
         //TODO: this will redirect to and activity where a user can add a profile picture

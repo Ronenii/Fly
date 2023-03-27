@@ -94,12 +94,12 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     //Responsible for what happens when next is clicked in the first sign up screen.
     //Credentials are verified and afterwards the email is drawn into the person object that represents the user.
     //Afterward we are redirected to the next screen.
-    private void onNextClickPartOne()
+    public void onNextClickPartOne(View view)
     {
         if (getCredentials()) {
             if (verifyEmail() && verifyPassword()) {
                 user = new Person();
-                user.setEmail(etEmail.toString());
+                user.setEmail(etEmail.getText().toString());
                 // Move to the profile information activity.
                 Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
                 startActivity(moveToNext);
