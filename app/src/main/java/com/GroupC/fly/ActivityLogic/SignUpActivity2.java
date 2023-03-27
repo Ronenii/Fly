@@ -45,7 +45,7 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         //Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
-        gender_drop_down=getResources().getStringArray(R.array.genders_options);
+        gender_drop_down= getResources().getStringArray(R.array.genders_options);
         adapter = new ArrayAdapter<>(getApplicationContext(),R.layout.drop_down,gender_drop_down);
         autoCompleteTV.setAdapter(adapter);
 

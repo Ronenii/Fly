@@ -24,17 +24,6 @@ public class GlobalFuncs {
     }
 
     /**
-     * Hides title and action bar on the top of the screen.
-     */
-    public void hideActionBar()
-    {
-        AppCompatActivity act = (AppCompatActivity) activity;
-        if(act.getSupportActionBar().isShowing()) act.getSupportActionBar().hide();
-        act.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
-
-
-    /**
      * Starts the background animation.
      * To change the duration and speed go to 'values.java'.
      */

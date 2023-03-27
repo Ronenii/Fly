@@ -1,17 +1,16 @@
-package com.GroupC.fly;
+package com.GroupC.fly.ActivityLogic;
 
+import com.GroupC.fly.FragmentLogic.FragmentBlogPost;
+import com.GroupC.fly.R;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.view.WindowManager;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.GroupC.fly.databinding.ActivityHomePageBinding;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,31 +18,24 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.GroupC.fly.databinding.ActivityHomePageBinding;
-
 public class HomePageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomePageBinding binding;
 
+    private FragmentManager fragManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //These lines hide the title and action bar at the top of the screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarHomePage.toolbar);
-        binding.appBarHomePage.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        binding.appBarHomePage.fab.setOnClickListener(this::onPost);
+
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -57,6 +49,13 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+    public void onPost(View view) {
+        setContentView(R.layout.fragment_blog_post);
+        getSupportFragmentManager()
+                .beginTransaction().replace(R.id.con_post,new FragmentBlogPost())
+                .commit();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -67,7 +66,11 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    public void onLogoutClick(View view) {
+        Intent moveToWelcomeScreen = new Intent(this, MainActivity.class);
+        startActivity(moveToWelcomeScreen);
     }
 }

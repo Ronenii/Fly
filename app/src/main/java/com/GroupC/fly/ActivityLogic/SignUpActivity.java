@@ -65,17 +65,14 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     static public Person user;
 
     // A regex to match an email address.
-    static private final String EMAIL_PATH = "^[a-zA-Z\\d.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z\\d-]+(?:\\.[a-zA-Z\\d-]+)*$";
+    static private final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
-
-        globalFuncs.hideActionBar();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        globalFuncs.startBackgroundAnimation(); // Start Background animation.
+        globalFuncs.startBackgroundAnimation();
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -107,7 +104,9 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         }
     }
 
-    // This function creates a SHA-256 hash of the password, will be later stored in the db.
+    /**
+     * This function creates a SHA-256 hash of the password, will be later stored in the db.
+      */
     private String digestPassword(@NonNull String password) {
         try {
             MessageDigest md = MessageDigest.getInstance(SHA_TYPE);
@@ -128,8 +127,11 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         return null;
     }
 
-    //Gets credentials from user
+    /**
+     * Gets credentials from user
+     */
     private boolean getCredentials() {
+        email = etEmail.getText().toString();
         if (isValidPassword()) {
             password = digestPassword(etPassword.getText().toString());
             passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
@@ -141,93 +143,48 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     }
 
 
-    //The function that validates that the password is up to the correct requirements. Returns true if the password is of valid length
-    //and contains at least character 3 out of 4 requirements.
+    /**
+     * Validates that the password is up to the correct requirements.
+     * Returns true if the password is of valid length and contains at least character 3 out of 4 requirements.
+     */
     private boolean isValidPassword() {
-        boolean isValidLength = false;
+        // A regex that checks if a string containing the specified chars is between 8-20 chars long.
+        final String PASSWORD_LENGTH_SCOPE_REGEX = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
+        // The regex that checks if the string contains a number.
+        final String NUMBERS_REGEX = ".*\\d.*";
+        // The regex that checks if the string contains an upper case letter.
+        final String UPPER_CASE_REGEX = ".*[A-Z].*";
+        // The regex that checks if the string contains a lower case letter.
+        final String LOWER_CASE_REGEX = ".*[a-z].*";
+        // The regex that checks if the string contains a special char.
+        final String SPECIAL_CHARS_REGEX = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*";
+
+        boolean isValidLength;
+        int passwordValidityCounter = 0;
         String password = etPassword.getText().toString();
-        isValidLength = passwordIsCorrectLength(password);
-        passwordHasNumbers(password);
-        passwordHasUpperCase(password);
-        passwordHasLowerCase(password);
-        passwordHasSpecialChar(password);
+        isValidLength = ivEightDigitsCheckBool = checkPasswordRegex(password, PASSWORD_LENGTH_SCOPE_REGEX);
+        ivOneNumberCheckBool = checkPasswordRegex(password, NUMBERS_REGEX);             // Check for a number in password.
+        ivOneUpperCaseCheckBool = checkPasswordRegex(password, UPPER_CASE_REGEX);       // Check for an upper case letter in password.
+        ivOneLowerCaseCheckBool = checkPasswordRegex(password, LOWER_CASE_REGEX);       // Check for a lower case letter in password.
+        ivOneSpecialCharCheckBool = checkPasswordRegex(password, SPECIAL_CHARS_REGEX);  // Check for a special character letter in password.
+
+        for(boolean bool : new boolean[] {ivOneNumberCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool ,ivOneSpecialCharCheckBool})
+            passwordValidityCounter += bool ? 1 : 0; // Add 1 to counter for each boolean variable that its value is 'true'.
 
         return isValidLength && passwordValidityCounter >= 3;
     }
 
-    //Returns true if the password is between 8-20 chars long. Also makes a checkmark appear.
-    //Otherwise removes the checkmark and returns false.
-    private boolean passwordIsCorrectLength(String i_password) {
-        //A regex that checks if a string containing the specified chars is between 8-20 chars long.
-        final String PASSWORD_LENGTH_SCOPE = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
-        if (i_password.matches(PASSWORD_LENGTH_SCOPE)) {
-            ivEightDigitsCheckBool = true;
-            return true;
-        } else {
-            ivEightDigitsCheckBool = false;
-            return false;
-
-        }
+    /**
+     * Checks if a password given by a String is matching a given regex.
+     */
+    private boolean checkPasswordRegex(String password, final String regex) {
+        return password.matches(regex);
     }
 
-    //Adds 1 to the validity counter if the password contains a number letter. Also makes the relevant checkmark appear.
-    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
-    private void passwordHasNumbers(String i_password) {
-        //The regex that checks if the string contains a number.
-        final String NUMBERS = ".*\\d.*";
-        if (i_password.matches(NUMBERS)) {
-            ivOneNumberCheckBool =true;
-            passwordValidityCounter++;
-        } else {
-            ivOneNumberCheckBool = false;
-            if (passwordValidityCounter > 0) passwordValidityCounter--;
-        }
-    }
-
-    //Adds 1 to the validity counter if the password contains an upper case letter. Also makes the relevant checkmark appear.
-    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
-    private void passwordHasUpperCase(String i_password) {
-        //The regex that checks if the string contains an upper case letter.
-        final String UPPER_CASE = ".*[A-Z].*";
-        if (i_password.matches(UPPER_CASE)) {
-            ivOneUpperCaseCheckBool = true;
-            passwordValidityCounter++;
-        } else {
-            ivOneUpperCaseCheckBool = false;
-            if (passwordValidityCounter > 0) passwordValidityCounter--;
-        }
-    }
-
-    //Adds 1 to the validity counter if the password contains a lower case letter. Also makes the relevant checkmark appear.
-    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
-    private void passwordHasLowerCase(String i_password) {
-        //The regex that checks if the string contains a lower case letter.
-        final String LOWER_CASE = ".*[a-z].*";
-        if (i_password.matches(LOWER_CASE)) {
-            ivOneLowerCaseCheckBool = true;
-            passwordValidityCounter++;
-        } else {
-            ivOneLowerCaseCheckBool = false;
-            if (passwordValidityCounter > 0) passwordValidityCounter--;
-        }
-    }
-
-    //Adds 1 to the validity counter if the password contains a special char. Also makes the relevant checkmark appear.
-    //Otherwise subtracts 1 from the validity counter and removes the checkmark.
-    private void passwordHasSpecialChar(String i_password) {
-        //The regex that checks if the string contains a special char.
-        final String SPECIAL_CHARS = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*";
-        if (i_password.matches(SPECIAL_CHARS)) {
-            ivOneSpecialCharCheckBool = true;
-            passwordValidityCounter++;
-        } else {
-            ivOneSpecialCharCheckBool = false;
-            if (passwordValidityCounter > 0) passwordValidityCounter--;
-        }
-    }
-
-    //The function that listens for changes in the password and allows for live updates of the checkmarks
-    //in the signup screen.
+    /**
+     * listens for changes in the password and allows for live updates of the checkmarks
+     * in the signup screen.
+     */
     private void onPasswordChange() {
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -255,9 +212,11 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         });
     }
 
-    // This function verifies the email address.
+    /**
+     * Verifies the email address.
+     */
     private boolean verifyEmail() {
-        if (!etEmail.getText().toString().matches(EMAIL_PATH)) {
+        if (!email.matches(EMAIL_PATTERN)) {
             displayErrorToast(values.INVALID_EMAIL);
             return false;
         } else {
@@ -265,7 +224,9 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         }
     }
 
-    // This function verifies the password against the 'passwordRepeat'.
+    /**
+     * Verifies the password against the 'passwordRepeat'.
+     */
     private boolean verifyPassword() {
         if (!password.equals(passwordRepeat)) {
             displayErrorToast(values.PASSWORDS_UNMATCHED);
@@ -275,7 +236,9 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         }
     }
 
-    // This function displays an error toast.
+    /**
+     * Displays an error toast.
+     */
     private void displayErrorToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
         View toast_layout = inflater.inflate(R.layout.credentials_error_toast, (ViewGroup) findViewById(R.id.error_toast_layout));

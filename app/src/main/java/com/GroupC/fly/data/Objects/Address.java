@@ -10,7 +10,7 @@ package com.GroupC.fly.data.Objects;
 public class Address {
 
     /* Data Members */
-    private String country, region, city, street, street_number;
+    private String country, region, city, street, streetNumber;
 
 
     /* Functions */
@@ -21,7 +21,7 @@ public class Address {
         region = region;
         city = city;
         street = street;
-        street_number = streetNumber;
+        streetNumber = streetNumber;
     }
     public Address(String country, String city)
     {
@@ -67,11 +67,11 @@ public class Address {
         this.street = street;
     }
 
-    public String getStreet_number() {
-        return street_number;
+    public String getStreetNumber() {
+        return streetNumber;
     }
 
     public void set_streetNumber(String streetNumber) {
-        this.street_number = streetNumber;
+        this.streetNumber = streetNumber;
     }
 }

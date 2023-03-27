@@ -42,12 +42,15 @@
                 android:focusable="true"
                 android:gravity="start|center"
                 android:paddingLeft="24dp"
+                android:onClick="onLogoutClick"
                 android:text="@string/menu_logout"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
+
         </RelativeLayout>
 
     </com.google.android.material.navigation.NavigationView>
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

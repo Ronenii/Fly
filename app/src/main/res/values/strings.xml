@@ -50,4 +50,11 @@
     <string name="menu_connections">Connections</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_logout">Logout</string>
+
+    <string name="password_requirements_length_msg">Password must be 8–20 digits long</string>
+    <string name="password_requirements_title">Password must include at least 3 of the following:</string>
+    <string name="password_requirements_number_msg">Minimum one number</string>
+    <string name="password_requirements_upper_case_msg">Minimum one upper case character</string>
+    <string name="password_requirements_lower_case_msg">Minimum one lower case character</string>
+    <string name="password_requirements_special_character_msg">Minimum one special character</string>
 </resources>

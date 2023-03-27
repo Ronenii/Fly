@@ -15,7 +15,7 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:contentDescription="@string/app_icon"
-        app:srcCompat="@drawable/fly_icon" />
+        app:srcCompat="@drawable/ic_fly_app" />
 
     <TextView
         android:layout_width="match_parent"
