@@ -41,7 +41,7 @@ public class HomePageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-             R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+             R.id.nav_home, R.id.fragmentBlogPost)
              .setOpenableLayout(drawer)
              .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
@@ -50,7 +50,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void onPost(View view) {
-        setContentView(R.layout.fragment_blog_post);
+        setContentView(R.layout.fragment_blog_post2);
         getSupportFragmentManager()
                 .beginTransaction().replace(R.id.con_post,new FragmentBlogPost())
                 .commit();
