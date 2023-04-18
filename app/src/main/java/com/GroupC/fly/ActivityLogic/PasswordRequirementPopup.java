@@ -36,7 +36,7 @@ public class PasswordRequirementPopup extends Activity {
         ivOneNumberCheck = findViewById(R.id.iv_one_number_check);
         ivOneSpecialCharCheck = findViewById(R.id.iv_one_special_char_check);
 
-        checkTheRequirements();
+        checkRequirements();
 
         //Run the popup, can change values here to decide where it will be on screen
         DisplayMetrics dm = new DisplayMetrics();
@@ -54,7 +54,7 @@ public class PasswordRequirementPopup extends Activity {
     /**
      * Uses the sent booleans to determine where a check mark should be placed
      */
-    public void checkTheRequirements()
+    public void checkRequirements()
     {
         Intent i = getIntent();
         ivEightDigitsCheckBool = i.getBooleanExtra("LengthCheck",false);
@@ -63,30 +63,18 @@ public class PasswordRequirementPopup extends Activity {
         ivOneUpperCaseCheckBool = i.getBooleanExtra("UpperCheck",false);
         ivOneSpecialCharCheckBool = i.getBooleanExtra("SpecialCheck", false);
 
-        if(ivEightDigitsCheckBool)
-            ivEightDigitsCheck.setImageResource(R.drawable.ic_check);
-        else
-            ivEightDigitsCheck.setImageDrawable(null);
+        setRequirementIcon(ivEightDigitsCheckBool, ivEightDigitsCheck);
+        setRequirementIcon(ivOneNumberCheckBool, ivOneNumberCheck);
+        setRequirementIcon(ivOneLowerCaseCheckBool, ivOneLowerCaseCheck);
+        setRequirementIcon(ivOneUpperCaseCheckBool, ivOneUpperCaseCheck);
+        setRequirementIcon(ivOneSpecialCharCheckBool, ivOneSpecialCharCheck);
+    }
 
-        if(ivOneNumberCheckBool)
-            ivOneNumberCheck.setImageResource(R.drawable.ic_check);
+    private void setRequirementIcon(boolean checkBool, ImageView iv)
+    {
+        if(checkBool)
+            iv.setImageResource(R.drawable.ic_check);
         else
-            ivOneNumberCheck.setImageDrawable(null);
-
-        if(ivOneLowerCaseCheckBool)
-            ivOneLowerCaseCheck.setImageResource(R.drawable.ic_check);
-        else
-            ivOneLowerCaseCheck.setImageDrawable(null);
-
-        if(ivOneUpperCaseCheckBool)
-            ivOneUpperCaseCheck.setImageResource(R.drawable.ic_check);
-        else
-           ivOneUpperCaseCheck.setImageDrawable(null);
-
-        if(ivOneSpecialCharCheckBool)
-            ivOneSpecialCharCheck.setImageResource(R.drawable.ic_check);
-        else
-            ivOneSpecialCharCheck.setImageDrawable(null);
-
+            iv.setImageDrawable(null);
     }
 }
