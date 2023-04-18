@@ -16,7 +16,7 @@ public class User extends Entity {
      * DATA MEMBERS
      **/
 
-    private String email, job, almaMatter, username, firstName, lastName, userID, nickname;
+    private String email, job, almaMatter, username, firstName, lastName, userID, nickname; // TODO: remove ID, set email as key for user.
     private int age;
     private relationshipStatus relationshipStatus;
     private Vector<User> friends;
