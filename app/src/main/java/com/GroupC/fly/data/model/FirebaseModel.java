@@ -50,21 +50,20 @@ public class FirebaseModel {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
         db.setFirestoreSettings(settings);
     }
-    public void insertUserToDB(String firstName, String lastName, String username, Address address, String email, String job, String almaMatter, int age){
+    public void insertUserToDB(User newUser){
         // Create a new user
         Map<String, Object> user = new HashMap<>();
-        user.put(KEY_EMAIL, email);
-        user.put(KEY_USER_NAME, username);
-        user.put(KEY_FIRST_NAME, firstName);
-        user.put(KEY_LAST_NAME, lastName);
-        user.put(KEY_ADDRESS, address);
-        user.put(KEY_JOB, job);
-        user.put(KEY_AGE, age);
-        user.put(KEY_ALMA_MATTER, almaMatter);
-
+        user.put(KEY_EMAIL, newUser.getEmail());
+        user.put(KEY_USER_NAME, newUser.getUsername());
+        user.put(KEY_FIRST_NAME, newUser.getFirstName());
+        user.put(KEY_LAST_NAME, newUser.getLastName());
+        user.put(KEY_ADDRESS, newUser.getAddress());
+        user.put(KEY_JOB, newUser.getJob());
+        user.put(KEY_AGE, newUser.getAge());
+        user.put(KEY_ALMA_MATTER, newUser.getAlmaMatter());
 
         // Add a new document with a generated ID
-        db.collection(COLLECTION_PATH).document(email)
+        db.collection(COLLECTION_PATH).document(newUser.getEmail())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() { // Log successful insertion of user to DB.
                     @Override

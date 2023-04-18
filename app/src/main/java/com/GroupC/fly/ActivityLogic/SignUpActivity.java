@@ -3,21 +3,15 @@ package com.GroupC.fly.ActivityLogic;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +25,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
-import com.GroupC.fly.data.Objects.Person;
+import com.GroupC.fly.data.Objects.Address;
+import com.GroupC.fly.data.Objects.User;
+import com.GroupC.fly.data.model.FirebaseModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
@@ -55,14 +51,12 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     boolean ivOneLowerCaseCheckBool;
     boolean ivOneNumberCheckBool;
     boolean ivOneSpecialCharCheckBool;
-
-    private int passwordValidityCounter = 0;
     boolean showHideIconToggleOn = false;
 
 
     static private final String SHA_TYPE = "SHA-256";
 
-    static public Person user;
+    static private User signupUser;
 
     // A regex to match an email address.
     static private final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
@@ -95,10 +89,11 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     {
         if (getCredentials()) {
             if (verifyEmail() && verifyPassword()) {
-                user = new Person();
-                user.setEmail(etEmail.getText().toString());
+                signupUser = new User();
+                signupUser.setEmail(etEmail.getText().toString());
                 // Move to the profile information activity.
                 Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
+                moveToNext.putExtra("email", email); // Send the email field to SignUpActivity2.
                 startActivity(moveToNext);
             }
         }
@@ -106,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
 
     /**
      * This function creates a SHA-256 hash of the password, will be later stored in the db.
-      */
+     */
     private String digestPassword(@NonNull String password) {
         try {
             MessageDigest md = MessageDigest.getInstance(SHA_TYPE);
@@ -256,7 +251,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     {
         toolTipsManager.findAndDismiss(ivQuestionMark);
         ToolTip.Builder builder = new ToolTip.Builder(this,ivQuestionMark
-        ,layout,"Password Requirements", ToolTip.POSITION_LEFT_TO);
+                ,layout,"Password Requirements", ToolTip.POSITION_LEFT_TO);
         builder.setAlign(ToolTip.ALIGN_LEFT);
         builder.setBackgroundColor(R.color.blueBtnColor);
         toolTipsManager.show(builder.build());

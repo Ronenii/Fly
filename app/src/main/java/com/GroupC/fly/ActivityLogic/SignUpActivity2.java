@@ -1,10 +1,8 @@
 package com.GroupC.fly.ActivityLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,7 +12,9 @@ import android.widget.EditText;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.data.Objects.Address;
-import com.google.android.material.textfield.TextInputEditText;
+import com.GroupC.fly.data.Objects.User;
+import com.GroupC.fly.data.model.FirebaseModel;
+import com.GroupC.fly.data.model.LoggedInUser;
 
 public class SignUpActivity2 extends AppCompatActivity {
 
@@ -23,6 +23,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     EditText etFirstName, etLastName, etNickname, etJob, etEducation, etCity;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,11 @@ public class SignUpActivity2 extends AppCompatActivity {
         etEducation = findViewById(R.id.et_city);
         etCity = findViewById(R.id.et_education);
 
-        //Makes drop down menu of gender work with spam with the design provided
+        // Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
         gender_drop_down= getResources().getStringArray(R.array.genders_options);
         adapter = new ArrayAdapter<>(getApplicationContext(),R.layout.drop_down,gender_drop_down);
         autoCompleteTV.setAdapter(adapter);
-
     }
 
     public void onGoBackClick(View view) {
@@ -54,20 +54,32 @@ public class SignUpActivity2 extends AppCompatActivity {
         startActivity(moveBack);
     }
 
+    /**
+     *  Adds the user into the Cloud Firestore, Sets the LoggedInUser.
+     */
     public void onNextClickPartTwo(View view)
     {
-        Address userCity = new Address(etCity.getText().toString());
-        SignUpActivity.user.setFirstName(etFirstName.getText().toString());
-        SignUpActivity.user.setLastName(etLastName.getText().toString());
-        SignUpActivity.user.setNickname(etNickname.getText().toString());
-        SignUpActivity.user.setJob(etJob.getText().toString());
-        SignUpActivity.user.setAddress(userCity);
-        SignUpActivity.user.setAlmaMatter(etEducation.getText().toString());
-        //TODO: add the option to draw users birthday when implemented into the 2nd sign up activity
-        //TODO: Check validity of data
-        //TODO: this will redirect to and activity where a user can add a profile picture
-        //TODO: Upload this data to firebase
+        FirebaseModel fbModel = new FirebaseModel();    // Create instance of firebase model.
+        User newUser = new User();
 
+        // Set user info:
+        newUser.setFirstName(etFirstName.getText().toString());
+        newUser.setLastName(etLastName.getText().toString());
+        newUser.setNickname(etNickname.getText().toString());
+        newUser.setJob(etJob.getText().toString());
+        newUser.setAddress(new Address(etCity.getText().toString()));
+        newUser.setAlmaMatter(etEducation.getText().toString());
+        newUser.setEmail(getIntent().getStringExtra("email")); // Get the email field from SignUpActivity.
+        //TODO: set age to newUser
+        //TODO: set relationship status to newUser
+
+        fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
+        HomePageActivity.setLoggedInUser(new LoggedInUser(newUser.getEmail(), newUser.getFirstName(), newUser)); // Set the logged-in user.
+
+        //TODO:
+        // 1. add the option to draw users birthday when implemented into the 2nd sign up activity
+        // 2. Check validity of data
+        // 3. this will redirect to and activity where a user can add a profile picture
 
         Intent moveToHome = new Intent(this, HomePageActivity.class);
         startActivity(moveToHome);

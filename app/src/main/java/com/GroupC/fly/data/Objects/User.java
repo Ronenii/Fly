@@ -16,7 +16,7 @@ public class User extends Entity {
      * DATA MEMBERS
      **/
 
-    private String email, job, almaMatter, username, firstName, lastName, userID;
+    private String email, job, almaMatter, username, firstName, lastName, userID, nickname;
     private int age;
     private relationshipStatus relationshipStatus;
     private Vector<User> friends;
@@ -37,23 +37,23 @@ public class User extends Entity {
      * METHODS
      **/
 
+    public User() {};
     //Person c'tor.
-    public User(String i_email, String i_name, String i_username, String i_job, String i_almaMatter, int i_age, Address i_address,
-                relationshipStatus i_relationshipStatus) {
-        setName(i_name);
-        setAddress(i_address);
-        email = i_email;
-        username = i_username;
-        job = i_job;
-        almaMatter = i_almaMatter;
-        relationshipStatus = i_relationshipStatus;
-        age = i_age;
-        // TODO: id generator via firebase.
+    public User(String email, String name, String username, String job, String almaMatter, int age, Address address,
+                relationshipStatus relationshipStatus) {
+        setName(name);
+        setAddress(address);
+        this.email = email;
+        this.username = username;
+        this.job = job;
+        this.almaMatter = almaMatter;
+        this.relationshipStatus = relationshipStatus;
+        this.age = age;
     }
 
 
     //Returns the relationship status of the user as a string
-    public String getRelationship_status_string() {
+    public String getRelationshipStatusString() {
         switch (relationshipStatus){
             case MARRIED:
                 return "Married";
@@ -68,5 +68,77 @@ public class User extends Entity {
             default:
                 return null;
         }
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getAlmaMatter() {
+        return almaMatter;
+    }
+
+    public void setAlmaMatter(String almaMatter) {
+        this.almaMatter = almaMatter;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

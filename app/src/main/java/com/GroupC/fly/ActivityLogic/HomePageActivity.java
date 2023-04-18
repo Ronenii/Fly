@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.GroupC.fly.data.model.LoggedInUser;
 import com.GroupC.fly.databinding.ActivityHomePageBinding;
 import com.google.android.material.navigation.NavigationView;
 
@@ -20,10 +21,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class HomePageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
-    private AppBarConfiguration mAppBarConfiguration;
+    private AppBarConfiguration appBarConfiguration;
     private ActivityHomePageBinding binding;
 
     private FragmentManager fragManager;
+    private static LoggedInUser loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +42,12 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+        appBarConfiguration = new AppBarConfiguration.Builder(
              R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
              .setOpenableLayout(drawer)
              .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
@@ -66,11 +68,21 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
     public void onLogoutClick(View view) {
+        loggedInUser = null; // Remove the current logged in user.
+
         Intent moveToWelcomeScreen = new Intent(this, MainActivity.class);
         startActivity(moveToWelcomeScreen);
+    }
+
+    public LoggedInUser getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(LoggedInUser _loggedInUser) {
+        loggedInUser = _loggedInUser;
     }
 }

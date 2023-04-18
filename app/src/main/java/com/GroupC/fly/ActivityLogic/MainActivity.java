@@ -42,14 +42,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
-
-        // These lines hide the title and action bar at the top of the screen
-        this.getSupportActionBar().hide();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        // Create instance of firebase model, add an example user to it.
-        FirebaseModel firebase = new FirebaseModel();
-        firebase.insertUserToDB("idan", "shalom", "mikeLitoris", new Address("Israel", "Tel Aviv"), "idan@walla.com", "MTA Programmer", "MTA", 23);
     }
 
     public void onSignUpClick (View view)
