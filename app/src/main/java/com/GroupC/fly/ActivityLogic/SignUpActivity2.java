@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
-import com.GroupC.fly.HomePageActivity;
 import com.GroupC.fly.R;
 import com.GroupC.fly.data.Objects.Address;
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,7 +31,6 @@ public class SignUpActivity2 extends AppCompatActivity {
 
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page2);
 
-        globalFuncs.hideActionBar();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         globalFuncs.startBackgroundAnimation();
 
