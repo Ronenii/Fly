@@ -12,117 +12,175 @@
         android:id="@+id/tv_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/sign_up_msg"
         android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_email"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/input_text_box_layout"
-        android:drawableLeft="@drawable/baseline_alternate_email_24"
-        android:gravity="center"
-        android:hint="@string/email_msg"
-        android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/et_password"
+        app:hintEnabled="false"
+        app:hintAnimationEnabled="false"
+        android:padding="12dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconDrawable="@drawable/ic_mail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/Transparent"
+            android:gravity="center"
+            android:hint="@string/email_msg"
+            android:importantForAutofill="no"
+            android:paddingStart="0dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="55dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/input_text_box_layout"
+        app:hintEnabled="false"
+        app:hintAnimationEnabled="false"
+        android:padding="12dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_password">
 
-    <EditText
-        android:id="@+id/et_password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/password_msg"
+            android:inputType="textPassword"
+            android:background="@color/Transparent"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:importantForAutofill="no"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:paddingTop="4dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_email"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="516dp"
-        android:background="@drawable/input_text_box_layout"
-        android:drawableLeft="@drawable/baseline_password_24"
-        android:gravity="center"
-        android:hint="@string/password_msg"
-        android:inputType="textPassword"
-        android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <EditText
-        android:id="@+id/et_password_repeat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_email"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/input_text_box_layout"
-        android:drawableLeft="@drawable/baseline_password_24"
         android:gravity="center"
         android:hint="@string/retype_password_msg"
         android:inputType="textPassword"
-        android:padding="20dp"
+        android:padding="12dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="false"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+        app:startIconDrawable="@drawable/ic_password">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/Transparent"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:hint="@string/retype_password_msg"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingStart="0dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="55dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ic_question_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="380dp"
+        android:onClick="onQuestionMarkClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+        app:srcCompat="@drawable/ic_question_mark" />
 
     <Button
         android:id="@+id/btn_next"
         android:layout_width="140dp"
         android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="28dp"
         android:backgroundTint="@color/blueBtnColor"
+        android:onClick="onNextClickPartOne"
         android:text="@string/next_msg"
         android:textColor="@color/white"
         android:typeface="normal"
-        android:onClick="onNextClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_go_back"
         android:layout_width="140dp"
         android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="28dp"
         android:backgroundTint="@color/blueBtnColor"
         android:onClick="onReturnClick"
         android:text="@string/back_msg"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintEnd_toStartOf="@+id/btn_next"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <CheckBox
-        android:id="@+id/btn_show_password"
-        android:layout_width="209dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="192dp"
-        android:layout_marginBottom="372dp"
-        android:scaleY="1"
-        android:text="Show Password"
-        android:onClick="onShowPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,9 +18,9 @@ public class Community extends Entity{
 
     /** METHODS **/
 
-    public Community(int i_id, String i_name){
-        setId(i_id);
-        setName(i_name);
+    public Community(int id, String name){
+        setId(id);
+        setName(name);
     }
 
     public Vector<User> getMembers() {

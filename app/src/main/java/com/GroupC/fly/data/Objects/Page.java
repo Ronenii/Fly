@@ -19,9 +19,9 @@ public class Page extends Entity{
     /** METHODS **/
 
     // Page c'tor
-    public Page(int i_id, String i_name){
-        setId(i_id);
-        setName(i_name);
+    public Page(int id, String name){
+        setId(id);
+        setName(name);
     }
 
     public Vector<User> getFollowers() {

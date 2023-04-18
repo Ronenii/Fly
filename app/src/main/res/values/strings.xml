@@ -20,12 +20,41 @@
     <string name="relationship_msg">Relationship:</string>
     <string name="relationship_single_msg">Single</string>
     <string name="relationship_married_msg">Married</string>
-    <string name="relationship_in_relationship_msg">In Relationship</string>
+    <string name="relationship_in_relationship_msg">In a relationship</string>
+    <string name="relationship_divorced">Divorced</string>
+    <string name="relationship_widow">Widow</string>
     <string name="choose_gender_msg">Gender</string>
+    <string name="app_icon">Fly_Icon_Image</string>
 
     <string-array name="genders_options">
         <item>Male</item>
         <item>Female</item>
-        <item>Your Mom</item>
+        <item>Non-Binary</item>
+        <item>Attack Helicopter</item>
+        <item>Seal</item>
     </string-array>
+    <string name="title_activity_home_page">HomePageActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Your Username here!</string>
+    <string name="nav_header_subtitle">Your Email here!</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_message">Message</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_post">Post</string>
+    <string name="menu_connections">Connections</string>
+    <string name="menu_categories">Categories</string>
+    <string name="menu_logout">Logout</string>
+
+    <string name="password_requirements_length_msg">Password must be 8–20 digits long</string>
+    <string name="password_requirements_title">Password must include at least 3 of the following:</string>
+    <string name="password_requirements_number_msg">Minimum one number</string>
+    <string name="password_requirements_upper_case_msg">Minimum one upper case character</string>
+    <string name="password_requirements_lower_case_msg">Minimum one lower case character</string>
+    <string name="password_requirements_special_character_msg">Minimum one special character</string>
 </resources>
