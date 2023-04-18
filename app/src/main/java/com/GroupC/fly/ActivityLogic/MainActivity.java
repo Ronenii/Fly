@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.GroupC.fly.R;
+import com.GroupC.fly.data.Objects.Address;
+import com.GroupC.fly.data.model.FirebaseModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,25 +34,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
-   /* private AlertDialog.Builder sign_in_dialog_window;
-    private AlertDialog dialog;
-    private EditText password_sign_in;
-    private EditText email_sign_in;
-    private Button sign_in_btn;*/
-
     private CheckBox btnShowPassword;
-    Dialog signInDialog;
+    private Dialog signInDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //These lines hide the title and action bar at the top of the screen
+        // These lines hide the title and action bar at the top of the screen
         this.getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        // Create instance of firebase model, add an example user to it.
+        FirebaseModel firebase = new FirebaseModel();
+        firebase.insertUserToDB("idan", "shalom", "mikeLitoris", new Address("Israel", "Tel Aviv"), "idan@walla.com", "MTA Programmer", "MTA", 23);
     }
 
     public void onSignUpClick (View view)

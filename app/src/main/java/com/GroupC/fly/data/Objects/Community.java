@@ -6,9 +6,9 @@ public class Community extends Entity{
 
     /** DATA MEMBERS **/
 
-    private Vector<Person> members;
-    private Vector<Person> admins;
-    private Vector<Person> moderators;
+    private Vector<User> members;
+    private Vector<User> admins;
+    private Vector<User> moderators;
 
 
     /** IMPLEMENTATION OF ABSTRACT METHODS **/
@@ -23,27 +23,27 @@ public class Community extends Entity{
         setName(i_name);
     }
 
-    public Vector<Person> getMembers() {
+    public Vector<User> getMembers() {
         return members;
     }
 
-    public void setMembers(Vector<Person> members) {
+    public void setMembers(Vector<User> members) {
         this.members = members;
     }
 
-    public Vector<Person> getAdmins() {
+    public Vector<User> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(Vector<Person> admins) {
+    public void setAdmins(Vector<User> admins) {
         this.admins = admins;
     }
 
-    public Vector<Person> getModerators() {
+    public Vector<User> getModerators() {
         return moderators;
     }
 
-    public void setModerators(Vector<Person> moderators) {
+    public void setModerators(Vector<User> moderators) {
         this.moderators = moderators;
     }
 }

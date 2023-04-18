@@ -5,11 +5,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.GroupC.fly.ActivityLogic.MainActivity;
-import com.GroupC.fly.ActivityLogic.SignUpActivity;
-import com.GroupC.fly.ActivityLogic.SignUpActivity2;
 import com.GroupC.fly.data.Objects.Address;
-import com.GroupC.fly.data.Objects.Person;
+import com.GroupC.fly.data.Objects.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,15 +16,32 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
 public class FirebaseModel {
+    // -----------------------------------------------------
     /** DATA MEMBERS **/
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
 
+    // -----------------------------------------------------
+    /** DEFINED STRINGS **/
+    private static final String COLLECTION_PATH = "Users";
+    private static final String LOG_TAG = "InsertUserToDB";
+    private static final String KEY_FIRST_NAME = "firstName";
+    private static final String KEY_LAST_NAME = "lastName";
+    private static final String KEY_USER_NAME = "username";
+    private static final String KEY_ADDRESS = "address";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_JOB = "kob";
+    private static final String KEY_ALMA_MATTER = "alma-matter";
+    private static final String KEY_AGE = "age";
+
+
+
+    // -----------------------------------------------------
     /** METHODS **/
     public FirebaseModel(){
         db = FirebaseFirestore.getInstance();
@@ -36,38 +50,44 @@ public class FirebaseModel {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
         db.setFirestoreSettings(settings);
     }
-    public void insertUserToDB(String name, String username, Address address, String email, String job, String almaMatter, int age){
-        // Create a new person
-        Map<String, Object> person = new HashMap<>();
-        person.put("name", name);
-        person.put("username", username);
-        person.put("address", address);
-        person.put("email", email);
-        person.put("job", job);
-        person.put("alma matter", almaMatter);
-        person.put("age", age);
+    public void insertUserToDB(String firstName, String lastName, String username, Address address, String email, String job, String almaMatter, int age){
+        // Create a new user
+        Map<String, Object> user = new HashMap<>();
+        user.put(KEY_EMAIL, email);
+        user.put(KEY_USER_NAME, username);
+        user.put(KEY_FIRST_NAME, firstName);
+        user.put(KEY_LAST_NAME, lastName);
+        user.put(KEY_ADDRESS, address);
+        user.put(KEY_JOB, job);
+        user.put(KEY_AGE, age);
+        user.put(KEY_ALMA_MATTER, almaMatter);
+
 
         // Add a new document with a generated ID
-        db.collection("Persons")
-                .add(person);
-              /*  .addOnCanceledListener(new OnCompleteListener<Void>(){
+        db.collection(COLLECTION_PATH).document(email)
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() { // Log successful insertion of user to DB.
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        Toast.makeText(SignUpActivity2.this, "User successfuly created", Toast.LENGTH_SHORT).show();
+                    public void onSuccess(Void aVoid) { // TODO: Toast.makeText for successful or unsuccessful addition of user.
+                        Log.d(LOG_TAG, "Successfully added user");
                     }
-
-                });*/
+                })
+                .addOnFailureListener(new OnFailureListener() { // Log unsuccessful insertion of user to DB.
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(LOG_TAG, "Error adding DocumentSnapshot", e);
+                    }
+                });
 
     }
 
     public void getAllUsersFromDB(){
-        db.collection("Persons")
+        db.collection(COLLECTION_PATH)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Vector<Person> personsVector = new Vector<>();
+                        Vector<User> personsVector = new Vector<>();
                         if (task.isSuccessful()) {
                             QuerySnapshot personsDB = task.getResult();
                             for (QueryDocumentSnapshot personDOC : personsDB) {

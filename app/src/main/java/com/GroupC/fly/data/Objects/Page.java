@@ -5,8 +5,8 @@ import java.util.Vector;
 public class Page extends Entity{
 
     /** DATA MEMBERS **/
-    private Vector<Person> followers;
-    private Vector<Person> admins;
+    private Vector<User> followers;
+    private Vector<User> admins;
 
     private Vector<Community> communities;
 
@@ -24,19 +24,19 @@ public class Page extends Entity{
         setName(i_name);
     }
 
-    public Vector<Person> getFollowers() {
+    public Vector<User> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Vector<Person> followers) {
+    public void setFollowers(Vector<User> followers) {
         this.followers = followers;
     }
 
-    public Vector<Person> getAdmins() {
+    public Vector<User> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(Vector<Person> admins) {
+    public void setAdmins(Vector<User> admins) {
         this.admins = admins;
     }
 
