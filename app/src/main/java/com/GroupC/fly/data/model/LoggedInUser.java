@@ -7,18 +7,18 @@ import com.GroupC.fly.data.Objects.User;
  */
 public class LoggedInUser {
 
-    private final String userId;
+    private final String email;
     private final String displayName;
     private User userInfo;
 
     public LoggedInUser(String userId, String displayName, User userInfo) {
-        this.userId = userId;
+        this.email = userId;
         this.displayName = displayName;
         this.userInfo = userInfo;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getEmail() {
+        return email;
     }
 
     public String getDisplayName() {
