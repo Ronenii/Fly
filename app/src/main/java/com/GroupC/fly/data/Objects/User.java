@@ -16,7 +16,7 @@ public class User extends Entity {
      * DATA MEMBERS
      **/
 
-    private String email, job, almaMatter, username,
+    private String email, password, job, almaMatter, username,
             firstName, lastName, nickname;
     private int age; // TODO: save date of birth instead of age. write getAge method that will calculate the age.
     private relationshipStatus relationshipStatus;
@@ -122,5 +122,13 @@ public class User extends Entity {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

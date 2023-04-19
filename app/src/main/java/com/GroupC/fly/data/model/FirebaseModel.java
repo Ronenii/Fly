@@ -29,7 +29,7 @@ public class FirebaseModel{
     // -----------------------------------------------------
     /** DATA MEMBERS **/
     private final FirebaseFirestore db;
-    private final Context activityContext;
+    private final Context activityContext;  // Context to the current activity that is using this class object.
 
     // -----------------------------------------------------
     /** METHODS **/
@@ -43,10 +43,15 @@ public class FirebaseModel{
     }
 
     /** User Methods **/
+
+    /**
+     *  Inserts a new user into the cloud database.
+     */
     public void insertUserToDB(User newUser){
         // Create a new user
         Map<String, Object> user = new HashMap<>();
         user.put(values.KEY_EMAIL, newUser.getEmail());
+        user.put(values.KEY_PASSWORD, newUser.getPassword());
         user.put(values.KEY_USER_NAME, newUser.getUsername());
         user.put(values.KEY_FIRST_NAME, newUser.getFirstName());
         user.put(values.KEY_LAST_NAME, newUser.getLastName());
@@ -60,7 +65,7 @@ public class FirebaseModel{
         // Log unsuccessful insertion of user to DB.
         db.collection(values.COLLECTION_PATH).document(newUser.getEmail())
                 .set(user)
-                .addOnSuccessListener(aVoid -> { // TODO: Toast.makeText for successful or unsuccessful addition of user.
+                .addOnSuccessListener(aVoid -> { // TODO: design Toast's UI for successful or unsuccessful addition of user.
                     Toast.makeText(activityContext, "Successfully Signed Up", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
@@ -68,13 +73,15 @@ public class FirebaseModel{
                 });
     }
 
+
+    // TODO: complete get all users.
     public void getAllUsersFromDB(){
         db.collection(values.COLLECTION_PATH)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Vector<User> personsVector = new Vector<>();
+                        Vector<User> users = new Vector<>();
                         if (task.isSuccessful()) {
                             QuerySnapshot personsDB = task.getResult();
                             for (QueryDocumentSnapshot personDOC : personsDB) {
@@ -86,7 +93,7 @@ public class FirebaseModel{
                                 String almaMatter = personDOC.getString("alma matter");
                                 //int age = personDOC.getString("age"); needs to convert string to int.
                                 //Person person = new Person(email,name,username,job,almaMatter,0); // handle age, address.
-                                //personsVector.add(person);
+                                //users.add(person);
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -95,28 +102,38 @@ public class FirebaseModel{
                 });
     }
 
-//    public User getUserFromDB(String email){
-//        db.collection(COLLECTION_PATH).document(email)
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        if (documentSnapshot.exists()) {
-//                            // The document exists, so you can access its data
-//                            String documentData = documentSnapshot.getData().toString();
-//                            Log.d("GET USER FROM DB", "Document data: " + documentData);
-//                        } else {
-//                            Log.d("GET USER FROM DB", "No such document");
-//                        }
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("GET USER FROM DB", "Error getting document", e);
-//                    }
-//                });
-//    }
+    /**
+     *  Gets and returns a user from the cloud database, by the email provided.
+     */
+    public User getUserFromDB(String email){  // TODO: complete get user from database.
+        db.collection(values.COLLECTION_PATH).document(email)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            // The document exists, so you can access its data
+                            Map<String, Object> data = documentSnapshot.getData(); // Get the user from the database.
+
+                            // CONVERT MAP TO USER OBJECT AND RETURN IT
+                        } else {
+                            // NOT FOUND, MAKE ERROR TOAST AND RETURN NULL
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("GET USER FROM DB", "Error getting document", e);
+                        // GOT AN ERROR- NOT FOUND
+                    }
+                });
+        return null; // TODO: return the received user from the database.
+    }
+
 
     /** Post Methods **/
+    // Write methods for writing and receiving posts from database here...
+
+
 
 }
