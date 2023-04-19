@@ -5,7 +5,7 @@ import java.util.Vector;
 public class Community extends Entity{
 
     /** DATA MEMBERS **/
-
+    private String name;  // Should be a unique key (no two communities with the same name).
     private Vector<User> members;
     private Vector<User> admins;
     private Vector<User> moderators;
@@ -18,9 +18,8 @@ public class Community extends Entity{
 
     /** METHODS **/
 
-    public Community(int id, String name){
-        setId(id);
-        setName(name);
+    public Community(String name){
+        this.name = name;
     }
 
     public Vector<User> getMembers() {

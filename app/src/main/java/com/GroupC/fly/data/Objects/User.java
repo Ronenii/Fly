@@ -16,33 +16,23 @@ public class User extends Entity {
      * DATA MEMBERS
      **/
 
-    private String email, job, almaMatter, username, firstName, lastName, userID, nickname; // TODO: remove ID, set email as key for user.
-    private int age;
+    private String email, job, almaMatter, username,
+            firstName, lastName, nickname;
+    private int age; // TODO: save date of birth instead of age. write getAge method that will calculate the age.
     private relationshipStatus relationshipStatus;
     private Vector<User> friends;
 
-    /**
-     * IMPLEMENTATION OF ABSTRACT METHODS
-     **/
-    public void createEntityInDB() {
-    }
-
-    public void updateEntityInDB() {
-    }
-
-    public void deleteEntityInDB() {
-    }
 
     /**
      * METHODS
      **/
 
-    public User() {};
-    //Person c'tor.
-    public User(String email, String name, String username, String job, String almaMatter, int age, Address address,
+    public User() {} // empty c'tor.
+    public User(String email, String firstName, String lastName, String username, String job, String almaMatter, int age, Address address,
                 relationshipStatus relationshipStatus) {
-        setName(name);
         setAddress(address);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.job = job;
@@ -116,14 +106,6 @@ public class User extends Entity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
     }
 
     public int getAge() {

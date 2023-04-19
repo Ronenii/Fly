@@ -55,11 +55,11 @@ public class SignUpActivity2 extends AppCompatActivity {
     }
 
     /**
-     *  Adds the user into the Cloud Firestore, Sets the LoggedInUser.
+     *  Adds the user into the Cloud Database, Sets the LoggedInUser.
      */
     public void onNextClickPartTwo(View view)
     {
-        FirebaseModel fbModel = new FirebaseModel();    // Create instance of firebase model.
+        FirebaseModel fbModel = new FirebaseModel(SignUpActivity2.this);    // Create instance of firebase model.
         User newUser = new User();
 
         // Set user info:

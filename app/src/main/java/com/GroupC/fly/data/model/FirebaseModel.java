@@ -1,10 +1,13 @@
 package com.GroupC.fly.data.model;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.GroupC.fly.ActivityLogic.values;
 import com.GroupC.fly.data.Objects.Address;
 import com.GroupC.fly.data.Objects.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -12,6 +15,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -21,67 +25,51 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-public class FirebaseModel {
+public class FirebaseModel{
     // -----------------------------------------------------
     /** DATA MEMBERS **/
-    private FirebaseFirestore db;
-
-    // -----------------------------------------------------
-    /** DEFINED STRINGS **/
-    private static final String COLLECTION_PATH = "Users";
-    private static final String LOG_TAG = "InsertUserToDB";
-    private static final String KEY_FIRST_NAME = "firstName";
-    private static final String KEY_LAST_NAME = "lastName";
-    private static final String KEY_USER_NAME = "username";
-    private static final String KEY_ADDRESS = "address";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_JOB = "kob";
-    private static final String KEY_ALMA_MATTER = "alma-matter";
-    private static final String KEY_AGE = "age";
-
-
+    private final FirebaseFirestore db;
+    private final Context activityContext;
 
     // -----------------------------------------------------
     /** METHODS **/
-    public FirebaseModel(){
+    public FirebaseModel(Context currContext){
         db = FirebaseFirestore.getInstance();
+        activityContext = currContext;
 
-        //Disable Firebase's local data base.
+        // Disable Firebase's local data base.
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
         db.setFirestoreSettings(settings);
     }
+
+    /** User Methods **/
     public void insertUserToDB(User newUser){
         // Create a new user
         Map<String, Object> user = new HashMap<>();
-        user.put(KEY_EMAIL, newUser.getEmail());
-        user.put(KEY_USER_NAME, newUser.getUsername());
-        user.put(KEY_FIRST_NAME, newUser.getFirstName());
-        user.put(KEY_LAST_NAME, newUser.getLastName());
-        user.put(KEY_ADDRESS, newUser.getAddress());
-        user.put(KEY_JOB, newUser.getJob());
-        user.put(KEY_AGE, newUser.getAge());
-        user.put(KEY_ALMA_MATTER, newUser.getAlmaMatter());
+        user.put(values.KEY_EMAIL, newUser.getEmail());
+        user.put(values.KEY_USER_NAME, newUser.getUsername());
+        user.put(values.KEY_FIRST_NAME, newUser.getFirstName());
+        user.put(values.KEY_LAST_NAME, newUser.getLastName());
+        user.put(values.KEY_ADDRESS, newUser.getAddress());
+        user.put(values.KEY_JOB, newUser.getJob());
+        user.put(values.KEY_AGE, newUser.getAge());
+        user.put(values.KEY_ALMA_MATTER, newUser.getAlmaMatter());
 
         // Add a new document with a generated ID
-        db.collection(COLLECTION_PATH).document(newUser.getEmail())
+        // Log successful insertion of user to DB.
+        // Log unsuccessful insertion of user to DB.
+        db.collection(values.COLLECTION_PATH).document(newUser.getEmail())
                 .set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() { // Log successful insertion of user to DB.
-                    @Override
-                    public void onSuccess(Void aVoid) { // TODO: Toast.makeText for successful or unsuccessful addition of user.
-                        Log.d(LOG_TAG, "Successfully added user");
-                    }
+                .addOnSuccessListener(aVoid -> { // TODO: Toast.makeText for successful or unsuccessful addition of user.
+                    Toast.makeText(activityContext, "Successfully Signed Up", Toast.LENGTH_SHORT).show();
                 })
-                .addOnFailureListener(new OnFailureListener() { // Log unsuccessful insertion of user to DB.
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(LOG_TAG, "Error adding DocumentSnapshot", e);
-                    }
+                .addOnFailureListener(e -> {
+                    Toast.makeText(activityContext, "Error signing up", Toast.LENGTH_SHORT).show();
                 });
-
     }
 
     public void getAllUsersFromDB(){
-        db.collection(COLLECTION_PATH)
+        db.collection(values.COLLECTION_PATH)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -105,8 +93,30 @@ public class FirebaseModel {
                         }
                     }
                 });
-
-
-
     }
+
+//    public User getUserFromDB(String email){
+//        db.collection(COLLECTION_PATH).document(email)
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        if (documentSnapshot.exists()) {
+//                            // The document exists, so you can access its data
+//                            String documentData = documentSnapshot.getData().toString();
+//                            Log.d("GET USER FROM DB", "Document data: " + documentData);
+//                        } else {
+//                            Log.d("GET USER FROM DB", "No such document");
+//                        }
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w("GET USER FROM DB", "Error getting document", e);
+//                    }
+//                });
+//    }
+
+    /** Post Methods **/
+
 }

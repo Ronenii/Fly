@@ -5,6 +5,8 @@ import java.util.Vector;
 public class Page extends Entity{
 
     /** DATA MEMBERS **/
+    String title;
+    int id;
     private Vector<User> followers;
     private Vector<User> admins;
 
@@ -19,9 +21,9 @@ public class Page extends Entity{
     /** METHODS **/
 
     // Page c'tor
-    public Page(int id, String name){
-        setId(id);
-        setName(name);
+    public Page(int id, String title){
+        this.id = id;
+        this.title = title;
     }
 
     public Vector<User> getFollowers() {

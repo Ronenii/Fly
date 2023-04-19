@@ -9,19 +9,19 @@ package com.GroupC.fly.data.Objects;
 
 public class Address {
 
-    /* Data Members */
+    /** Data Members **/
     private String country, region, city, street, streetNumber;
 
 
-    /* Functions */
+    /** Methods **/
 
-    // Adrress c'tor.
+    // Address c'tor.
     public Address(String country, String region, String city, String street, String streetNumber){
-        country = country;
-        region = region;
-        city = city;
-        street = street;
-        streetNumber = streetNumber;
+        this.country = country;
+        this.region = region;
+        this.city = city;
+        this.street = street;
+        this.streetNumber = streetNumber;
     }
     public Address(String country, String city)
     {

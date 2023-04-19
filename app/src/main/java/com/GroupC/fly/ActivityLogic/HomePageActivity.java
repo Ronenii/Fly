@@ -71,6 +71,10 @@ public class HomePageActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
+
+    /**
+     *  Return to welcome page, logout current user.
+     */
     public void onLogoutClick(View view) {
         loggedInUser = null; // Remove the current logged in user.
 
