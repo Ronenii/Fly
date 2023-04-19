@@ -33,7 +33,6 @@ import java.util.Objects;
 public class FragmentBlogPostViewModel extends ViewModel {
     ActivityResultLauncher<Intent> mMediaLauncher;
     Uri mImgUri;
-    WeakReference<TextInputEditText> mPostTitle;
     WeakReference<TextInputEditText> mPostDesc;
     WeakReference<Button> mBtnUpload;
     WeakReference<ImageView> uploadImg;
@@ -75,13 +74,13 @@ public class FragmentBlogPostViewModel extends ViewModel {
     }
 
     public void onUpdateText(View view) {
-        mPostTitle.get().addTextChangedListener(new TextWatcher() {
+        mPostDesc.get().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mPostTitle.get().setText(charSequence);
+                mPostDesc.get().setText(charSequence);
             }
 
             @Override
@@ -92,10 +91,6 @@ public class FragmentBlogPostViewModel extends ViewModel {
     public Post onUpload(View view) {
         Post postData = new Post();
 
-        if (mPostTitle != null) {
-            postData.setPostTitle(mPostTitle.get());
-            Log.i("[onUpload]:", Objects.requireNonNull(mPostTitle.get().getText()).toString());
-        }
         if (mPostDesc != null) {
             postData.setPostDesc(mPostDesc.get());
             Log.i("[onUpload]:", Objects.requireNonNull(mPostDesc.get().getText()).toString());

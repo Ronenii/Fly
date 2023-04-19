@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentLogic.FragmentBlogPost"
-    android:id="@+id/con_post">
+    android:id="@+id/con_post1">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,7 +33,7 @@
                     android:textSize="25sp" />
 
                 <ImageButton
-                    android:id="@+id/btn_goBack"
+                    android:id="@+id/btn_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/tv_addPost"
@@ -50,31 +49,19 @@
                     android:src="@drawable/ic_go_back" />
             </RelativeLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addPostTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rounded_corners"
-                android:singleLine="true"
-                android:minHeight="20dp"
-                android:padding="10dp"
-                android:onClick="onUpdateText"
-                android:layout_marginBottom="15dp"
-                android:hint="Enter Title" />
-
             <ImageView
-                android:id="@+id/addPostImg"
+                android:id="@+id/btn_add_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="138dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/rounded_corners"
-                android:singleLine="true"
                 android:minHeight="20dp"
                 android:padding="10dp"
-                android:layout_marginBottom="15dp"
+                android:singleLine="true"
                 android:src="@drawable/add_img" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addPostDesc"
+                android:id="@+id/et_post_desc"
                 android:layout_width="match_parent"
                 android:layout_height="162dp"
                 android:background="@drawable/rounded_corners"
@@ -86,7 +73,7 @@
                 android:hint="Enter Description" />
 
             <Button
-                android:id="@+id/buttonUpload"
+                android:id="@+id/btn_post"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="82dp"
