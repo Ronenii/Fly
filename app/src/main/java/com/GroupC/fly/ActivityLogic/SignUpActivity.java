@@ -25,9 +25,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
-import com.GroupC.fly.data.Objects.Address;
 import com.GroupC.fly.data.Objects.User;
-import com.GroupC.fly.data.model.FirebaseModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
@@ -263,7 +261,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
      * @param view The view that was set by 'onCreate'
      */
     public void onReturnClick(View view) {
-        Intent moveToHome = new Intent(this, MainActivity.class);
+        Intent moveToHome = new Intent(this, StartUpActivity.class);
         startActivity(moveToHome);
     }
 

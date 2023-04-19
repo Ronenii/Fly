@@ -78,7 +78,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void onLogoutClick(View view) {
         loggedInUser = null; // Remove the current logged in user.
 
-        Intent moveToWelcomeScreen = new Intent(this, MainActivity.class);
+        Intent moveToWelcomeScreen = new Intent(this, StartUpActivity.class);
         startActivity(moveToWelcomeScreen);
     }
 

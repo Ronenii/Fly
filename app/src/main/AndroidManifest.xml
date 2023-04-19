@@ -53,7 +53,7 @@
             android:name=".ActivityLogic.SignUpActivity2"
             android:exported="false" />
         <activity
-            android:name=".ActivityLogic.MainActivity"
+            android:name=".ActivityLogic.StartUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
