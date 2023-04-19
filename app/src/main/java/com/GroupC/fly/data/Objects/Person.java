@@ -2,7 +2,7 @@ package com.GroupC.fly.data.Objects;
 
 import java.util.Vector;
 
-enum relationshipStatus{
+enum eRelationshipStatus{
     SINGLE,
     MARRIED,
     DIVORCED,
@@ -10,35 +10,61 @@ enum relationshipStatus{
     IAR //in a relationship
 }
 
-public class Person extends Entity{
+public class Person  extends Entity{
 
-    /* DATA MEMBERS */
-    private String email, job, alma_matter, username;
+    /** DATA MEMBERS **/
+
+    private String email, job, almaMatter, username, firstName, lastName, nickname;
     private int age;
-    private relationshipStatus relationship_status;
+    private eRelationshipStatus relationshipStatus;
     private Vector<Person> friends;
 
-    /* IMPLEMENTATION OF ABSTRACT METHODS */
+    /** IMPLEMENTATION OF ABSTRACT METHODS **/
     public void createEntityInDB(){}
     public void updateEntityInDB(){}
     public void deleteEntityInDB(){}
 
     /** METHODS **/
 
-    /**Person c'tor.**/
-    public Person(String i_email, String i_name, String i_username, String i_job, String i_almaMatter, int i_age, Address i_address,
-                  relationshipStatus i_relationshipStatus){
-        setName(i_name);
-        setAddress(i_address);
-        email = i_email;
-        username = i_username;
-        job = i_job;
-        alma_matter = i_almaMatter;
-        relationship_status = i_relationshipStatus;
-        age = i_age;
+    //Person c'tor.
+
+    public Person(){}
+    public Person(String email, String name, String username, String job, String almaMatter, int age, Address address,
+                  eRelationshipStatus relationshipStatus){
+        setName(name);
+        setAddress(address);
+        email = email;
+        username = username;
+        job = job;
+        almaMatter = almaMatter;
+        relationshipStatus = relationshipStatus;
+        age = age;
         // TODO: id generator via firebase.
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String first_name) {
+        this.firstName = first_name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getEmail() {
         return email;
@@ -57,11 +83,11 @@ public class Person extends Entity{
     }
 
     public String get_almaMatter() {
-        return alma_matter;
+        return almaMatter;
     }
 
-    public void set_almaMatter(String almaMatter) {
-        this.alma_matter = almaMatter;
+    public void setAlmaMatter(String almaMatter) {
+        this.almaMatter = almaMatter;
     }
 
     public String getUsername() {
@@ -88,9 +114,9 @@ public class Person extends Entity{
         this.friends = friends;
     }
 
-    /**Returns the relationship status of the user as a string**/
+    //Returns the relationship status of the user as a string
     public String getRelationship_status_string() {
-        switch (relationship_status){
+        switch (relationshipStatus){
             case MARRIED:
                 return "Married";
             case SINGLE:
@@ -106,11 +132,11 @@ public class Person extends Entity{
         }
     }
 
-    public relationshipStatus getRelationship_status() {
-        return relationship_status;
+    public eRelationshipStatus getRelationship_status() {
+        return relationshipStatus;
     }
 
-    public void setRelationship_status(relationshipStatus relationshipStatus) {
-        this.relationship_status = relationshipStatus;
+    public void setRelationship_status(eRelationshipStatus relationshipStatus) {
+        this.relationshipStatus = relationshipStatus;
     }
 }

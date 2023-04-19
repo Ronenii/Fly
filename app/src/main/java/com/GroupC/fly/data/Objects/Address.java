@@ -4,23 +4,34 @@ package com.GroupC.fly.data.Objects;
  * This class handles the address data type that will be users for regular users as well as pages.
  *
  * **/
+
+
+
 public class Address {
 
-    /** Data Members **/
+    /* Data Members */
     private String country, region, city, street, streetNumber;
 
 
-    /** Methods **/
+    /* Functions */
+
+    // Adrress c'tor.
     public Address(String country, String region, String city, String street, String streetNumber){
-        this.country = country;
-        this.region = region;
-        this.city = city;
-        this.street = street;
-        this.streetNumber = streetNumber;
+        country = country;
+        region = region;
+        city = city;
+        street = street;
+        streetNumber = streetNumber;
     }
     public Address(String country, String city)
     {
         this.country = country;
+        this.city = city;
+    }
+
+    //TODO: Temporary until we sort out the address in the signup process
+    public Address(String city)
+    {
         this.city = city;
     }
 
@@ -56,7 +67,7 @@ public class Address {
         this.street = street;
     }
 
-    public String getStreet_number() {
+    public String getStreetNumber() {
         return streetNumber;
     }
 

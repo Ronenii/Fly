@@ -6,9 +6,11 @@ import java.util.Vector;
  * This class handles the abstract entity class, which is the "father" of the different types of users we have
  * like: person, page etc.
  * **/
+
 abstract class Entity {
 
         /** DATA MEMBERS **/
+
         private String name;
         private int id;
         private Address address;
@@ -25,6 +27,7 @@ abstract class Entity {
 
 
         /** METHODS **/
+
         public String getName() {
                 return name;
         }

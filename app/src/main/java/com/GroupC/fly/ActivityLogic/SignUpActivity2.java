@@ -13,8 +13,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.GroupC.fly.R;
+import com.GroupC.fly.data.Objects.Address;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +25,8 @@ import java.util.Calendar;
 public class SignUpActivity2 extends AppCompatActivity {
 
     String[] genderDropDown;
+
+    EditText etFirstName, etLastName, etNickname, etJob, etEducation, etCity;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
 
@@ -35,7 +40,16 @@ public class SignUpActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up2);
 
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page2);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         globalFuncs.startBackgroundAnimation();
+
+        etFirstName = findViewById(R.id.et_first_name);
+        etLastName = findViewById(R.id.et_last_name);
+        etNickname = findViewById(R.id.et_nickname);
+        etJob = findViewById(R.id.et_job);
+        etEducation = findViewById(R.id.et_city);
+        etCity = findViewById(R.id.et_education);
 
         //Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
@@ -102,4 +116,22 @@ public class SignUpActivity2 extends AppCompatActivity {
         startActivity(moveBack);
     }
 
+    public void onNextClickPartTwo(View view)
+    {
+        Address userCity = new Address(etCity.getText().toString());
+        SignUpActivity.user.setFirstName(etFirstName.getText().toString());
+        SignUpActivity.user.setLastName(etLastName.getText().toString());
+        SignUpActivity.user.setNickname(etNickname.getText().toString());
+        SignUpActivity.user.setJob(etJob.getText().toString());
+        SignUpActivity.user.setAddress(userCity);
+        SignUpActivity.user.setAlmaMatter(etEducation.getText().toString());
+        //TODO: add the option to draw users birthday when implemented into the 2nd sign up activity
+        //TODO: Check validity of data
+        //TODO: this will redirect to and activity where a user can add a profile picture
+        //TODO: Upload this data to firebase
+
+
+        Intent moveToHome = new Intent(this, HomePageActivity.class);
+        startActivity(moveToHome);
+    }
 }

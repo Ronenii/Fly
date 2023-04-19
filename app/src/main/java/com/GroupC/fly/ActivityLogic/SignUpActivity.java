@@ -31,6 +31,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
+import com.GroupC.fly.data.Objects.Person;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
@@ -55,10 +56,13 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     boolean ivOneNumberCheckBool;
     boolean ivOneSpecialCharCheckBool;
 
+    private int passwordValidityCounter = 0;
     boolean showHideIconToggleOn = false;
 
 
     static private final String SHA_TYPE = "SHA-256";
+
+    static public Person user;
 
     // A regex to match an email address.
     static private final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
@@ -67,21 +71,37 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
         globalFuncs.startBackgroundAnimation();
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         etPasswordRepeat = findViewById(R.id.et_password_repeat);
+        nextButton = findViewById(R.id.btn_next);
         layout = findViewById(R.id.sign_up_page);
         ivQuestionMark = findViewById(R.id.ic_question_mark);
 
-        // Initialize tooltip manager
+        //Initialize tooltip manager
         toolTipsManager = new ToolTipsManager(this);
 
         onShowPasswordToggle();
         onPasswordChange();
+    }
+
+    //Responsible for what happens when next is clicked in the first sign up screen.
+    //Credentials are verified and afterwards the email is drawn into the person object that represents the user.
+    //Afterward we are redirected to the next screen.
+    public void onNextClickPartOne(View view)
+    {
+        if (getCredentials()) {
+            if (verifyEmail() && verifyPassword()) {
+                user = new Person();
+                user.setEmail(etEmail.getText().toString());
+                // Move to the profile information activity.
+                Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
+                startActivity(moveToNext);
+            }
+        }
     }
 
     /**
@@ -103,6 +123,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
             // handle exception
             Log.v("[digestPasswordError]:", e.toString());
         }
+
         return null;
     }
 
@@ -115,9 +136,10 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
             password = digestPassword(etPassword.getText().toString());
             passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
             return true;
+        } else {
+            displayErrorToast(values.INVALID_PASSWORD);
+            return false;
         }
-        displayErrorToast(values.INVALID_PASSWORD);
-        return false;
     }
 
 
@@ -290,21 +312,10 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         startActivity(intent);
     }
 
+
     @Override
     public void onTipDismissed(View view, int anchorViewId, boolean byUser) {
 
-    }
-
-    public void onNextClick(View view) {
-        if (getCredentials()) {
-            if (verifyEmail() && verifyPassword()) {
-                //TODO: Save/Create new user
-
-                // Move to the profile information activity.
-                Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
-                startActivity(moveToNext);
-            }
-        }
     }
 }
 
