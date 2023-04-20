@@ -7,7 +7,7 @@
         android:radius="10dp"/>
 
     <stroke
-        android:color="#20ffff"
+        android:color="@color/blueBtnColor"
         android:width="4dp"/>
 
 </shape>

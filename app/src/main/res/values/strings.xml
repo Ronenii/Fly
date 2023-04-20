@@ -30,7 +30,6 @@
         <item>Male</item>
         <item>Female</item>
         <item>Non-Binary</item>
-        <item>Attack Helicopter</item>
         <item>Seal</item>
     </string-array>
     <string name="title_activity_home_page">HomePageActivity</string>

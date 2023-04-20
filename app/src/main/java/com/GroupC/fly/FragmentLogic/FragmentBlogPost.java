@@ -33,22 +33,20 @@ public class FragmentBlogPost extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_blog_post, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_blog_post2, container, false);
 
         // Get the view model (all the business logic is in there).
         mViewModel = new ViewModelProvider(this).get(FragmentBlogPostViewModel.class);
         mViewModel.mMediaLauncher = getActivityLauncher();
 
         // Create the variables.
-        mViewModel.uploadImg = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostImg));
-        mViewModel.mPostTitle = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostTitle));
-        mViewModel.mPostDesc = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.addPostDesc));
-        mViewModel.mBtnUpload = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.buttonUpload));
-        mViewModel.goBackButton = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.btn_goBack));
+        mViewModel.uploadImg = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.btn_add_image));
+        mViewModel.mPostDesc = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.et_post_desc));
+        mViewModel.mBtnUpload = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.btn_post));
+        mViewModel.goBackButton = new WeakReference<>(Objects.requireNonNull(rootView).findViewById(R.id.btn_back));
 
         // Register listeners
         mViewModel.uploadImg.get().setOnClickListener(this::onPickImage);
-        mViewModel.mPostTitle.get().setOnClickListener(mViewModel::onUpdateText);
         mViewModel.mPostDesc.get().setOnClickListener(mViewModel::onUpdateText);
         mViewModel.mBtnUpload.get().setOnClickListener(mViewModel::onUpload);
         mViewModel.goBackButton.get().setOnClickListener(this::onGoBackClick);
@@ -96,7 +94,7 @@ public class FragmentBlogPost extends Fragment {
                     // On success store the image, and update the ImageView.
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Log.i("[info]:", "Took a photo");
-                        ImageView postImgView = Objects.requireNonNull(getActivity()).findViewById(R.id.addPostImg);
+                        ImageView postImgView = Objects.requireNonNull(getActivity()).findViewById(R.id.btn_add_image);
                         postImgView.setImageURI(mViewModel.mImgUri);
                     } else {
                         Log.d("[debug]:", String.valueOf(result.getResultCode()));
