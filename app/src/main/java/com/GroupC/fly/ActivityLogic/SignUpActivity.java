@@ -3,21 +3,15 @@ package com.GroupC.fly.ActivityLogic;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,46 +25,30 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
-import com.GroupC.fly.data.Objects.Person;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
 
 public class SignUpActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
-    String email = null;
-    String password = null;
-    String passwordRepeat = null;
-    TextInputEditText etEmail;
-    TextInputEditText etPassword;
-    TextInputEditText etPasswordRepeat;
+    String email = null, password = null, passwordRepeat = null;
 
+    TextInputEditText etEmail, etPassword, etPasswordRepeat;
     ViewGroup layout;
     ToolTipsManager toolTipsManager;
     ImageView ivQuestionMark;
     Button nextButton;
 
-    boolean ivEightDigitsCheckBool;
-    boolean ivOneUpperCaseCheckBool;
-    boolean ivOneLowerCaseCheckBool;
-    boolean ivOneNumberCheckBool;
-    boolean ivOneSpecialCharCheckBool;
-
-    private int passwordValidityCounter = 0;
-    boolean showHideIconToggleOn = false;
+    boolean ivEightDigitsCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool,
+            ivOneNumberCheckBool, ivOneSpecialCharCheckBool, showHideIconToggleOn = false;
 
 
-    static private final String SHA_TYPE = "SHA-256";
-
-    static public Person user;
-
-    // A regex to match an email address.
-    static private final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
-
+    /** METHODS **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.sign_up_page);
         globalFuncs.startBackgroundAnimation();
 
@@ -88,28 +66,30 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         onPasswordChange();
     }
 
-    //Responsible for what happens when next is clicked in the first sign up screen.
-    //Credentials are verified and afterwards the email is drawn into the person object that represents the user.
-    //Afterward we are redirected to the next screen.
+    /**
+     *  Responsible for what happens when next is clicked in the first sign up screen.
+     *  Credentials are verified and afterwards the email is drawn into the person object that represents the user.
+     *  Afterward we are redirected to the next screen.
+     */
     public void onNextClickPartOne(View view)
     {
         if (getCredentials()) {
             if (verifyEmail() && verifyPassword()) {
-                user = new Person();
-                user.setEmail(etEmail.getText().toString());
-                // Move to the profile information activity.
                 Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
+                moveToNext.putExtra(values.KEY_EMAIL, email);       // Send email field to the next activity.
+                moveToNext.putExtra(values.KEY_PASSWORD, password); // Send password field to the next activity.
                 startActivity(moveToNext);
             }
         }
     }
 
+
     /**
-     * This function creates a SHA-256 hash of the password, will be later stored in the db.
-      */
+     * Creates a SHA-256 hash of the password to encrypt it.
+     */
     private String digestPassword(@NonNull String password) {
         try {
-            MessageDigest md = MessageDigest.getInstance(SHA_TYPE);
+            MessageDigest md = MessageDigest.getInstance(values.SHA_TYPE);
             byte[] passwordBytes = password.getBytes();
             byte[] hashBytes = md.digest(passwordBytes);
 
@@ -117,18 +97,18 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
             for (byte b : hashBytes) {
                 sb.append(String.format("%02x", b));
             }
-
             return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
+        }
+        catch (NoSuchAlgorithmException e) {
             // handle exception
             Log.v("[digestPasswordError]:", e.toString());
+            return null;
         }
-
-        return null;
     }
 
+
     /**
-     * Gets credentials from user
+     * Gets credentials from text input boxes.
      */
     private boolean getCredentials() {
         email = etEmail.getText().toString();
@@ -149,24 +129,16 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
      */
     private boolean isValidPassword() {
         // A regex that checks if a string containing the specified chars is between 8-20 chars long.
-        final String PASSWORD_LENGTH_SCOPE_REGEX = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";
-        // The regex that checks if the string contains a number.
-        final String NUMBERS_REGEX = ".*\\d.*";
-        // The regex that checks if the string contains an upper case letter.
-        final String UPPER_CASE_REGEX = ".*[A-Z].*";
-        // The regex that checks if the string contains a lower case letter.
-        final String LOWER_CASE_REGEX = ".*[a-z].*";
-        // The regex that checks if the string contains a special char.
-        final String SPECIAL_CHARS_REGEX = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*";
+
 
         boolean isValidLength;
         int passwordValidityCounter = 0;
         String password = etPassword.getText().toString();
-        isValidLength = ivEightDigitsCheckBool = checkPasswordRegex(password, PASSWORD_LENGTH_SCOPE_REGEX);
-        ivOneNumberCheckBool = checkPasswordRegex(password, NUMBERS_REGEX);             // Check for a number in password.
-        ivOneUpperCaseCheckBool = checkPasswordRegex(password, UPPER_CASE_REGEX);       // Check for an upper case letter in password.
-        ivOneLowerCaseCheckBool = checkPasswordRegex(password, LOWER_CASE_REGEX);       // Check for a lower case letter in password.
-        ivOneSpecialCharCheckBool = checkPasswordRegex(password, SPECIAL_CHARS_REGEX);  // Check for a special character letter in password.
+        isValidLength = ivEightDigitsCheckBool = checkPasswordRegex(password, values.LENGTH_SCOPE_REGEX);
+        ivOneNumberCheckBool = checkPasswordRegex(password, values.NUMBERS_REGEX);             // Check for a number in password.
+        ivOneUpperCaseCheckBool = checkPasswordRegex(password, values.UPPER_CASE_REGEX);       // Check for an upper case letter in password.
+        ivOneLowerCaseCheckBool = checkPasswordRegex(password, values.LOWER_CASE_REGEX);       // Check for a lower case letter in password.
+        ivOneSpecialCharCheckBool = checkPasswordRegex(password, values.SPECIAL_CHARS_REGEX);  // Check for a special character letter in password.
 
         for(boolean bool : new boolean[] {ivOneNumberCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool ,ivOneSpecialCharCheckBool})
             passwordValidityCounter += bool ? 1 : 0; // Add 1 to counter for each boolean variable that its value is 'true'.
@@ -174,12 +146,14 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         return isValidLength && passwordValidityCounter >= 3;
     }
 
+
     /**
      * Checks if a password given by a String is matching a given regex.
      */
     private boolean checkPasswordRegex(String password, final String regex) {
         return password.matches(regex);
     }
+
 
     /**
      * listens for changes in the password and allows for live updates of the checkmarks
@@ -212,17 +186,19 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         });
     }
 
+
     /**
      * Verifies the email address.
      */
     private boolean verifyEmail() {
-        if (!email.matches(EMAIL_PATTERN)) {
+        if (!email.matches(values.EMAIL_PATTERN)) {
             displayErrorToast(values.INVALID_EMAIL);
             return false;
         } else {
             return true;
         }
     }
+
 
     /**
      * Verifies the password against the 'passwordRepeat'.
@@ -235,6 +211,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
             return true;
         }
     }
+
 
     /**
      * Displays an error toast.
@@ -252,25 +229,26 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         toast.show();
     }
 
+
     private void displayErrorTooltip()
     {
         toolTipsManager.findAndDismiss(ivQuestionMark);
         ToolTip.Builder builder = new ToolTip.Builder(this,ivQuestionMark
-        ,layout,"Password Requirements", ToolTip.POSITION_LEFT_TO);
+                ,layout,"Password Requirements", ToolTip.POSITION_LEFT_TO);
         builder.setAlign(ToolTip.ALIGN_LEFT);
         builder.setBackgroundColor(R.color.blueBtnColor);
         toolTipsManager.show(builder.build());
     }
 
+
     /**
      * This function moves back from the current view to the home screen.
-     *
-     * @param view The view that was set by 'onCreate'
      */
     public void onReturnClick(View view) {
-        Intent moveToHome = new Intent(this, MainActivity.class);
+        Intent moveToHome = new Intent(this, StartUpActivity.class);
         startActivity(moveToHome);
     }
+
 
     /**
      * This Method creates a listener on the Eye icon on the password field and controls the hide/show behavior.
@@ -296,9 +274,10 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         });
     }
 
+
     /**
     * Sends controlling booleans to the Password REQ popup activity so that the
-     * check marks will appear at the corresponding positions.
+    * check marks will appear at the corresponding positions.
     */
     public void onQuestionMarkClick(View view)
     {

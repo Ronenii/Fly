@@ -4,16 +4,40 @@ package com.GroupC.fly.ActivityLogic;
  * Use for CONSTANTS that are used in the various java classes.
  */
 public interface values {
-    // Background Animation Values:
-    int BG_ANIMATION_ENTER_FADE_DURATION = 10;
-    int BG_ANIMATION_EXIT_FADE_DURATION = 5000;
+    /** BACKGROUND ANIMATION **/
+    static final int BG_ANIMATION_ENTER_FADE_DURATION = 10;
+    static final int BG_ANIMATION_EXIT_FADE_DURATION = 5000;
 
-    // Error Messages:
-    String INVALID_PASSWORD = "Password invalid";
-    String INVALID_EMAIL = "Email invalid";
-    String PASSWORDS_UNMATCHED = "Passwords do not match";
 
-    // More Values:
+    /** ERROR MESSAGES **/
+    static final String INVALID_PASSWORD = "Password invalid";
+    static final String INVALID_EMAIL = "Email invalid";
+    static final String PASSWORDS_UNMATCHED = "Passwords do not match";
 
+
+    /** KEYS **/
+    static final String COLLECTION_PATH = "Users";
+    static final String KEY_FIRST_NAME = "firstName";
+    static final String KEY_LAST_NAME = "lastName";
+    static final String KEY_USER_NAME = "username";
+    static final String KEY_ADDRESS = "address";
+    static final String KEY_EMAIL = "email";
+    static final String KEY_JOB = "job";
+    static final String KEY_ALMA_MATTER = "alma-matter";
+    static final String KEY_AGE = "age";
+    static final String KEY_PASSWORD = "password";
+
+
+    /** REGEX **/
+    static final String SHA_TYPE = "SHA-256";       // Type of password encryption.
+    static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+    static final String LENGTH_SCOPE_REGEX = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";  // Checks if the string is from 8 to 20 characters.
+    static final String NUMBERS_REGEX = ".*\\d.*";          // Checks if the string contains a number.
+    static final String UPPER_CASE_REGEX = ".*[A-Z].*";     // Checks if the string contains an upper case letter.
+    static final String LOWER_CASE_REGEX = ".*[a-z].*";     // Checks if the string contains a lower case letter.
+    static final String SPECIAL_CHARS_REGEX = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*"; // Checks if the string contains a special character.
+
+
+    /** MORE VALUES **/
     // Add more here..,
 }

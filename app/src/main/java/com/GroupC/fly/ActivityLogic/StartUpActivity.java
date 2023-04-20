@@ -9,23 +9,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.GroupC.fly.R;
 
-public class MainActivity extends AppCompatActivity {
-
-   /* private AlertDialog.Builder sign_in_dialog_window;
-    private AlertDialog dialog;
-    private EditText password_sign_in;
-    private EditText email_sign_in;
-    private Button sign_in_btn;*/
-
+public class StartUpActivity extends AppCompatActivity {
     private CheckBox btnShowPassword;
-    Dialog signInDialog;
+    private Dialog signInDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
