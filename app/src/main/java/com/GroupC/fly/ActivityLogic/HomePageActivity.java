@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.GroupC.fly.Services.AuthService;
 import com.GroupC.fly.data.model.LoggedInUser;
 import com.GroupC.fly.databinding.ActivityHomePageBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -19,12 +20,15 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.checkerframework.checker.units.qual.A;
+
 public class HomePageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomePageBinding binding;
 
     private FragmentManager fragManager;
+    private AuthService mAuth;
     private static LoggedInUser loggedInUser;
 
     @Override
@@ -37,6 +41,8 @@ public class HomePageActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarHomePage.toolbar);
 
         binding.appBarHomePage.fab.setOnClickListener(this::onPost);
+
+        mAuth = new AuthService(this);
 
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -77,7 +83,7 @@ public class HomePageActivity extends AppCompatActivity {
      *  Return to welcome page, logout current user.
      */
     public void onLogoutClick(View view) {
-        loggedInUser = null; // Remove the current logged in user.
+        mAuth.signOut();
 
         Intent moveToWelcomeScreen = new Intent(this, StartUpActivity.class);
         startActivity(moveToWelcomeScreen);

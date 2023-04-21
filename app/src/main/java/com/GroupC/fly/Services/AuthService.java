@@ -31,6 +31,10 @@ public class AuthService {
         return mAuth.getCurrentUser();
     }
 
+    public void signOut() {
+        mAuth.signOut();
+    }
+
     /**
      *
      * */
