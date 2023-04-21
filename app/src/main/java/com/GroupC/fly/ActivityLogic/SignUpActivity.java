@@ -25,10 +25,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.GroupC.fly.R;
+import com.GroupC.fly.Services.AuthService;
+import com.GroupC.fly.Services.HashService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
+
+import org.checkerframework.checker.units.qual.A;
 
 public class SignUpActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
     String email = null, password = null, passwordRepeat = null;
@@ -38,6 +42,8 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     ToolTipsManager toolTipsManager;
     ImageView ivQuestionMark;
     Button nextButton;
+    AuthService mAuth;
+    HashService mHash;
 
     boolean ivEightDigitsCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool,
             ivOneNumberCheckBool, ivOneSpecialCharCheckBool, showHideIconToggleOn = false;
@@ -61,6 +67,8 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
 
         //Initialize tooltip manager
         toolTipsManager = new ToolTipsManager(this);
+        mAuth = new AuthService(this);
+        mHash = new HashService();
 
         onShowPasswordToggle();
         onPasswordChange();
@@ -75,6 +83,8 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     {
         if (getCredentials()) {
             if (verifyEmail() && verifyPassword()) {
+                mAuth.createUserWithEmailAndPassword(email, password);
+
                 Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
                 moveToNext.putExtra(values.KEY_EMAIL, email);       // Send email field to the next activity.
                 moveToNext.putExtra(values.KEY_PASSWORD, password); // Send password field to the next activity.
@@ -85,36 +95,13 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
 
 
     /**
-     * Creates a SHA-256 hash of the password to encrypt it.
-     */
-    private String digestPassword(@NonNull String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance(values.SHA_TYPE);
-            byte[] passwordBytes = password.getBytes();
-            byte[] hashBytes = md.digest(passwordBytes);
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        }
-        catch (NoSuchAlgorithmException e) {
-            // handle exception
-            Log.v("[digestPasswordError]:", e.toString());
-            return null;
-        }
-    }
-
-
-    /**
      * Gets credentials from text input boxes.
      */
     private boolean getCredentials() {
         email = etEmail.getText().toString();
         if (isValidPassword()) {
-            password = digestPassword(etPassword.getText().toString());
-            passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
+            password = mHash.getHashed(etPassword.getText().toString());
+            passwordRepeat = mHash.getHashed(etPasswordRepeat.getText().toString());
             return true;
         } else {
             displayErrorToast(values.INVALID_PASSWORD);
