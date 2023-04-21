@@ -1,5 +1,7 @@
 package com.GroupC.fly.ActivityLogic;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import android.util.Log;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import com.GroupC.fly.R;
+import com.GroupC.fly.Services.AuthService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
@@ -38,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     ToolTipsManager toolTipsManager;
     ImageView ivQuestionMark;
     Button nextButton;
+    AuthService mAuth;
 
     boolean ivEightDigitsCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool,
             ivOneNumberCheckBool, ivOneSpecialCharCheckBool, showHideIconToggleOn = false;
@@ -61,6 +59,7 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
 
         //Initialize tooltip manager
         toolTipsManager = new ToolTipsManager(this);
+        mAuth = new AuthService(this);
 
         onShowPasswordToggle();
         onPasswordChange();
@@ -75,34 +74,16 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     {
         if (getCredentials()) {
             if (verifyEmail() && verifyPassword()) {
-                Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
-                moveToNext.putExtra(values.KEY_EMAIL, email);       // Send email field to the next activity.
-                moveToNext.putExtra(values.KEY_PASSWORD, password); // Send password field to the next activity.
-                startActivity(moveToNext);
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(completeListener -> {
+                    Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
+                    moveToNext.putExtra(values.KEY_EMAIL, email);       // Send email field to the next activity.
+                    moveToNext.putExtra(values.KEY_PASSWORD, password); // Send password field to the next activity.
+                    startActivity(moveToNext);
+                }).addOnFailureListener(failureListener -> {
+                    Log.v(TAG, failureListener.getMessage());
+                });
+
             }
-        }
-    }
-
-
-    /**
-     * Creates a SHA-256 hash of the password to encrypt it.
-     */
-    private String digestPassword(@NonNull String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance(values.SHA_TYPE);
-            byte[] passwordBytes = password.getBytes();
-            byte[] hashBytes = md.digest(passwordBytes);
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        }
-        catch (NoSuchAlgorithmException e) {
-            // handle exception
-            Log.v("[digestPasswordError]:", e.toString());
-            return null;
         }
     }
 
@@ -113,8 +94,8 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     private boolean getCredentials() {
         email = etEmail.getText().toString();
         if (isValidPassword()) {
-            password = digestPassword(etPassword.getText().toString());
-            passwordRepeat = digestPassword(etPasswordRepeat.getText().toString());
+            password = etPassword.getText().toString();
+            passwordRepeat = etPasswordRepeat.getText().toString();
             return true;
         } else {
             displayErrorToast(values.INVALID_PASSWORD);

@@ -68,6 +68,7 @@
         android:backgroundTint="#03A9F4"
         android:text="@string/sign_in_msg"
         android:textColor="@color/white"
+        android:onClick="onSignInCompleteClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
