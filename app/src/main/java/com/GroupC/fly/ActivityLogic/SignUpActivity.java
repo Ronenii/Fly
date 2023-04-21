@@ -1,5 +1,7 @@
 package com.GroupC.fly.ActivityLogic;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,22 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import android.util.Log;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
-import com.GroupC.fly.Services.HashService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
-
-import org.checkerframework.checker.units.qual.A;
 
 public class SignUpActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
     String email = null, password = null, passwordRepeat = null;
@@ -43,7 +36,6 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     ImageView ivQuestionMark;
     Button nextButton;
     AuthService mAuth;
-    HashService mHash;
 
     boolean ivEightDigitsCheckBool, ivOneUpperCaseCheckBool, ivOneLowerCaseCheckBool,
             ivOneNumberCheckBool, ivOneSpecialCharCheckBool, showHideIconToggleOn = false;
@@ -68,7 +60,6 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         //Initialize tooltip manager
         toolTipsManager = new ToolTipsManager(this);
         mAuth = new AuthService(this);
-        mHash = new HashService();
 
         onShowPasswordToggle();
         onPasswordChange();
@@ -83,12 +74,15 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     {
         if (getCredentials()) {
             if (verifyEmail() && verifyPassword()) {
-                mAuth.createUserWithEmailAndPassword(email, password);
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(completeListener -> {
+                    Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
+                    moveToNext.putExtra(values.KEY_EMAIL, email);       // Send email field to the next activity.
+                    moveToNext.putExtra(values.KEY_PASSWORD, password); // Send password field to the next activity.
+                    startActivity(moveToNext);
+                }).addOnFailureListener(failureListener -> {
+                    Log.v(TAG, failureListener.getMessage());
+                });
 
-                Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
-                moveToNext.putExtra(values.KEY_EMAIL, email);       // Send email field to the next activity.
-                moveToNext.putExtra(values.KEY_PASSWORD, password); // Send password field to the next activity.
-                startActivity(moveToNext);
             }
         }
     }
@@ -100,8 +94,8 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
     private boolean getCredentials() {
         email = etEmail.getText().toString();
         if (isValidPassword()) {
-            password = mHash.getHashed(etPassword.getText().toString());
-            passwordRepeat = mHash.getHashed(etPasswordRepeat.getText().toString());
+            password = etPassword.getText().toString();
+            passwordRepeat = etPasswordRepeat.getText().toString();
             return true;
         } else {
             displayErrorToast(values.INVALID_PASSWORD);

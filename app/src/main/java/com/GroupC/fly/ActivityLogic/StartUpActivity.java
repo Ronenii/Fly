@@ -9,28 +9,22 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
-import com.GroupC.fly.Services.HashService;
-import com.google.android.material.textfield.TextInputEditText;
-
-import org.checkerframework.checker.units.qual.A;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 public class StartUpActivity extends AppCompatActivity {
     private CheckBox btnShowPassword;
     private Dialog signInDialog;
     private AuthService mAuth;
-    private HashService mHash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +32,6 @@ public class StartUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
         mAuth = new AuthService(this);
-        mHash = new HashService();
     }
 
     public void onSignUpClick (View view)
@@ -68,13 +61,13 @@ public class StartUpActivity extends AppCompatActivity {
 
         mAuth.signInWithEmailAndPassword(
                 email_sign_in.getText().toString(),
-                mHash.getHashed(password_sign_in.getText().toString())
-        );
-
-        if (mAuth.getCurrentUser() != null) {
-            Intent moveToHomePage = new Intent(this, HomePageActivity.class);
-            startActivity(moveToHomePage);
-        }
+                password_sign_in.getText().toString()
+        ).addOnCompleteListener(this, completeListener -> {
+            Intent moveToHome = new Intent(this, HomePageActivity.class);
+            startActivity(moveToHome);
+        }).addOnFailureListener(failureListener -> {
+            Log.v(TAG, failureListener.getMessage());
+        });
     }
 
     /**

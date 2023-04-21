@@ -1,9 +1,13 @@
 package com.GroupC.fly.Services;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.GroupC.fly.ActivityLogic.HomePageActivity;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -38,8 +42,8 @@ public class AuthService {
     /**
      *
      * */
-    public void createUserWithEmailAndPassword(String email, String pwd) {
-        mAuth.createUserWithEmailAndPassword(email, pwd)
+    public Task<AuthResult> createUserWithEmailAndPassword(String email, String pwd) {
+        return mAuth.createUserWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(registerTask -> {
                     if (registerTask.isSuccessful()) {
                         Log.d("[Auth]", "createUserWithEmailAndPassword:success");
@@ -60,12 +64,15 @@ public class AuthService {
         );
     }
 
-    public void signInWithEmailAndPassword(String email, String pwd) {
-        mAuth.signInWithEmailAndPassword(email, pwd)
+    public Task<AuthResult> signInWithEmailAndPassword(String email, String pwd) {
+        return mAuth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(signInTask -> {
                    if (signInTask.isSuccessful()) {
                        Log.d("[Auth]", "signInWithEmailAndPassword:success");
                        Toast.makeText(mContext, "Signed in successfully !", Toast.LENGTH_SHORT).show();
+
+                       Intent moveToHomePage = new Intent(mContext, HomePageActivity.class);
+                       mContext.startActivity(moveToHomePage);
                    } else {
                        Log.d("[Auth]", "signInWithEmailAndPassword:fail");
                        Toast.makeText(mContext, "Failed to sign in !", Toast.LENGTH_SHORT).show();
