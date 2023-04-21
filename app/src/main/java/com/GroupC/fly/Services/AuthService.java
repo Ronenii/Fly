@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 /*
 * This class provides a verification service through an email that is sent to the user
 * on registration.
+* Also it provides the ability to log in/out a user.
 * */
 public class AuthService {
     private FirebaseAuth mAuth = null;
@@ -35,12 +36,20 @@ public class AuthService {
         return mAuth.getCurrentUser();
     }
 
+    /**
+     * This function logs out the current user.
+     * */
     public void signOut() {
         mAuth.signOut();
     }
 
     /**
+     * This function registers a user to FirestoreAuth service..
      *
+     * @param email The users email.
+     * @param pwd The users password
+     * @return A task with the auto result, it allows registering listeners to act appropriately
+     * according to the AuthResult.
      * */
     public Task<AuthResult> createUserWithEmailAndPassword(String email, String pwd) {
         return mAuth.createUserWithEmailAndPassword(email, pwd)
@@ -64,20 +73,15 @@ public class AuthService {
         );
     }
 
+    /**
+     * This function signs in a user.
+     *
+     * @param email The users email.
+     * @param pwd The users password
+     * @return A task with the auto result, it allows registering listeners to act appropriately
+     * according to the AuthResult.
+     * */
     public Task<AuthResult> signInWithEmailAndPassword(String email, String pwd) {
-        return mAuth.signInWithEmailAndPassword(email, pwd)
-                .addOnCompleteListener(signInTask -> {
-                   if (signInTask.isSuccessful()) {
-                       Log.d("[Auth]", "signInWithEmailAndPassword:success");
-                       Toast.makeText(mContext, "Signed in successfully !", Toast.LENGTH_SHORT).show();
-
-                       Intent moveToHomePage = new Intent(mContext, HomePageActivity.class);
-                       mContext.startActivity(moveToHomePage);
-                   } else {
-                       Log.d("[Auth]", "signInWithEmailAndPassword:fail");
-                       Toast.makeText(mContext, "Failed to sign in !", Toast.LENGTH_SHORT).show();
-                   }
-                }
-        );
+        return mAuth.signInWithEmailAndPassword(email, pwd);
     }
 }

@@ -59,13 +59,16 @@ public class StartUpActivity extends AppCompatActivity {
         EditText password_sign_in = signInDialog.findViewById(R.id.et_password_si);
         EditText email_sign_in = signInDialog.findViewById(R.id.et_email_si);
 
-        mAuth.signInWithEmailAndPassword(
+        mAuth.signInWithEmailAndPassword
+        (
                 email_sign_in.getText().toString(),
                 password_sign_in.getText().toString()
-        ).addOnCompleteListener(this, completeListener -> {
+        )
+        .addOnCompleteListener(this, completeListener -> {
             Intent moveToHome = new Intent(this, HomePageActivity.class);
             startActivity(moveToHome);
-        }).addOnFailureListener(failureListener -> {
+        })
+        .addOnFailureListener(failureListener -> {
             Log.v(TAG, failureListener.getMessage());
         });
     }
