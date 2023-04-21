@@ -49,7 +49,7 @@ public class HomePageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+        appBarConfiguration = new AppBarConfiguration.Builder(
              R.id.nav_home, R.id.fragmentBlogPost)
              .setOpenableLayout(drawer)
              .build();

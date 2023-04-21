@@ -140,7 +140,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         newUser.setAlmaMatter(etEducation.getText().toString());
         newUser.setEmail(getIntent().getStringExtra("email"));          // Get the email field from SignUpActivity.
         newUser.setPassword(getIntent().getStringExtra("password"));    // Get the password field from SignUpActivity.
-        //TODO: set age to newUser
+        //TODO: set date of birth to newUser
         //TODO: set relationship status to newUser
 
         fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
