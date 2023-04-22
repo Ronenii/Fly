@@ -3,6 +3,8 @@ package com.GroupC.fly.ActivityLogic;
 import com.GroupC.fly.FragmentLogic.FragmentBlogPost;
 import com.GroupC.fly.R;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import com.GroupC.fly.data.model.LoggedInUser;
 import com.GroupC.fly.databinding.ActivityHomePageBinding;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -59,10 +62,8 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void onPost(View view) {
-        setContentView(R.layout.fragment_blog_post2);
-        getSupportFragmentManager()
-                .beginTransaction().replace(R.id.con_post,new FragmentBlogPost())
-                .commit();
+        FragmentBlogPost fragment = new FragmentBlogPost();
+        fragment.show(getSupportFragmentManager(),"PostDialog");
     }
 
     @Override

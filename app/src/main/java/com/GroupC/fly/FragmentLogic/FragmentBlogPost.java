@@ -2,11 +2,15 @@ package com.GroupC.fly.FragmentLogic;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,14 +31,13 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
 
-public class FragmentBlogPost extends Fragment {
+public class FragmentBlogPost extends DialogFragment {
     private enum UserOpt { TAKE_A_PHOTO, CHOOSE_FROM_GALLERY, CANCEL }
     private FragmentBlogPostViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_blog_post2, container, false);
-
         // Get the view model (all the business logic is in there).
         mViewModel = new ViewModelProvider(this).get(FragmentBlogPostViewModel.class);
         mViewModel.mMediaLauncher = getActivityLauncher();
