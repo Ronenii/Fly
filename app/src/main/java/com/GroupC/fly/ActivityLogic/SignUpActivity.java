@@ -77,7 +77,6 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(completeListener -> {
                     Intent moveToNext = new Intent(getApplicationContext(), SignUpActivity2.class);
                     moveToNext.putExtra(values.KEY_EMAIL, email);       // Send email field to the next activity.
-                    moveToNext.putExtra(values.KEY_PASSWORD, password); // Send password field to the next activity.
                     startActivity(moveToNext);
                 }).addOnFailureListener(failureListener -> {
                     Log.v(TAG, failureListener.getMessage());

@@ -147,7 +147,6 @@ public class SignUpActivity2 extends AppCompatActivity {
         newUser.setAddress(new Address(etCity.getText().toString()));
         newUser.setAlmaMatter(etEducation.getText().toString());
         newUser.setEmail(getIntent().getStringExtra("email"));          // Get the email field from SignUpActivity.
-        newUser.setPassword(getIntent().getStringExtra("password"));    // Get the password field from SignUpActivity.
         newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
 
         //TODO: set date of birth to newUser
