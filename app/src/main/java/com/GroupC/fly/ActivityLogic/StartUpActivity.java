@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
@@ -59,14 +60,22 @@ public class StartUpActivity extends AppCompatActivity {
         EditText password_sign_in = signInDialog.findViewById(R.id.et_password_si);
         EditText email_sign_in = signInDialog.findViewById(R.id.et_email_si);
 
+        // Try to sign in the user.
         mAuth.signInWithEmailAndPassword
         (
                 email_sign_in.getText().toString(),
                 password_sign_in.getText().toString()
         )
         .addOnCompleteListener(this, completeListener -> {
-            Intent moveToHome = new Intent(this, HomePageActivity.class);
-            startActivity(moveToHome);
+            // If the user was already created, thus already authenticated.
+            if (completeListener.isSuccessful()) {
+                Intent moveToHome = new Intent(this, HomePageActivity.class);
+                startActivity(moveToHome);
+            }
+            // The user doesn't exist/credentials are not correct.
+            else {
+                Toast.makeText(this, "Email or password are invalid !", Toast.LENGTH_SHORT).show();
+            }
         })
         .addOnFailureListener(failureListener -> {
             Log.v(TAG, failureListener.getMessage());

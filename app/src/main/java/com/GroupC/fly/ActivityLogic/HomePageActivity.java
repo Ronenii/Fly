@@ -20,11 +20,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.checkerframework.checker.units.qual.A;
-
 public class HomePageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
-    private AppBarConfiguration mAppBarConfiguration;
+    private AppBarConfiguration appBarConfiguration;
     private ActivityHomePageBinding binding;
 
     private FragmentManager fragManager;
@@ -54,7 +52,7 @@ public class HomePageActivity extends AppCompatActivity {
              .setOpenableLayout(drawer)
              .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
@@ -75,9 +73,8 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home_page);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
-
 
     /**
      *  Return to welcome page, logout current user.
