@@ -37,6 +37,7 @@ public interface values {
     static final String LOWER_CASE_REGEX = ".*[a-z].*";     // Checks if the string contains a lower case letter.
     static final String SPECIAL_CHARS_REGEX = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*"; // Checks if the string contains a special character.
 
+    static final String DOB_PARSING_FORMAT = "dd/MM/yyyy"; // For date of birth parsing.
 
     /** MORE VALUES **/
     // Add more here..,

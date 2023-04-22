@@ -1,5 +1,23 @@
 package com.GroupC.fly.data.Objects;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
+import android.os.Build;
+import android.util.Log;
+
+import com.GroupC.fly.ActivityLogic.values;
+
+import org.checkerframework.checker.units.qual.C;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Vector;
 
 enum relationshipStatus{
@@ -22,6 +40,7 @@ public class User extends Entity {
     private relationshipStatus relationshipStatus;
     private Vector<User> friends;
 
+    private Calendar dateOfBirth;
 
     /**
      * METHODS
@@ -131,4 +150,50 @@ public class User extends Entity {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /**
+     * Function for setting the date of birth using Java's Calendar class.
+     *
+     * @param dateOfBirth The date of birth.
+     * @return True on success, otherwise false.
+     * */
+    public boolean setDateOfBirth(Calendar dateOfBirth) {
+        if (dateOfBirth.after(Calendar.getInstance())) {
+            Log.v(TAG, "Invalid birthdate.");
+            return false;
+        }
+
+        this.dateOfBirth = dateOfBirth;
+        return true;
+    }
+
+    /**
+     * Function for setting the date of birth using a string as an argument.
+     *
+     * @param dateOfBirth The date of birth.
+     * @return True on success, otherwise false.
+     * */
+    public boolean setDateOfBirth(String dateOfBirth) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(values.DOB_PARSING_FORMAT, Locale.getDefault());
+        try {
+            cal.setTime(Objects.requireNonNull(sdf.parse(dateOfBirth)));
+            return setDateOfBirth(cal);
+        } catch (ParseException exception) {
+            Log.d(TAG, exception.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Function for getting the users age.
+     *
+     * @return The users age.
+     * */
+    public int getUserAge() {
+        if (this.dateOfBirth.after(Calendar.getInstance())) return Calendar.getInstance().get(Calendar.YEAR) - this.dateOfBirth.get(Calendar.YEAR);
+        return Math.max(0, Calendar.getInstance().get(Calendar.YEAR) - this.dateOfBirth.get(Calendar.YEAR) - 1);
+    }
+
+    public Calendar getDateOfBirth() { return this.dateOfBirth; }
 }
