@@ -40,6 +40,7 @@ public interface values {
     static final String KEY_DIVORCED = "divorced";
     static final String KEY_WIDOW = "widow";
     static final String KEY_IAR = "iar";
+    static final String KEY_RELATIONSHIP_STATUS = "rsStatus";
 
     static final String DOB_PARSING_FORMAT = "dd/MM/yyyy"; // For date of birth parsing.
 
