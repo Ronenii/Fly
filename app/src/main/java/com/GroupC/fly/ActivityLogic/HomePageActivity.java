@@ -76,7 +76,6 @@ public class HomePageActivity extends AppCompatActivity {
 
 
         extras = getIntent().getExtras();
-        user = new User();
 
         if (extras != null) {
             firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
@@ -90,14 +89,12 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void onUserDataFetchSuccess(DocumentSnapshot documentSnapshot) {
-        user.setEmail(extras.getString(values.KEY_EMAIL));
-        user.setUsername(documentSnapshot.getString(values.KEY_USER_NAME));
 
         emailTw = findViewById(R.id.tw_email);
         usernameTw = findViewById(R.id.tw_username);
 
-        emailTw.setText(user.getEmail());
-        usernameTw.setText(user.getUsername());
+        emailTw.setText(extras.getString(values.KEY_EMAIL));
+        usernameTw.setText(extras.getString(values.KEY_USER_NAME));
     }
 
     public void onPost(View view) {

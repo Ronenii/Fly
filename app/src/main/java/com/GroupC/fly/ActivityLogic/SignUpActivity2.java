@@ -12,14 +12,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
@@ -132,37 +137,63 @@ public class SignUpActivity2 extends AppCompatActivity {
         startActivity(moveBack);
     }
 
+    /**
+     * Displays an error toast.
+     */
+    private void displayErrorToast(String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View toast_layout = inflater.inflate(R.layout.credentials_error_toast, (ViewGroup) findViewById(R.id.error_toast_layout));
+        TextView displayMessage = toast_layout.findViewById(R.id.toast_message);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+
+        displayMessage.setText(message);
+        toast.setView(toast_layout);
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 420);
+
+        toast.show();
+    }
 
     /**
      *  Adds the user into the Cloud Database, Sets the LoggedInUser.
      */
     public void onNextClickPartTwo(View view) throws ParseException {
-        FirebaseModel fbModel = new FirebaseModel(SignUpActivity2.this);    // Create instance of firebase model.
-        User newUser = new User();
+        if(TextUtils.isEmpty(etFirstName.getText().toString()) || TextUtils.isEmpty(etLastName.getText().toString())) {
+            displayErrorToast("Please provide first and last names");
+        }
+        else {
+            FirebaseModel fbModel = new FirebaseModel(SignUpActivity2.this);    // Create instance of firebase model.
+            User newUser = new User();
 
-        // Set user info:
-        newUser.setFirstName(etFirstName.getText().toString());
-        newUser.setLastName(etLastName.getText().toString());
-        newUser.setNickname(etNickname.getText().toString());
-        newUser.setJob(etJob.getText().toString());
-        newUser.setAddress(new Address(etCity.getText().toString()));
-        newUser.setAlmaMatter(etEducation.getText().toString());
-        newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));          // Get the email field from SignUpActivity.
-        newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
-        newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
 
-        //TODO: set date of birth to newUser
-        //TODO: set relationship status to newUser
+            // Set user info:
+            newUser.setFirstName(etFirstName.getText().toString());
+            newUser.setLastName(etLastName.getText().toString());
+            newUser.setNickname(etNickname.getText().toString());
+            newUser.setJob(etJob.getText().toString());
+            newUser.setAddress(new Address(etCity.getText().toString()));
+            newUser.setAlmaMatter(etEducation.getText().toString());
+            newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));          // Get the email field from SignUpActivity.
+            newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
+            newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
 
-        fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
-        HomePageActivity.setLoggedInUser(new LoggedInUser(newUser.getEmail(), newUser.getFirstName(), newUser)); // Set the logged-in user.
+            //TODO: set date of birth to newUser
+            //TODO: set relationship status to newUser
 
-        //TODO:
-        // 1. add the option to draw users birthday when implemented into the 2nd sign up activity
-        // 2. Check validity of data
-        // 3. this will redirect to and activity where a user can add a profile picture
+            fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
+            HomePageActivity.setLoggedInUser(new LoggedInUser(newUser.getEmail(), newUser.getFirstName(), newUser)); // Set the logged-in user.
 
-        Intent moveToHome = new Intent(this, HomePageActivity.class);
-        startActivity(moveToHome);
+            //TODO:
+            // 1. add the option to draw users birthday when implemented into the 2nd sign up activity
+            // 2. Check validity of data
+            // 3. this will redirect to and activity where a user can add a profile picture
+
+        /*
+           This sends the email and username to homepage after successful signup for display in nav menu
+        */
+            Intent moveToHome = new Intent(this, HomePageActivity.class);
+            moveToHome.putExtra(values.KEY_EMAIL, newUser.getEmail());
+            moveToHome.putExtra(values.KEY_USER_NAME, newUser.getUsername());
+            startActivity(moveToHome);
+        }
     }
 }
