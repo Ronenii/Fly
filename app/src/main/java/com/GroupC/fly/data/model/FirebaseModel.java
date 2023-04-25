@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-public class FirebaseModel{
+public class FirebaseModel {
     // -----------------------------------------------------
     /** DATA MEMBERS **/
     private final FirebaseFirestore db;
@@ -105,35 +105,11 @@ public class FirebaseModel{
     /**
      *  Gets and returns a user from the cloud database, by the email provided.
      */
-    public User getUserFromDB(String email){  // TODO: complete get user from database.
-        db.collection(values.COLLECTION_PATH).document(email)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            // The document exists, so you can access its data
-                            Map<String, Object> data = documentSnapshot.getData(); // Get the user from the database.
-
-                            // CONVERT MAP TO USER OBJECT AND RETURN IT
-                        } else {
-                            // NOT FOUND, MAKE ERROR TOAST AND RETURN NULL
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("GET USER FROM DB", "Error getting document", e);
-                        // GOT AN ERROR- NOT FOUND
-                    }
-                });
-        return null; // TODO: return the received user from the database.
+    public Task<DocumentSnapshot> getUserFromDB(String email) {  // TODO: complete get user from database.
+        return db.collection(values.COLLECTION_PATH).document(email).get();
     }
-
 
     /** Post Methods **/
     // Write methods for writing and receiving posts from database here...
-
-
 
 }

@@ -1,5 +1,7 @@
 package com.GroupC.fly.ActivityLogic;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -8,13 +10,16 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
@@ -25,8 +30,15 @@ import com.GroupC.fly.data.model.LoggedInUser;
 
 import org.checkerframework.checker.units.qual.A;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.Objects;
 
 public class SignUpActivity2 extends AppCompatActivity {
 
@@ -37,6 +49,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
     private DatePickerDialog datePickerDialog;
+    private LocalDate datePickerValue;
 
     private AppCompatButton dateOfBirthButton;
 
@@ -77,7 +90,7 @@ public class SignUpActivity2 extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = makeDateString(year,month,day);
+                String date = makeDateString(year, month, day);
                 dateOfBirthButton.setText(date);
             }
         };
@@ -89,16 +102,13 @@ public class SignUpActivity2 extends AppCompatActivity {
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
         //builds the dialog
-        datePickerDialog = new DatePickerDialog(this, R.style.DatePickerTheme,
-                dateSetListener,year,month,day);
+        datePickerDialog = new DatePickerDialog(this, R.style.DatePickerTheme, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         //this is retarded but they fucked up so I need to add this
         datePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
     }
 
-
-    private String makeDateString(int year,int month,int day) {
+    private String makeDateString(int year, int month, int day) {
         String dateFormat="";
 
         if (day<10 && day > 0)
@@ -126,8 +136,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     /**
      *  Adds the user into the Cloud Database, Sets the LoggedInUser.
      */
-    public void onNextClickPartTwo(View view)
-    {
+    public void onNextClickPartTwo(View view) throws ParseException {
         FirebaseModel fbModel = new FirebaseModel(SignUpActivity2.this);    // Create instance of firebase model.
         User newUser = new User();
 
@@ -138,8 +147,10 @@ public class SignUpActivity2 extends AppCompatActivity {
         newUser.setJob(etJob.getText().toString());
         newUser.setAddress(new Address(etCity.getText().toString()));
         newUser.setAlmaMatter(etEducation.getText().toString());
-        newUser.setEmail(getIntent().getStringExtra("email"));          // Get the email field from SignUpActivity.
-        newUser.setPassword(getIntent().getStringExtra("password"));    // Get the password field from SignUpActivity.
+        newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));          // Get the email field from SignUpActivity.
+        newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
+        newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
+
         //TODO: set date of birth to newUser
         //TODO: set relationship status to newUser
 

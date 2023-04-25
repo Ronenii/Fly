@@ -15,23 +15,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StartUpActivity extends AppCompatActivity {
     private CheckBox btnShowPassword;
     private Dialog signInDialog;
-    private AuthService mAuth;
+    private AuthService auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
-        mAuth = new AuthService(this);
+        auth = new AuthService(this);
     }
 
     public void onSignUpClick (View view)
@@ -59,18 +61,35 @@ public class StartUpActivity extends AppCompatActivity {
         EditText password_sign_in = signInDialog.findViewById(R.id.et_password_si);
         EditText email_sign_in = signInDialog.findViewById(R.id.et_email_si);
 
-        mAuth.signInWithEmailAndPassword
+        // Try to sign in the user.
+        auth.signInWithEmailAndPassword
         (
                 email_sign_in.getText().toString(),
                 password_sign_in.getText().toString()
         )
         .addOnCompleteListener(this, completeListener -> {
-            Intent moveToHome = new Intent(this, HomePageActivity.class);
-            startActivity(moveToHome);
+            // If the user was already created, thus already authenticated.
+            if (completeListener.isSuccessful()) {
+                Intent moveToHome = new Intent(this, HomePageActivity.class);
+
+                addUserDataToIntent(moveToHome, auth.getCurrentUser());
+                startActivity(moveToHome);
+            }
+            // The user doesn't exist/credentials are not correct.
+            else {
+                Toast.makeText(this, "Email or password are invalid !", Toast.LENGTH_SHORT).show();
+            }
         })
         .addOnFailureListener(failureListener -> {
             Log.v(TAG, failureListener.getMessage());
         });
+    }
+
+    // This function move retrieves the current users data and sends it as a key-value pair
+    // to the intent.
+    private void addUserDataToIntent(Intent intent, FirebaseUser user) {
+        assert user != null;
+        intent.putExtra(values.KEY_EMAIL, user.getEmail());
     }
 
     /**

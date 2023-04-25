@@ -12,7 +12,6 @@
     android:background="@drawable/sign_in_popup"
     android:padding="5dp">
 
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView"
         android:layout_width="match_parent"
