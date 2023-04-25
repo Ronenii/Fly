@@ -102,7 +102,6 @@ public class SignUpActivity extends AppCompatActivity implements ToolTipsManager
         }
     }
 
-
     /**
      * Validates that the password is up to the correct requirements.
      * Returns true if the password is of valid length and contains at least character 3 out of 4 requirements.

@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
@@ -146,8 +147,9 @@ public class SignUpActivity2 extends AppCompatActivity {
         newUser.setJob(etJob.getText().toString());
         newUser.setAddress(new Address(etCity.getText().toString()));
         newUser.setAlmaMatter(etEducation.getText().toString());
-        newUser.setEmail(getIntent().getStringExtra("email"));          // Get the email field from SignUpActivity.
+        newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));          // Get the email field from SignUpActivity.
         newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
+        newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
 
         //TODO: set date of birth to newUser
         //TODO: set relationship status to newUser

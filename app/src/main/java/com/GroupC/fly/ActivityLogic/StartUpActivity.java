@@ -21,18 +21,19 @@ import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StartUpActivity extends AppCompatActivity {
     private CheckBox btnShowPassword;
     private Dialog signInDialog;
-    private AuthService mAuth;
+    private AuthService auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
-        mAuth = new AuthService(this);
+        auth = new AuthService(this);
     }
 
     public void onSignUpClick (View view)
@@ -61,7 +62,7 @@ public class StartUpActivity extends AppCompatActivity {
         EditText email_sign_in = signInDialog.findViewById(R.id.et_email_si);
 
         // Try to sign in the user.
-        mAuth.signInWithEmailAndPassword
+        auth.signInWithEmailAndPassword
         (
                 email_sign_in.getText().toString(),
                 password_sign_in.getText().toString()
@@ -70,6 +71,8 @@ public class StartUpActivity extends AppCompatActivity {
             // If the user was already created, thus already authenticated.
             if (completeListener.isSuccessful()) {
                 Intent moveToHome = new Intent(this, HomePageActivity.class);
+
+                addUserDataToIntent(moveToHome, auth.getCurrentUser());
                 startActivity(moveToHome);
             }
             // The user doesn't exist/credentials are not correct.
@@ -80,6 +83,13 @@ public class StartUpActivity extends AppCompatActivity {
         .addOnFailureListener(failureListener -> {
             Log.v(TAG, failureListener.getMessage());
         });
+    }
+
+    // This function move retrieves the current users data and sends it as a key-value pair
+    // to the intent.
+    private void addUserDataToIntent(Intent intent, FirebaseUser user) {
+        assert user != null;
+        intent.putExtra(values.KEY_EMAIL, user.getEmail());
     }
 
     /**

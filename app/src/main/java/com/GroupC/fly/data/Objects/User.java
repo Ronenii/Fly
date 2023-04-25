@@ -60,7 +60,6 @@ public class User extends Entity {
         this.age = age;
     }
 
-
     //Returns the relationship status of the user as a string
     public String getRelationshipStatusString() {
         switch (relationshipStatus){
