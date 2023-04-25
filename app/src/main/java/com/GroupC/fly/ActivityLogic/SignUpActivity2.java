@@ -47,10 +47,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     EditText etFirstName, etLastName, etNickname, etJob, etEducation, etCity;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
-
     private DatePickerDialog datePickerDialog;
-    private LocalDate datePickerValue;
-
     private AppCompatButton dateOfBirthButton;
 
 
@@ -68,8 +65,8 @@ public class SignUpActivity2 extends AppCompatActivity {
         etLastName = findViewById(R.id.et_last_name);
         etNickname = findViewById(R.id.et_nickname);
         etJob = findViewById(R.id.et_job);
-        etEducation = findViewById(R.id.et_city);
-        etCity = findViewById(R.id.et_education);
+        etEducation = findViewById(R.id.et_education);
+        etCity = findViewById(R.id.et_city);
 
         // Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
@@ -111,11 +108,11 @@ public class SignUpActivity2 extends AppCompatActivity {
     private String makeDateString(int year, int month, int day) {
         String dateFormat="";
 
-        if (day<10 && day > 0)
+        if (day < 10 && day > 0)
             dateFormat += "0";
         dateFormat += day+"/";
 
-        if(month<10 && month > 0)
+        if(month < 10 && month > 0)
             dateFormat += "0";
         dateFormat += month+"/";
 
@@ -149,6 +146,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         newUser.setAlmaMatter(etEducation.getText().toString());
         newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));          // Get the email field from SignUpActivity.
         newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
+        newUser.setAge(newUser.getUserAge());
         newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
 
         //TODO: set date of birth to newUser
@@ -163,6 +161,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         // 3. this will redirect to and activity where a user can add a profile picture
 
         Intent moveToHome = new Intent(this, HomePageActivity.class);
+        moveToHome.putExtra(values.KEY_EMAIL, newUser.getEmail());
         startActivity(moveToHome);
     }
 }

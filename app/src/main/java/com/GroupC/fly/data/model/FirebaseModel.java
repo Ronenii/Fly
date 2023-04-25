@@ -51,7 +51,6 @@ public class FirebaseModel {
         // Create a new user
         Map<String, Object> user = new HashMap<>();
         user.put(values.KEY_EMAIL, newUser.getEmail());
-        user.put(values.KEY_PASSWORD, newUser.getPassword());
         user.put(values.KEY_USER_NAME, newUser.getUsername());
         user.put(values.KEY_FIRST_NAME, newUser.getFirstName());
         user.put(values.KEY_LAST_NAME, newUser.getLastName());
@@ -59,6 +58,7 @@ public class FirebaseModel {
         user.put(values.KEY_JOB, newUser.getJob());
         user.put(values.KEY_AGE, newUser.getAge());
         user.put(values.KEY_ALMA_MATTER, newUser.getAlmaMatter());
+        user.put(values.KEY_DOB, newUser.getDateOfBirth());
 
         // Add a new document with a generated ID
         // Log successful insertion of user to DB.

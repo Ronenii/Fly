@@ -36,7 +36,6 @@ public class HomePageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private FirebaseModel firebaseModel;
     private User user;
-    private Bundle extras;
     private AppBarConfiguration appBarConfiguration;
     private ActivityHomePageBinding binding;
 
@@ -75,14 +74,11 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        extras = getIntent().getExtras();
-        user = new User();
+        Bundle extras = getIntent().getExtras();
 
-        if (extras != null) {
-            firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
+        firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
                     .addOnSuccessListener(this::onUserDataFetchSuccess)
                     .addOnFailureListener(this::onUserDataFetchFail);
-        }
     }
 
     private void onUserDataFetchFail(Exception e) {
@@ -90,14 +86,8 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void onUserDataFetchSuccess(DocumentSnapshot documentSnapshot) {
-        user.setEmail(extras.getString(values.KEY_EMAIL));
-        user.setUsername(documentSnapshot.getString(values.KEY_USER_NAME));
-
-        emailTw = findViewById(R.id.tw_email);
-        usernameTw = findViewById(R.id.tw_username);
-
-        emailTw.setText(user.getEmail());
-        usernameTw.setText(user.getUsername());
+        user = new User(documentSnapshot);
+        System.out.println(user);
     }
 
     public void onPost(View view) {

@@ -16,6 +16,7 @@ public interface values {
 
 
     /** KEYS **/
+    static final String KEY_DOB = "dob";
     static final String COLLECTION_PATH = "Users";
     static final String KEY_FIRST_NAME = "firstName";
     static final String KEY_LAST_NAME = "lastName";
@@ -27,15 +28,18 @@ public interface values {
     static final String KEY_AGE = "age"; // TODO: change to date of birth.
     static final String KEY_PASSWORD = "password";
 
-
-    /** REGEX **/
-    static final String SHA_TYPE = "SHA-256";       // Type of password encryption.
     static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
     static final String LENGTH_SCOPE_REGEX = "^[a-zA-Z\\d!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]]{8,20}$";  // Checks if the string is from 8 to 20 characters.
     static final String NUMBERS_REGEX = ".*\\d.*";          // Checks if the string contains a number.
     static final String UPPER_CASE_REGEX = ".*[A-Z].*";     // Checks if the string contains an upper case letter.
     static final String LOWER_CASE_REGEX = ".*[a-z].*";     // Checks if the string contains a lower case letter.
     static final String SPECIAL_CHARS_REGEX = ".*[!@#$%^&*()_+=[\\]{}|;':\",./<>?`~]].*"; // Checks if the string contains a special character.
+
+    static final String KEY_SINGLE = "single";
+    static final String KEY_MARRIED = "married";
+    static final String KEY_DIVORCED = "divorced";
+    static final String KEY_WIDOW = "widow";
+    static final String KEY_IAR = "iar";
 
     static final String DOB_PARSING_FORMAT = "dd/MM/yyyy"; // For date of birth parsing.
 
