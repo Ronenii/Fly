@@ -73,8 +73,7 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
 
         firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
                     .addOnSuccessListener(this::onUserDataFetchSuccess)
@@ -86,8 +85,12 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void onUserDataFetchSuccess(DocumentSnapshot documentSnapshot) {
-        user = new User(documentSnapshot);
-        System.out.println(user);
+
+        emailTw = findViewById(R.id.tw_email);
+        usernameTw = findViewById(R.id.tw_username);
+
+        emailTw.setText(extras.getString(values.KEY_EMAIL));
+        usernameTw.setText(extras.getString(values.KEY_USER_NAME));
     }
 
     public void onPost(View view) {
