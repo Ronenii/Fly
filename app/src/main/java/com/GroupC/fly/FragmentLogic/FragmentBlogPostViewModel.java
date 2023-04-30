@@ -18,10 +18,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModel;
 
-import com.GroupC.fly.ActivityLogic.HomePageActivity;
 import com.GroupC.fly.BuildConfig;
-import com.GroupC.fly.data.Objects.Post;
-import com.GroupC.fly.databinding.ActivityHomePageBinding;
+import com.GroupC.fly.Utils.data.Objects.Post;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;

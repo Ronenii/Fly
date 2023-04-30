@@ -1,19 +1,12 @@
 package com.GroupC.fly.ActivityLogic;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,23 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.GroupC.fly.R;
-import com.GroupC.fly.Services.AuthService;
-import com.GroupC.fly.data.Objects.Address;
-import com.GroupC.fly.data.Objects.User;
-import com.GroupC.fly.data.model.FirebaseModel;
-import com.GroupC.fly.data.model.LoggedInUser;
+import com.GroupC.fly.Utils.data.Objects.Address;
+import com.GroupC.fly.Utils.data.Objects.User;
+import com.GroupC.fly.Utils.data.model.FirebaseModel;
+import com.GroupC.fly.Utils.data.model.LoggedInUser;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.Objects;
 
 public class SignUpActivity2 extends AppCompatActivity {
 
