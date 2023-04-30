@@ -36,6 +36,7 @@ public class HomePageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private FirebaseModel firebaseModel;
     private User user;
+    private Bundle extras;
     private AppBarConfiguration appBarConfiguration;
     private ActivityHomePageBinding binding;
 
@@ -59,7 +60,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         auth = new AuthService(this);
         firebaseModel = new FirebaseModel(this);
-
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
