@@ -2,25 +2,24 @@ package com.GroupC.fly.data.Objects;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.GroupC.fly.ActivityLogic.values;
 
-import org.checkerframework.checker.units.qual.C;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Vector;
 
-enum relationshipStatus{
+enum RelationshipStatus {
     SINGLE,
     MARRIED,
     DIVORCED,
@@ -34,10 +33,10 @@ public class User extends Entity {
      * DATA MEMBERS
      **/
 
-    private String email, password, job, almaMatter, username,
+    private String email, job, almaMatter, username,
             firstName, lastName, nickname;
     private int age; // TODO: save date of birth instead of age. write getAge method that will calculate the age.
-    private relationshipStatus relationshipStatus;
+    private RelationshipStatus relationshipStatus;
     private Vector<User> friends;
 
     private Calendar dateOfBirth;
@@ -48,7 +47,7 @@ public class User extends Entity {
 
     public User() {} // empty c'tor.
     public User(String email, String firstName, String lastName, String username, String job, String almaMatter, int age, Address address,
-                relationshipStatus relationshipStatus) {
+                RelationshipStatus relationshipStatus) {
         setAddress(address);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,6 +58,34 @@ public class User extends Entity {
         this.relationshipStatus = relationshipStatus;
         this.age = age;
     }
+
+    public User(DocumentSnapshot usrDocSnapshot) {
+        this.firstName = usrDocSnapshot.getString(values.KEY_FIRST_NAME);
+        this.lastName = usrDocSnapshot.getString(values.KEY_LAST_NAME);
+        this.email = usrDocSnapshot.getString(values.KEY_EMAIL);
+        this.username = usrDocSnapshot.getString(values.KEY_USER_NAME);
+        this.job = usrDocSnapshot.getString(values.KEY_JOB);
+        this.almaMatter = usrDocSnapshot.getString(values.KEY_ALMA_MATTER);
+        this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
+        setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
+        this.age = getUserAge();
+    }
+
+    private static RelationshipStatus RelationShipStatusFactory(@NonNull String relation) {
+        String transformed = relation.trim().toLowerCase(Locale.ROOT);
+
+        switch (transformed) {
+            case values.KEY_SINGLE: return RelationshipStatus.SINGLE;
+            case values.KEY_MARRIED: return RelationshipStatus.MARRIED;
+            case values.KEY_DIVORCED: return RelationshipStatus.DIVORCED;
+            case values.KEY_WIDOW: return RelationshipStatus.WIDOW;
+            case values.KEY_IAR: return RelationshipStatus.IAR;
+        }
+
+        Log.v(TAG, "Unknown status: " + relation);
+        return null;
+    }
+
 
     //Returns the relationship status of the user as a string
     public String getRelationshipStatusString() {
@@ -142,12 +169,41 @@ public class User extends Entity {
         this.nickname = nickname;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public String toString() {
+        return this.firstName + " " + this.lastName + "\n" +
+                this.username + "\n" +
+                this.email + "\n" +
+                this.age + "\n" +
+                this.job + "\n";
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    private int extractSeconds(String timestamp) {
+        int start = timestamp.indexOf("=");
+        int end = timestamp.indexOf(",");
+        return Integer.parseInt(timestamp.substring(start + 1, end));
+    }
+
+    private int extractNanoSecond(String timestamp) {
+        int start = timestamp.lastIndexOf("=");
+        int end = timestamp.indexOf(")");
+        return Integer.parseInt(timestamp.substring(start + 1, end));
+    }
+
+    private void setDateOfBirth(@NonNull HashMap calendarMap) {
+        String timestamp = Objects.requireNonNull(calendarMap.get("time")).toString();
+
+        int seconds = extractSeconds(timestamp);
+        int nanoseconds = extractNanoSecond(timestamp);
+
+        // Create a new Date object using the seconds and nanoseconds
+        Date date = new Date(seconds * 1000L + nanoseconds / 1000000L);
+
+        // Convert the Date object to a Calendar object
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        setDateOfBirth(calendar);
     }
 
     /**
@@ -175,6 +231,7 @@ public class User extends Entity {
     public boolean setDateOfBirth(String dateOfBirth) {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat(values.DOB_PARSING_FORMAT, Locale.getDefault());
+
         try {
             cal.setTime(Objects.requireNonNull(sdf.parse(dateOfBirth)));
             return setDateOfBirth(cal);

@@ -36,7 +36,6 @@ public class HomePageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private FirebaseModel firebaseModel;
     private User user;
-    private Bundle extras;
     private AppBarConfiguration appBarConfiguration;
     private ActivityHomePageBinding binding;
 
@@ -74,14 +73,11 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
         extras = getIntent().getExtras();
 
-        if (extras != null) {
-            firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
+        firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
                     .addOnSuccessListener(this::onUserDataFetchSuccess)
                     .addOnFailureListener(this::onUserDataFetchFail);
-        }
     }
 
     private void onUserDataFetchFail(Exception e) {
