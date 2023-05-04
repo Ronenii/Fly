@@ -129,13 +129,29 @@ public class SignUpActivity2 extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+
+    /**
+     * Move back into SignUpActivity
+     */
     public void onGoBackClick(View view) {
         Intent moveBack = new Intent(this, SignUpActivity.class);
         startActivity(moveBack);
     }
 
     /**
+     * Checks validity of the necessary fields for the signup process:
+     * First name | Last name | Date of birth | Gender
+     * @return are all the necessary fields valid.
+     */
+    private Boolean checkNecessaryFields() {
+        return TextUtils.isEmpty(etFirstName.getText().toString()) ||
+                TextUtils.isEmpty(etLastName.getText().toString());
+        // TODO: add date of birth check, gender check
+    }
+
+    /**
      * Displays an error toast.
+     * @param message string to display in the error toast.
      */
     private void displayErrorToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
@@ -151,12 +167,17 @@ public class SignUpActivity2 extends AppCompatActivity {
     }
 
     /**
-     *  Adds the user into the Cloud Database, Sets the LoggedInUser.
+     *  Checks validity of necessary fields,
+     *  if all are valid, creates a user and adds it into the Cloud Database.
+     *  Sets the user as LoggedInUser.
      */
     public void onNextClickPartTwo(View view) throws ParseException {
-
-        if(TextUtils.isEmpty(etFirstName.getText().toString()) || TextUtils.isEmpty(etLastName.getText().toString())) {
-            displayErrorToast("Please provide first and last names");
+        /*
+         Check for necessary fields' validity, if one is not provided, will display an error toast,
+         otherwise will create the new user and move to HomePageActivity.
+         */
+        if(checkNecessaryFields()) {
+            displayErrorToast(values.INVALID_NECESSARY_FIELDS);
         }
         else {
             FirebaseModel fbModel = new FirebaseModel(SignUpActivity2.this);    // Create instance of firebase model.
