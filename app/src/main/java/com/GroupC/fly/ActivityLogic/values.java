@@ -25,7 +25,6 @@ public interface values {
     static final String KEY_EMAIL = "email";
     static final String KEY_JOB = "job";
     static final String KEY_ALMA_MATTER = "alma-matter";
-    static final String KEY_AGE = "age"; // TODO: change to date of birth.
     static final String KEY_PASSWORD = "password";
 
     static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";

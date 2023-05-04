@@ -162,19 +162,17 @@ public class SignUpActivity2 extends AppCompatActivity {
             FirebaseModel fbModel = new FirebaseModel(SignUpActivity2.this);    // Create instance of firebase model.
             User newUser = new User();
 
-
-            // Set user info:
+            // Get user info from sign up fields into a new user variable:
             newUser.setFirstName(etFirstName.getText().toString());
             newUser.setLastName(etLastName.getText().toString());
             newUser.setNickname(etNickname.getText().toString());
             newUser.setJob(etJob.getText().toString());
-            newUser.setAddress(new Address(etCity.getText().toString()));
+            newUser.setAddress(new Address("NULL", etCity.getText().toString())); // TODO: add country edittext, create the address with the input.
             newUser.setAlmaMatter(etEducation.getText().toString());
-            newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));          // Get the email field from SignUpActivity.
+            newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));
             newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
             newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
 
-            //TODO: set date of birth to newUser
             //TODO: set relationship status to newUser
 
             fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
@@ -185,9 +183,7 @@ public class SignUpActivity2 extends AppCompatActivity {
             // 2. Check validity of data
             // 3. this will redirect to and activity where a user can add a profile picture
 
-        /*
-           This sends the email and username to homepage after successful signup for display in nav menu
-        */
+            // Send the email and username to homepage after successful signup for display in nav menu
             Intent moveToHome = new Intent(this, HomePageActivity.class);
             moveToHome.putExtra(values.KEY_EMAIL, newUser.getEmail());
             moveToHome.putExtra(values.KEY_USER_NAME, newUser.getUsername());

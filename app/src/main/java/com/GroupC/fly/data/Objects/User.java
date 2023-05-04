@@ -35,7 +35,6 @@ public class User extends Entity {
 
     private String email, job, almaMatter, username,
             firstName, lastName, nickname;
-    private int age; // TODO: save date of birth instead of age. write getAge method that will calculate the age.
     private RelationshipStatus relationshipStatus;
     private Vector<User> friends;
 
@@ -46,7 +45,7 @@ public class User extends Entity {
      **/
 
     public User() {} // empty c'tor.
-    public User(String email, String firstName, String lastName, String username, String job, String almaMatter, int age, Address address,
+    public User(String email, String firstName, String lastName, String username, String job, String almaMatter, Address address,
                 RelationshipStatus relationshipStatus) {
         setAddress(address);
         this.firstName = firstName;
@@ -56,7 +55,6 @@ public class User extends Entity {
         this.job = job;
         this.almaMatter = almaMatter;
         this.relationshipStatus = relationshipStatus;
-        this.age = age;
     }
 
     public User(DocumentSnapshot usrDocSnapshot) {
@@ -68,7 +66,6 @@ public class User extends Entity {
         this.almaMatter = usrDocSnapshot.getString(values.KEY_ALMA_MATTER);
         this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
         setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
-        this.age = getUserAge();
     }
 
     private static RelationshipStatus RelationShipStatusFactory(@NonNull String relation) {
@@ -153,14 +150,6 @@ public class User extends Entity {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -169,26 +158,7 @@ public class User extends Entity {
         this.nickname = nickname;
     }
 
-    @Override
-    public String toString() {
-        return this.firstName + " " + this.lastName + "\n" +
-                this.username + "\n" +
-                this.email + "\n" +
-                this.age + "\n" +
-                this.job + "\n";
-    }
-
-    private int extractSeconds(String timestamp) {
-        int start = timestamp.indexOf("=");
-        int end = timestamp.indexOf(",");
-        return Integer.parseInt(timestamp.substring(start + 1, end));
-    }
-
-    private int extractNanoSecond(String timestamp) {
-        int start = timestamp.lastIndexOf("=");
-        int end = timestamp.indexOf(")");
-        return Integer.parseInt(timestamp.substring(start + 1, end));
-    }
+    public Calendar getDateOfBirth() { return this.dateOfBirth; }
 
     private void setDateOfBirth(@NonNull HashMap calendarMap) {
         String timestamp = Objects.requireNonNull(calendarMap.get("time")).toString();
@@ -204,6 +174,27 @@ public class User extends Entity {
         calendar.setTime(date);
 
         setDateOfBirth(calendar);
+    }
+
+    @Override
+    public String toString() {
+        return this.firstName + " " + this.lastName + "\n" +
+                this.username + "\n" +
+                this.email + "\n" +
+                this.dateOfBirth + "\n" +
+                this.job + "\n";
+    }
+
+    private int extractSeconds(String timestamp) {
+        int start = timestamp.indexOf("=");
+        int end = timestamp.indexOf(",");
+        return Integer.parseInt(timestamp.substring(start + 1, end));
+    }
+
+    private int extractNanoSecond(String timestamp) {
+        int start = timestamp.lastIndexOf("=");
+        int end = timestamp.indexOf(")");
+        return Integer.parseInt(timestamp.substring(start + 1, end));
     }
 
     /**
@@ -250,6 +241,4 @@ public class User extends Entity {
         if (this.dateOfBirth.after(Calendar.getInstance())) return Calendar.getInstance().get(Calendar.YEAR) - this.dateOfBirth.get(Calendar.YEAR);
         return Math.max(0, Calendar.getInstance().get(Calendar.YEAR) - this.dateOfBirth.get(Calendar.YEAR) - 1);
     }
-
-    public Calendar getDateOfBirth() { return this.dateOfBirth; }
 }
