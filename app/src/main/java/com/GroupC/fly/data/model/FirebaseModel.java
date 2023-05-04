@@ -56,10 +56,11 @@ public class FirebaseModel {
         user.put(values.KEY_LAST_NAME, newUser.getLastName());
         user.put(values.KEY_ADDRESS, newUser.getAddress());
         user.put(values.KEY_JOB, newUser.getJob());
-        user.put(values.KEY_AGE, newUser.getAge());
         user.put(values.KEY_ALMA_MATTER, newUser.getAlmaMatter());
         user.put(values.KEY_DOB, newUser.getDateOfBirth());
-        user.put(values.KEY_RELATIONSHIP_STATUS, newUser.getRelationshipStatusString());
+
+        // TODO: fix the relationship status, currently not receiving the input...
+        // user.put(values.KEY_RELATIONSHIP_STATUS, newUser.getRelationshipStatusString());
 
         // Add a new document with a generated ID
         // Log successful insertion of user to DB.
