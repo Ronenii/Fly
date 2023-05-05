@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.GroupC.fly.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -25,5 +26,8 @@ public class ProfileActivity extends AppCompatActivity {
         tvBdate = findViewById(R.id.tv_bdate_content);
         tvAge = findViewById(R.id.tv_age_content);
         tvName = findViewById(R.id.tv_profile_name);
+
+        // Initialize the db instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
     }
 }
