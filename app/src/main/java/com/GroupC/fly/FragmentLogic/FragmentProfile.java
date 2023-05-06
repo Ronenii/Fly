@@ -56,8 +56,10 @@ public class FragmentProfile extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        //Connect this class to the layout
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        //Connect layout elements to this class's variables
         ivProfilePicture = rootView.findViewById(R.id.iv_profile_picture_profile_page);
         tvJob = rootView.findViewById(R.id.tv_job_content);
         tvLocation = rootView.findViewById(R.id.tv_location_content);
@@ -68,17 +70,20 @@ public class FragmentProfile extends DialogFragment {
         // Initialize the db instance
         db = new FirebaseModel(getContext());
 
+
         getUserData(authService.getCurrentUser().getEmail());
         return rootView;
     }
 
+    // Gets user data from and puts it into the layouts textViews
     public void getUserData(String userEmail)
     {
-        Task<DocumentSnapshot> userFromDB =  db.getUserFromDB(userEmail);
-        User profileDisplayUser = new User(userFromDB.getResult());
+        Task<DocumentSnapshot> userFromDB =  db.getUserFromDB(userEmail); // Gets the user by email from db
+        User profileDisplayUser = new User(userFromDB.getResult()); //Converts the DocumentSnapshot to User object
         setProfileData(profileDisplayUser);
     }
 
+    //Set the profile layout textViews to the user's data
     public void setProfileData(User user)
     {
         String userFullName = user.getFirstName() + " " + user.getLastName();

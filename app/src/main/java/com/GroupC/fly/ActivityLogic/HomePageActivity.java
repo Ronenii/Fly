@@ -94,6 +94,7 @@ public class HomePageActivity extends AppCompatActivity {
         fragment.show(getSupportFragmentManager(),"PostDialog");
     }
 
+    // Opens and runs the logged in user's profile
     public void onProfileClick(View view) {
         FragmentProfile profile = new FragmentProfile();
         profile.show(getSupportFragmentManager(), "ProfileDialog");
