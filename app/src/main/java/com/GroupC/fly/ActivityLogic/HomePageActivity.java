@@ -84,7 +84,6 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void onUserDataFetchSuccess(DocumentSnapshot documentSnapshot) {
-
         emailTw = findViewById(R.id.tw_email);
         usernameTw = findViewById(R.id.tw_username);
 
