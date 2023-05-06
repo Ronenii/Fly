@@ -1,5 +1,7 @@
 package com.GroupC.fly.Utils.data.Objects;
 
+import androidx.annotation.NonNull;
+
 /**
  * Class for 'Address' data type-
  * contains Country and City.
@@ -16,6 +18,13 @@ public class Address {
     public Address(String country, String city){
         this.country = country;
         this.city = city;
+    }
+
+    @NonNull
+    @Override
+    public String toString()
+    {
+        return city + ", " + country;
     }
 
     public String getCountry() {

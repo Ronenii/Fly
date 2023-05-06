@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.GroupC.fly.R;
+import com.GroupC.fly.Services.AuthService;
+import com.GroupC.fly.Utils.data.Objects.User;
 import com.GroupC.fly.Utils.data.model.FirebaseModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * Use the {@link FragmentProfile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentProfile extends Fragment {
+public class FragmentProfile extends DialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +35,8 @@ public class FragmentProfile extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
+
+    private AuthService authService;
     private String mParam2;
 
     private FirebaseModel db;
@@ -62,13 +67,26 @@ public class FragmentProfile extends Fragment {
 
         // Initialize the db instance
         db = new FirebaseModel(getContext());
+
+        getUserData(authService.getCurrentUser().getEmail());
         return rootView;
     }
 
     public void getUserData(String userEmail)
     {
-        Task<DocumentSnapshot> user =  db.getUserFromDB(userEmail);
+        Task<DocumentSnapshot> userFromDB =  db.getUserFromDB(userEmail);
+        User profileDisplayUser = new User(userFromDB.getResult());
+        setProfileData(profileDisplayUser);
+    }
 
+    public void setProfileData(User user)
+    {
+        String userFullName = user.getFirstName() + " " + user.getLastName();
+        tvAge.setText(user.getUserAge());
+        tvJob.setText(user.getJob());
+        tvName.setText(userFullName);
+        tvBdate.setText(user.getDateOfBirth().toString());
+        tvLocation.setText(user.getAddress().toString());
     }
 
 

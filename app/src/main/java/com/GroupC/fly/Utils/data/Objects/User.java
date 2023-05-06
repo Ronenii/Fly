@@ -1,4 +1,4 @@
-package com.GroupC.fly.data.Objects;
+package com.GroupC.fly.Utils.data.Objects;
 
 import static android.content.ContentValues.TAG;
 
