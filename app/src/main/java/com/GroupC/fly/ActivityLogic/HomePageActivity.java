@@ -3,16 +3,17 @@ package com.GroupC.fly.ActivityLogic;
 import static android.content.ContentValues.TAG;
 
 import com.GroupC.fly.FragmentLogic.FragmentBlogPost;
+import com.GroupC.fly.FragmentLogic.FragmentProfile;
 import com.GroupC.fly.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
-
-import com.GroupC.fly.Services.AuthService;
 import com.GroupC.fly.Utils.data.Objects.User;
+import com.GroupC.fly.Services.AuthService;
 import com.GroupC.fly.Utils.data.model.FirebaseModel;
 import com.GroupC.fly.Utils.data.model.LoggedInUser;
 import com.GroupC.fly.databinding.ActivityHomePageBinding;
@@ -52,10 +53,10 @@ public class HomePageActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarHomePage.toolbar);
 
         binding.appBarHomePage.fab.setOnClickListener(this::onPost);
+        binding.appBarHomePage.fab.setOnClickListener(this::onProfileClick);
 
         auth = new AuthService(this);
         firebaseModel = new FirebaseModel(this);
-
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -69,14 +70,11 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
         extras = getIntent().getExtras();
 
-        if (extras != null) {
-            firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
+        firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
                     .addOnSuccessListener(this::onUserDataFetchSuccess)
                     .addOnFailureListener(this::onUserDataFetchFail);
-        }
     }
 
     private void onUserDataFetchFail(Exception e) {
@@ -94,6 +92,11 @@ public class HomePageActivity extends AppCompatActivity {
     public void onPost(View view) {
         FragmentBlogPost fragment = new FragmentBlogPost();
         fragment.show(getSupportFragmentManager(),"PostDialog");
+    }
+
+    public void onProfileClick(View view) {
+        FragmentProfile profile = new FragmentProfile();
+        profile.show(getSupportFragmentManager(), "ProfileDialog");
     }
 
     @Override
@@ -125,5 +128,8 @@ public class HomePageActivity extends AppCompatActivity {
 
     public static void setLoggedInUser(LoggedInUser _loggedInUser) {
         loggedInUser = _loggedInUser;
+    }
+
+    public void onProfileClick(MenuItem item) {
     }
 }

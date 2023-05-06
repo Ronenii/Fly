@@ -1,38 +1,30 @@
 package com.GroupC.fly.Utils.data.Objects;
 
+import androidx.annotation.NonNull;
+
 /**
- * This class handles the address data type that will be users for regular users as well as pages.
- *
- * **/
-
-
-
+ * Class for 'Address' data type-
+ * contains Country and City.
+ **/
 public class Address {
 
     /** Data Members **/
-    private String country, region, city, street, streetNumber;
+    private String country, city;
 
 
     /** Methods **/
 
     // Address c'tor.
-    public Address(String country, String region, String city, String street, String streetNumber){
-        this.country = country;
-        this.region = region;
-        this.city = city;
-        this.street = street;
-        this.streetNumber = streetNumber;
-    }
-    public Address(String country, String city)
-    {
+    public Address(String country, String city){
         this.country = country;
         this.city = city;
     }
 
-    //TODO: Temporary until we sort out the address in the signup process
-    public Address(String city)
+    @NonNull
+    @Override
+    public String toString()
     {
-        this.city = city;
+        return city + ", " + country;
     }
 
     public String getCountry() {
@@ -43,14 +35,6 @@ public class Address {
         this.country = country;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
     public String getCity() {
         return city;
     }
@@ -59,19 +43,4 @@ public class Address {
         this.city = city;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void set_streetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
-    }
 }

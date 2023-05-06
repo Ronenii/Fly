@@ -56,4 +56,8 @@
     <string name="password_requirements_upper_case_msg">Minimum one upper case character</string>
     <string name="password_requirements_lower_case_msg">Minimum one lower case character</string>
     <string name="password_requirements_special_character_msg">Minimum one special character</string>
+    <string name="date_of_birth_msg">Date of Birth</string>
+    <string name="gender_msg">Gender</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

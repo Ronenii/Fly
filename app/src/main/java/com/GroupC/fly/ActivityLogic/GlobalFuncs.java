@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.GroupC.fly.R;
 
@@ -35,8 +39,8 @@ public class GlobalFuncs {
      */
     public void startBackgroundAnimation()
     {
-        ConstraintLayout sign_up_page2 = activity.findViewById(ID);
-        AnimationDrawable animation = (AnimationDrawable) sign_up_page2.getBackground();
+        ConstraintLayout curr_activity = activity.findViewById(ID);
+        AnimationDrawable animation = (AnimationDrawable) curr_activity.getBackground();
 
         animation.setEnterFadeDuration(values.BG_ANIMATION_ENTER_FADE_DURATION);
         animation.setExitFadeDuration(values.BG_ANIMATION_EXIT_FADE_DURATION);

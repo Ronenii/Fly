@@ -36,10 +36,7 @@ public class SignUpActivity2 extends AppCompatActivity {
     EditText etFirstName, etLastName, etNickname, etJob, etEducation, etCity;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
-
     private DatePickerDialog datePickerDialog;
-    private LocalDate datePickerValue;
-
     private AppCompatButton dateOfBirthButton;
 
 
@@ -57,8 +54,8 @@ public class SignUpActivity2 extends AppCompatActivity {
         etLastName = findViewById(R.id.et_last_name);
         etNickname = findViewById(R.id.et_nickname);
         etJob = findViewById(R.id.et_job);
-        etEducation = findViewById(R.id.et_city);
-        etCity = findViewById(R.id.et_education);
+        etEducation = findViewById(R.id.et_education);
+        etCity = findViewById(R.id.et_city);
 
         // Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
@@ -100,11 +97,11 @@ public class SignUpActivity2 extends AppCompatActivity {
     private String makeDateString(int year, int month, int day) {
         String dateFormat="";
 
-        if (day<10 && day > 0)
+        if (day < 10 && day > 0)
             dateFormat += "0";
         dateFormat += day+"/";
 
-        if(month<10 && month > 0)
+        if(month < 10 && month > 0)
             dateFormat += "0";
         dateFormat += month+"/";
 
@@ -141,6 +138,7 @@ public class SignUpActivity2 extends AppCompatActivity {
      *  Adds the user into the Cloud Database, Sets the LoggedInUser.
      */
     public void onNextClickPartTwo(View view) throws ParseException {
+
         if(TextUtils.isEmpty(etFirstName.getText().toString()) || TextUtils.isEmpty(etLastName.getText().toString())) {
             displayErrorToast("Please provide first and last names");
         }
@@ -148,19 +146,17 @@ public class SignUpActivity2 extends AppCompatActivity {
             FirebaseModel fbModel = new FirebaseModel(SignUpActivity2.this);    // Create instance of firebase model.
             User newUser = new User();
 
-
-            // Set user info:
+            // Get user info from sign up fields into a new user variable:
             newUser.setFirstName(etFirstName.getText().toString());
             newUser.setLastName(etLastName.getText().toString());
             newUser.setNickname(etNickname.getText().toString());
             newUser.setJob(etJob.getText().toString());
-            newUser.setAddress(new Address(etCity.getText().toString()));
+            newUser.setAddress(new Address("NULL", etCity.getText().toString())); // TODO: add country edittext, create the address with the input.
             newUser.setAlmaMatter(etEducation.getText().toString());
-            newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));          // Get the email field from SignUpActivity.
+            newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));
             newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
             newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
 
-            //TODO: set date of birth to newUser
             //TODO: set relationship status to newUser
 
             fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
@@ -171,9 +167,7 @@ public class SignUpActivity2 extends AppCompatActivity {
             // 2. Check validity of data
             // 3. this will redirect to and activity where a user can add a profile picture
 
-        /*
-           This sends the email and username to homepage after successful signup for display in nav menu
-        */
+            // Send the email and username to homepage after successful signup for display in nav menu
             Intent moveToHome = new Intent(this, HomePageActivity.class);
             moveToHome.putExtra(values.KEY_EMAIL, newUser.getEmail());
             moveToHome.putExtra(values.KEY_USER_NAME, newUser.getUsername());
