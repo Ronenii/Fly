@@ -100,7 +100,7 @@ public class FirebaseModel {
     /**
      *  Gets and returns a user from the cloud database, by the email provided.
      */
-    public Task<DocumentSnapshot> getUserFromDB(String email) {  // TODO: complete get user from database.
+    public Task<DocumentSnapshot> getUserFromDB(String email) {// TODO: complete get user from database.
         return db.collection(values.COLLECTION_PATH).document(email).get();
     }
 
