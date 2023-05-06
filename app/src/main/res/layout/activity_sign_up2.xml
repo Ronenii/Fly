@@ -97,7 +97,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@drawable/input_text_box_layout"
-            android:hint="Gender"
+            android:hint="@string/gender_msg"
             android:inputType="none"
             android:padding="12dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -113,7 +113,7 @@
         android:background="@drawable/input_text_box_layout"
         android:drawableEnd="@drawable/ic_arrow_down"
         android:gravity="center|start"
-        android:hint="Date of Birth"
+        android:hint="@string/date_of_birth_msg"
         android:padding="12dp"
         android:textSize="16sp"
         android:onClick="selectDateOfBirth"

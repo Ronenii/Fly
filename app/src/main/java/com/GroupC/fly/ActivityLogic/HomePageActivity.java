@@ -55,7 +55,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         auth = new AuthService(this);
         firebaseModel = new FirebaseModel(this);
-
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -69,14 +68,11 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
         extras = getIntent().getExtras();
 
-        if (extras != null) {
-            firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
+        firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
                     .addOnSuccessListener(this::onUserDataFetchSuccess)
                     .addOnFailureListener(this::onUserDataFetchFail);
-        }
     }
 
     private void onUserDataFetchFail(Exception e) {
