@@ -97,7 +97,7 @@ public class FragmentBlogPost extends DialogFragment {
                     // On success store the image, and update the ImageView.
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Log.i("[info]:", "Took a photo");
-                        ImageView postImgView = Objects.requireNonNull(getActivity()).findViewById(R.id.btn_add_image);
+                        ImageView postImgView = requireActivity().findViewById(R.id.btn_add_image);
                         postImgView.setImageURI(mViewModel.mImgUri);
                     } else {
                         Log.d("[debug]:", String.valueOf(result.getResultCode()));

@@ -8,6 +8,7 @@ import com.GroupC.fly.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -81,7 +82,6 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void onUserDataFetchSuccess(DocumentSnapshot documentSnapshot) {
-
         emailTw = findViewById(R.id.tw_email);
         usernameTw = findViewById(R.id.tw_username);
 
@@ -129,5 +129,8 @@ public class HomePageActivity extends AppCompatActivity {
 
     public static void setLoggedInUser(LoggedInUser _loggedInUser) {
         loggedInUser = _loggedInUser;
+    }
+
+    public void onProfileClick(MenuItem item) {
     }
 }

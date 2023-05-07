@@ -69,6 +69,7 @@ public class FragmentProfile extends DialogFragment {
 
         // Initialize the db instance
         db = new FirebaseModel(getContext());
+        authService = new AuthService(getContext());
 
 
         getUserData(authService.getCurrentUser().getEmail());
