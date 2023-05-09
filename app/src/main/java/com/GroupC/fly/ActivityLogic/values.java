@@ -13,7 +13,7 @@ public interface values {
     static final String INVALID_PASSWORD = "Password invalid";
     static final String INVALID_EMAIL = "Email invalid";
     static final String PASSWORDS_UNMATCHED = "Passwords do not match";
-
+    static final String INVALID_NECESSARY_FIELDS = "Please enter- first name, last name, date of birth, gender";
 
     /** KEYS **/
     static final String KEY_DOB = "dob";
