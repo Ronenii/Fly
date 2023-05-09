@@ -116,7 +116,7 @@ public class StartUpActivity extends AppCompatActivity {
     }
 
     public void goToHomePage(View view){
-        Intent moveToHomePage= new Intent(this, HomePageActivity.class);
+        Intent moveToHomePage = new Intent(this, HomePageActivity.class);
         startActivity(moveToHomePage);
     }
 }

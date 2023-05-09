@@ -53,6 +53,17 @@ public class FragmentProfile extends DialogFragment {
         // Required empty public constructor
     }
 
+    public void getUserData(String userEmail)
+    {
+        Task<DocumentSnapshot> userFromDB = db.getUserFromDB(userEmail);
+
+        userFromDB.addOnSuccessListener(success -> {
+            User profileDisplayUser = new User(success);
+            System.out.println(profileDisplayUser);
+            setProfileData(profileDisplayUser);
+        });
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -73,24 +84,15 @@ public class FragmentProfile extends DialogFragment {
         return rootView;
     }
 
-    public void getUserData(String userEmail)
-    {
-        Task<DocumentSnapshot> userFromDB =  db.getUserFromDB(userEmail);
-        User profileDisplayUser = new User(userFromDB.getResult());
-        setProfileData(profileDisplayUser);
-    }
-
     public void setProfileData(User user)
     {
         String userFullName = user.getFirstName() + " " + user.getLastName();
-        tvAge.setText(user.getUserAge());
+        tvAge.setText(String.valueOf(user.getUserAge()));
         tvJob.setText(user.getJob());
         tvName.setText(userFullName);
         tvBdate.setText(user.getDateOfBirth().toString());
         tvLocation.setText(user.getAddress().toString());
     }
-
-
 
     /**
      * Use this factory method to create a new instance of
