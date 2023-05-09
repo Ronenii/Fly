@@ -82,11 +82,13 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void onUserDataFetchSuccess(DocumentSnapshot documentSnapshot) {
+        user = new User(documentSnapshot);
+
         emailTw = findViewById(R.id.tw_email);
         usernameTw = findViewById(R.id.tw_username);
 
         emailTw.setText(extras.getString(values.KEY_EMAIL));
-        usernameTw.setText(extras.getString(values.KEY_USER_NAME));
+        usernameTw.setText(user.getUsername());
     }
 
     public void onPost(View view) {
