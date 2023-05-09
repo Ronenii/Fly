@@ -64,14 +64,16 @@ public class User extends Entity {
         this.username = usrDocSnapshot.getString(values.KEY_USER_NAME);
         this.job = usrDocSnapshot.getString(values.KEY_JOB);
         this.almaMatter = usrDocSnapshot.getString(values.KEY_ALMA_MATTER);
-        this.setAddress((HashMap) usrDocSnapshot.get(values.KEY_ADDRESS));
+        this.setAddress((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_ADDRESS)));
        // this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
         setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
     }
 
-    private void setAddress(HashMap addressMap) {
-        this.setAddress(new Address(Objects.requireNonNull(addressMap.get("country")).toString(),
-                                    Objects.requireNonNull(addressMap.get("city")).toString()));
+    private void setAddress(@NonNull HashMap addressMap) {
+        String city = (String) addressMap.get("city");
+        String country = (String) addressMap.get("country");
+
+        setAddress(new Address(country != null ? country : "[ERROR]", city != null ? city : "[ERROR]"));
     }
 
     private static RelationshipStatus RelationShipStatusFactory(@NonNull String relation) {
@@ -88,6 +90,12 @@ public class User extends Entity {
         Log.v(TAG, "Unknown status: " + relation);
         return null;
     }
+
+    public void setRelationshipStatus(RelationshipStatus status) {
+        this.relationshipStatus = status;
+    }
+
+    public RelationshipStatus getRelationshipStatus() { return this.relationshipStatus; }
 
 
     //Returns the relationship status of the user as a string

@@ -156,6 +156,7 @@ public class SignUpActivity2 extends AppCompatActivity {
             newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));
             newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
             newUser.setUsername(newUser.getFirstName() + " " + newUser.getLastName());
+//            newUser.setRelationshipStatus();
 
             //TODO: set relationship status to newUser
 
