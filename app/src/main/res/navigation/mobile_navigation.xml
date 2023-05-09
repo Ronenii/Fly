@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_fragmentBlogPost"
             app:destination="@id/fragmentBlogPost" />
+        <action
+            android:id="@+id/action_nav_home_to_fragmentProfile"
+            app:destination="@id/fragmentProfile" />
     </fragment>
     <fragment
         android:id="@+id/fragmentBlogPost"
@@ -23,5 +26,13 @@
             android:id="@+id/action_fragmentBlogPost_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+    <dialog
+        android:id="@+id/fragmentProfile"
+        android:name="com.GroupC.fly.FragmentLogic.FragmentProfile"
+        android:label="FragmentProfile" >
+        <action
+            android:id="@+id/action_fragmentProfile_to_nav_home"
+            app:destination="@id/nav_home" />
+    </dialog>
 
 </navigation>
