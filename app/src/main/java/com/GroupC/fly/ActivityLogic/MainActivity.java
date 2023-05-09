@@ -3,6 +3,7 @@ package com.GroupC.fly.ActivityLogic;
 import static android.content.ContentValues.TAG;
 
 import com.GroupC.fly.FragmentLogic.FragmentBlogPost;
+import com.GroupC.fly.ui.home.SharedViewModel;
 import com.GroupC.fly.ui.profile.FragmentProfile;
 import com.GroupC.fly.R;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,9 +30,11 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HomePageActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private FirebaseModel firebaseModel;
+
+    private SharedViewModel viewModel;
     private User user;
     private Bundle extras;
     private AppBarConfiguration appBarConfiguration;
@@ -50,6 +54,7 @@ public class HomePageActivity extends AppCompatActivity {
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         setSupportActionBar(binding.appBarHomePage.toolbar);
 
         binding.appBarHomePage.fab.setOnClickListener(this::onPost);
@@ -83,6 +88,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     private void onUserDataFetchSuccess(DocumentSnapshot documentSnapshot) {
         user = new User(documentSnapshot);
+        viewModel.setUser(user);
 
         emailTw = findViewById(R.id.tw_email);
         usernameTw = findViewById(R.id.tw_username);

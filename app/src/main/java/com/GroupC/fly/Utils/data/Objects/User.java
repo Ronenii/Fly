@@ -54,7 +54,7 @@ public class User extends Entity {
         this.username = username;
         this.job = job;
         this.almaMatter = almaMatter;
-        this.relationshipStatus = relationshipStatus;
+       // this.relationshipStatus = relationshipStatus;
     }
 
     public User(DocumentSnapshot usrDocSnapshot) {
@@ -64,8 +64,8 @@ public class User extends Entity {
         this.username = usrDocSnapshot.getString(values.KEY_USER_NAME);
         this.job = usrDocSnapshot.getString(values.KEY_JOB);
         this.almaMatter = usrDocSnapshot.getString(values.KEY_ALMA_MATTER);
-        this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
-        setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
+        //this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
+        //setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
     }
 
     private static RelationshipStatus RelationShipStatusFactory(@NonNull String relation) {
