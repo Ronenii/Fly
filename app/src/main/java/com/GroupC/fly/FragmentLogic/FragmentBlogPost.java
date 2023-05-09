@@ -2,20 +2,16 @@ package com.GroupC.fly.FragmentLogic;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.GroupC.fly.ActivityLogic.HomePageActivity;
+import com.GroupC.fly.ActivityLogic.MainActivity;
 import com.GroupC.fly.R;
 
 import java.lang.ref.WeakReference;
@@ -62,7 +58,7 @@ public class FragmentBlogPost extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
     public void onGoBackClick(View view) {
-        startActivity(new Intent(getActivity(), HomePageActivity.class));
+        startActivity(new Intent(getActivity(), MainActivity.class));
     }
 
     public void onPickImage(View view) {

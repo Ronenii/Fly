@@ -1,4 +1,4 @@
-package com.GroupC.fly.FragmentLogic;
+package com.GroupC.fly.ui.profile;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,9 @@ import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
 import com.GroupC.fly.Utils.data.Objects.User;
 import com.GroupC.fly.Utils.data.model.FirebaseModel;
+import com.GroupC.fly.ui.home.SharedViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +38,8 @@ public class FragmentProfile extends DialogFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
 
+    private SharedViewModel viewModel;
+
     private AuthService authService;
     private String mParam2;
 
@@ -43,25 +47,12 @@ public class FragmentProfile extends DialogFragment {
 
     ImageView ivProfilePicture;
     TextView tvJob, tvLocation, tvBdate, tvAge, tvName;
-
-
     /**
      * METHODS
      **/
 
     public FragmentProfile() {
         // Required empty public constructor
-    }
-
-    public void getUserData(String userEmail)
-    {
-        Task<DocumentSnapshot> userFromDB = db.getUserFromDB(userEmail);
-
-        userFromDB.addOnSuccessListener(success -> {
-            User profileDisplayUser = new User(success);
-            System.out.println(profileDisplayUser);
-            setProfileData(profileDisplayUser);
-        });
     }
 
     @Override
@@ -76,23 +67,32 @@ public class FragmentProfile extends DialogFragment {
         tvAge = rootView.findViewById(R.id.tv_age_content);
         tvName = rootView.findViewById(R.id.tv_profile_name);
 
-        // Initialize the db instance
-        db = new FirebaseModel(getContext());
-        authService = new AuthService(getContext());
+        // No need for these here anymore
+        // db = new FirebaseModel(getContext());
+       // authService = new AuthService(getContext());
 
-        getUserData(authService.getCurrentUser().getEmail());
+        getUserData();
         return rootView;
     }
 
-    public void setProfileData(User user)
+    public void getUserData()
     {
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        LiveData<User> profileDisplayUser = viewModel.getUser();
+        setProfileData(profileDisplayUser);
+    }
+
+    public void setProfileData(LiveData<User> myUser)
+    {   User user = myUser.getValue();
         String userFullName = user.getFirstName() + " " + user.getLastName();
-        tvAge.setText(String.valueOf(user.getUserAge()));
+        //tvAge.setText(user.getUserAge());
         tvJob.setText(user.getJob());
         tvName.setText(userFullName);
         tvBdate.setText(user.getDateOfBirth().toString());
-        tvLocation.setText(user.getAddress().toString());
+        //tvLocation.setText(user.getAddress().toString());
     }
+
+
 
     /**
      * Use this factory method to create a new instance of

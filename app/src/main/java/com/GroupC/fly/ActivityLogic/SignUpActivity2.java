@@ -26,7 +26,6 @@ import com.GroupC.fly.Utils.data.model.FirebaseModel;
 import com.GroupC.fly.Utils.data.model.LoggedInUser;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 public class SignUpActivity2 extends AppCompatActivity {
@@ -161,7 +160,7 @@ public class SignUpActivity2 extends AppCompatActivity {
             //TODO: set relationship status to newUser
 
             fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
-            HomePageActivity.setLoggedInUser(new LoggedInUser(newUser.getEmail(), newUser.getFirstName(), newUser)); // Set the logged-in user.
+            MainActivity.setLoggedInUser(new LoggedInUser(newUser.getEmail(), newUser.getFirstName(), newUser)); // Set the logged-in user.
 
             //TODO:
             // 1. add the option to draw users birthday when implemented into the 2nd sign up activity
@@ -169,7 +168,7 @@ public class SignUpActivity2 extends AppCompatActivity {
             // 3. this will redirect to and activity where a user can add a profile picture
 
             // Send the email and username to homepage after successful signup for display in nav menu
-            Intent moveToHome = new Intent(this, HomePageActivity.class);
+            Intent moveToHome = new Intent(this, MainActivity.class);
             moveToHome.putExtra(values.KEY_EMAIL, newUser.getEmail());
             moveToHome.putExtra(values.KEY_USER_NAME, newUser.getUsername());
             startActivity(moveToHome);
