@@ -64,14 +64,8 @@ public class User extends Entity {
         this.username = usrDocSnapshot.getString(values.KEY_USER_NAME);
         this.job = usrDocSnapshot.getString(values.KEY_JOB);
         this.almaMatter = usrDocSnapshot.getString(values.KEY_ALMA_MATTER);
-        this.setAddress((HashMap) usrDocSnapshot.get(values.KEY_ADDRESS));
-       // this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
+        this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
         setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
-    }
-
-    private void setAddress(HashMap addressMap) {
-        this.setAddress(new Address(Objects.requireNonNull(addressMap.get("country")).toString(),
-                                    Objects.requireNonNull(addressMap.get("city")).toString()));
     }
 
     private static RelationshipStatus RelationShipStatusFactory(@NonNull String relation) {

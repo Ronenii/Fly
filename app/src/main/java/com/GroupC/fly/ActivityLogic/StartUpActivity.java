@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
 public class StartUpActivity extends AppCompatActivity {
@@ -70,7 +68,7 @@ public class StartUpActivity extends AppCompatActivity {
         .addOnCompleteListener(this, completeListener -> {
             // If the user was already created, thus already authenticated.
             if (completeListener.isSuccessful()) {
-                Intent moveToHome = new Intent(this, HomePageActivity.class);
+                Intent moveToHome = new Intent(this, MainActivity.class);
 
                 addUserDataToIntent(moveToHome, auth.getCurrentUser());
                 startActivity(moveToHome);
@@ -116,7 +114,7 @@ public class StartUpActivity extends AppCompatActivity {
     }
 
     public void goToHomePage(View view){
-        Intent moveToHomePage = new Intent(this, HomePageActivity.class);
+        Intent moveToHomePage= new Intent(this, MainActivity.class);
         startActivity(moveToHomePage);
     }
 }
