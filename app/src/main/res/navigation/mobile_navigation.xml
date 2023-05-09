@@ -9,19 +9,13 @@
         android:id="@+id/nav_home"
         android:name="com.GroupC.fly.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_nav_home_to_fragmentBlogPost"
-            app:destination="@id/fragmentBlogPost" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
+
     <fragment
-        android:id="@+id/fragmentBlogPost"
-        android:name="com.GroupC.fly.FragmentLogic.FragmentBlogPost"
-        android:label="fragment_blog_post2"
-        tools:layout="@layout/fragment_blog_post2" >
-        <action
-            android:id="@+id/action_fragmentBlogPost_to_nav_home"
-            app:destination="@id/nav_home" />
-    </fragment>
+        android:id="@+id/nav_profile"
+        android:name="com.GroupC.fly.ui.profile.FragmentProfile"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+
 
 </navigation>

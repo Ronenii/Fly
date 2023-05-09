@@ -24,7 +24,8 @@ public class Address {
     @Override
     public String toString()
     {
-        return city + ", " + country;
+        return "city";
+        //return city + ", " + country;
     }
 
     public String getCountry() {

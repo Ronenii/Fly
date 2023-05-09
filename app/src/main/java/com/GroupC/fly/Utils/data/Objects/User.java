@@ -34,7 +34,7 @@ public class User extends Entity {
      **/
 
     private String email, job, almaMatter, username,
-            firstName, lastName, nickname;
+            firstName, lastName, nickname, birthDate;
     private RelationshipStatus relationshipStatus;
     private Vector<User> friends;
 
@@ -45,7 +45,7 @@ public class User extends Entity {
      **/
 
     public User() {} // empty c'tor.
-    public User(String email, String firstName, String lastName, String username, String job, String almaMatter, Address address,
+    public User(String email, String firstName, String lastName, String username, String job, String almaMatter, Address address, String birthDate,
                 RelationshipStatus relationshipStatus) {
         setAddress(address);
         this.firstName = firstName;
@@ -54,7 +54,8 @@ public class User extends Entity {
         this.username = username;
         this.job = job;
         this.almaMatter = almaMatter;
-        this.relationshipStatus = relationshipStatus;
+        this.birthDate = birthDate;
+       // this.relationshipStatus = relationshipStatus;
     }
 
     public User(DocumentSnapshot usrDocSnapshot) {
@@ -64,7 +65,8 @@ public class User extends Entity {
         this.username = usrDocSnapshot.getString(values.KEY_USER_NAME);
         this.job = usrDocSnapshot.getString(values.KEY_JOB);
         this.almaMatter = usrDocSnapshot.getString(values.KEY_ALMA_MATTER);
-        this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
+        this.birthDate = usrDocSnapshot.getString(values.KEY_BIRTH_DATE);
+        //this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
         setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
     }
 
@@ -158,6 +160,7 @@ public class User extends Entity {
         this.nickname = nickname;
     }
 
+    public String getBirthDate(){return this.birthDate;}
     public Calendar getDateOfBirth() { return this.dateOfBirth; }
 
     private void setDateOfBirth(@NonNull HashMap calendarMap) {
@@ -222,7 +225,7 @@ public class User extends Entity {
     public boolean setDateOfBirth(String dateOfBirth) {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat(values.DOB_PARSING_FORMAT, Locale.getDefault());
-
+        this.birthDate = dateOfBirth;
         try {
             cal.setTime(Objects.requireNonNull(sdf.parse(dateOfBirth)));
             return setDateOfBirth(cal);
