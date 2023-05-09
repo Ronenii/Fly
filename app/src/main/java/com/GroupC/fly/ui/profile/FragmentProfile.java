@@ -89,6 +89,7 @@ public class FragmentProfile extends DialogFragment {
         tvJob.setText(user.getJob());
         tvName.setText(userFullName);
         tvBdate.setText(user.getBirthDate());
+        tvLocation.setText(user.getAddress().getCity());
         //tvLocation.setText(user.getAddress().toString());
     }
 

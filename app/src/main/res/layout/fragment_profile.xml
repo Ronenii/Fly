@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lly_entity_info"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/lly_posts"
@@ -20,9 +20,10 @@
             android:id="@+id/lly_info_and_friends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginRight="140dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp">
 
             <LinearLayout
                 android:id="@+id/lly_user_content"
@@ -147,19 +148,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Friends"
+                    android:textColor="@color/blueBtnColor"
                     android:textSize="10pt"
-                    android:textStyle="bold"
-                    android:textColor="@color/blueBtnColor"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Gallery"
                     android:layout_marginTop="15dp"
+                    android:text="Gallery"
+                    android:textColor="@color/blueBtnColor"
                     android:textSize="10pt"
-                    android:textStyle="bold"
-                    android:textColor="@color/blueBtnColor"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
@@ -167,7 +168,9 @@
             android:id="@+id/lly_profile_picture_and_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp">
 
             <ImageView
                 android:id="@+id/iv_profile_picture_profile_page"
@@ -194,7 +197,7 @@
 
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/lly_posts"
