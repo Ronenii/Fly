@@ -1,19 +1,12 @@
 package com.GroupC.fly.ActivityLogic;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,29 +20,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.GroupC.fly.R;
-import com.GroupC.fly.Services.AuthService;
 import com.GroupC.fly.data.Objects.Address;
 import com.GroupC.fly.data.Objects.User;
 import com.GroupC.fly.data.model.FirebaseModel;
-import com.GroupC.fly.data.model.LoggedInUser;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.Objects;
 
 public class SignUpActivity2 extends AppCompatActivity {
 
     String[] genderDropDown;
 
-    EditText etFirstName, etLastName, etNickname, etJob, etEducation, etCity;
+    EditText etFirstName, etLastName, etNickname, etJob, etEducation, etCountry, etCity;
     AutoCompleteTextView autoCompleteTV;
     ArrayAdapter<String> adapter;
     private DatePickerDialog datePickerDialog;
@@ -72,6 +54,7 @@ public class SignUpActivity2 extends AppCompatActivity {
         etJob = findViewById(R.id.et_job);
         etEducation = findViewById(R.id.et_education);
         etCity = findViewById(R.id.et_city);
+        etCountry = findViewById(R.id.et_country);
 
         // Makes drop down menu of gender work with spam with the design provided
         autoCompleteTV = findViewById(R.id.tv_auto_complete);
@@ -188,7 +171,7 @@ public class SignUpActivity2 extends AppCompatActivity {
             newUser.setLastName(etLastName.getText().toString());
             newUser.setNickname(etNickname.getText().toString());
             newUser.setJob(etJob.getText().toString());
-            newUser.setAddress(new Address("NULL", etCity.getText().toString())); // TODO: add country edittext, create the address with the input.
+            newUser.setAddress(new Address(etCountry.getText().toString(), etCity.getText().toString()));
             newUser.setAlmaMatter(etEducation.getText().toString());
             newUser.setEmail(getIntent().getStringExtra(values.KEY_EMAIL));
             newUser.setDateOfBirth(dateOfBirthButton.getText().toString());
@@ -197,10 +180,9 @@ public class SignUpActivity2 extends AppCompatActivity {
             //TODO: set relationship status to newUser
 
             fbModel.insertUserToDB(newUser); // Add the new user to the Cloud Database.
-            HomePageActivity.setLoggedInUser(new LoggedInUser(newUser.getEmail(), newUser.getFirstName(), newUser)); // Set the logged-in user.
 
             //TODO:
-            // 1. add the option to draw users birthday when implemented into the 2nd sign up activity
+            // 1. add the option to draw user's birthday when implemented into the 2nd sign up activity
             // 2. Check validity of data
             // 3. this will redirect to and activity where a user can add a profile picture
 

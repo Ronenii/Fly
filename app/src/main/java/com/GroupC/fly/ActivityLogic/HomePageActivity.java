@@ -5,8 +5,6 @@ import static android.content.ContentValues.TAG;
 import com.GroupC.fly.FragmentLogic.FragmentBlogPost;
 import com.GroupC.fly.R;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,15 +13,11 @@ import android.widget.TextView;
 
 import com.GroupC.fly.Services.AuthService;
 import com.GroupC.fly.data.Objects.User;
-import com.GroupC.fly.data.Result;
 import com.GroupC.fly.data.model.FirebaseModel;
-import com.GroupC.fly.data.model.LoggedInUser;
 import com.GroupC.fly.databinding.ActivityHomePageBinding;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -42,8 +36,6 @@ public class HomePageActivity extends AppCompatActivity {
 
     private FragmentManager fragManager;
     private AuthService auth;
-    private static LoggedInUser loggedInUser;
-
     private TextView emailTw;
     private TextView usernameTw;
 
@@ -119,13 +111,5 @@ public class HomePageActivity extends AppCompatActivity {
 
         Intent moveToWelcomeScreen = new Intent(this, StartUpActivity.class);
         startActivity(moveToWelcomeScreen);
-    }
-
-    public LoggedInUser getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public static void setLoggedInUser(LoggedInUser _loggedInUser) {
-        loggedInUser = _loggedInUser;
     }
 }
