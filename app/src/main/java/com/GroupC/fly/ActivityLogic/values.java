@@ -17,6 +17,8 @@ public interface values {
 
     /** KEYS **/
     static final String KEY_DOB = "dob";
+
+    static final String KEY_BIRTH_DATE = "birthDate";
     static final String COLLECTION_PATH = "Users";
     static final String KEY_FIRST_NAME = "firstName";
     static final String KEY_LAST_NAME = "lastName";
