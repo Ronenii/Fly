@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import com.GroupC.fly.R;
 import com.GroupC.fly.Services.AuthService;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
 public class StartUpActivity extends AppCompatActivity {
@@ -31,7 +29,7 @@ public class StartUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_start_up);
         GlobalFuncs globalFuncs = new GlobalFuncs(this, R.id.welcome_page_page);
         auth = new AuthService(this);
     }
@@ -113,10 +111,5 @@ public class StartUpActivity extends AppCompatActivity {
 
     public void onForgotPasswordClick(View view) {
         // TODO: go to forgot password activity.
-    }
-
-    public void goToHomePage(View view){
-        Intent moveToHomePage= new Intent(this, HomePageActivity.class);
-        startActivity(moveToHomePage);
     }
 }
