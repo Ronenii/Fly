@@ -1,4 +1,4 @@
-package com.GroupC.fly.FragmentLogic;
+package com.GroupC.fly.ui.profile;
 
 import android.os.Bundle;
 
@@ -19,7 +19,6 @@ import com.GroupC.fly.Utils.data.Objects.User;
 import com.GroupC.fly.Utils.data.model.FirebaseModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,11 +64,11 @@ public class FragmentProfile extends DialogFragment {
         tvAge = rootView.findViewById(R.id.tv_age_content);
         tvName = rootView.findViewById(R.id.tv_profile_name);
 
-        // Initialize the db instance
-        db = new FirebaseModel(getContext());
-        authService = new AuthService(getContext());
+        // Initialize the db instanc
+        // db = new FirebaseModel(getContext());
+       // authService = new AuthService(getContext());
 
-        getUserData(authService.getCurrentUser().getEmail());
+        //getUserData(authService.getCurrentUser().getEmail());
         return rootView;
     }
 

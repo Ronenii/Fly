@@ -3,7 +3,7 @@ package com.GroupC.fly.ActivityLogic;
 import static android.content.ContentValues.TAG;
 
 import com.GroupC.fly.FragmentLogic.FragmentBlogPost;
-import com.GroupC.fly.FragmentLogic.FragmentProfile;
+import com.GroupC.fly.ui.profile.FragmentProfile;
 import com.GroupC.fly.R;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,7 +62,7 @@ public class HomePageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.fragmentBlogPost, R.id.fragmentProfile)
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile)
              .setOpenableLayout(drawer)
              .build();
 
@@ -130,6 +130,5 @@ public class HomePageActivity extends AppCompatActivity {
         loggedInUser = _loggedInUser;
     }
 
-    public void onProfileClick(MenuItem item) {
-    }
+
 }
