@@ -10,6 +10,8 @@ import com.GroupC.fly.ActivityLogic.values;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,7 +36,7 @@ public class User extends Entity {
      **/
 
     private String email, job, almaMatter, username,
-            firstName, lastName, nickname;
+            firstName, lastName, nickname, birthDate;
     private RelationshipStatus relationshipStatus;
     private Vector<User> friends;
 
@@ -45,7 +47,7 @@ public class User extends Entity {
      **/
 
     public User() {} // empty c'tor.
-    public User(String email, String firstName, String lastName, String username, String job, String almaMatter, Address address,
+    public User(String email, String firstName, String lastName, String username, String job, String almaMatter, Address address, String birthDate,
                 RelationshipStatus relationshipStatus) {
         setAddress(address);
         this.firstName = firstName;
@@ -54,6 +56,7 @@ public class User extends Entity {
         this.username = username;
         this.job = job;
         this.almaMatter = almaMatter;
+        this.birthDate = birthDate;
         this.relationshipStatus = relationshipStatus;
     }
 
@@ -64,16 +67,10 @@ public class User extends Entity {
         this.username = usrDocSnapshot.getString(values.KEY_USER_NAME);
         this.job = usrDocSnapshot.getString(values.KEY_JOB);
         this.almaMatter = usrDocSnapshot.getString(values.KEY_ALMA_MATTER);
-        this.setAddress((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_ADDRESS)));
-       // this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
+        this.birthDate = usrDocSnapshot.getString(values.KEY_BIRTH_DATE);
+        //this.relationshipStatus = RelationShipStatusFactory(Objects.requireNonNull(usrDocSnapshot.getString(values.KEY_RELATIONSHIP_STATUS)));
         setDateOfBirth((HashMap) Objects.requireNonNull(usrDocSnapshot.get(values.KEY_DOB)));
-    }
-
-    private void setAddress(@NonNull HashMap addressMap) {
-        String city = (String) addressMap.get("city");
-        String country = (String) addressMap.get("country");
-
-        setAddress(new Address(country != null ? country : "[ERROR]", city != null ? city : "[ERROR]"));
+        setAddress((HashMap)Objects.requireNonNull(usrDocSnapshot.get(values.KEY_ADDRESS)));
     }
 
     private static RelationshipStatus RelationShipStatusFactory(@NonNull String relation) {
@@ -91,11 +88,12 @@ public class User extends Entity {
         return null;
     }
 
-    public void setRelationshipStatus(RelationshipStatus status) {
-        this.relationshipStatus = status;
-    }
+    private void setAddress(HashMap addressMap) {
+        String city = (String)addressMap.get("city");
+        String country = (String)addressMap.get("country");
 
-    public RelationshipStatus getRelationshipStatus() { return this.relationshipStatus; }
+        setAddress(new Address(country, city));
+    }
 
 
     //Returns the relationship status of the user as a string
@@ -172,6 +170,7 @@ public class User extends Entity {
         this.nickname = nickname;
     }
 
+    public String getBirthDate(){return this.birthDate;}
     public Calendar getDateOfBirth() { return this.dateOfBirth; }
 
     private void setDateOfBirth(@NonNull HashMap calendarMap) {
@@ -236,7 +235,7 @@ public class User extends Entity {
     public boolean setDateOfBirth(String dateOfBirth) {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat(values.DOB_PARSING_FORMAT, Locale.getDefault());
-
+        this.birthDate = dateOfBirth;
         try {
             cal.setTime(Objects.requireNonNull(sdf.parse(dateOfBirth)));
             return setDateOfBirth(cal);

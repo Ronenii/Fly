@@ -67,10 +67,6 @@ public class FragmentProfile extends DialogFragment {
         tvAge = rootView.findViewById(R.id.tv_age_content);
         tvName = rootView.findViewById(R.id.tv_profile_name);
 
-        // No need for these here anymore
-        // db = new FirebaseModel(getContext());
-       // authService = new AuthService(getContext());
-
         getUserData();
         return rootView;
     }
@@ -83,13 +79,14 @@ public class FragmentProfile extends DialogFragment {
     }
 
     public void setProfileData(LiveData<User> myUser)
-    {   User user = myUser.getValue();
+    {
+        User user = myUser.getValue();
         String userFullName = user.getFirstName() + " " + user.getLastName();
-        //tvAge.setText(user.getUserAge());
         tvJob.setText(user.getJob());
         tvName.setText(userFullName);
-        tvBdate.setText(user.getDateOfBirth().toString());
-        //tvLocation.setText(user.getAddress().toString());
+        tvBdate.setText(user.getBirthDate());
+        tvLocation.setText(user.getAddress().getCity());
+        tvAge.setText(String.valueOf(user.getUserAge()));
     }
 
     /**

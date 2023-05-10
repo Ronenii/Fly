@@ -57,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         setSupportActionBar(binding.appBarHomePage.toolbar);
 
-        binding.appBarHomePage.fab.setOnClickListener(this::onPost);
-        binding.appBarHomePage.fab.setOnClickListener(this::onProfileClick);
-
         auth = new AuthService(this);
         firebaseModel = new FirebaseModel(this);
         drawer = binding.drawerLayout;
@@ -77,9 +74,16 @@ public class MainActivity extends AppCompatActivity {
 
         extras = getIntent().getExtras();
 
-        firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
+        if (extras != null) {
+            firebaseModel.getUserFromDB(extras.getString(values.KEY_EMAIL))
                     .addOnSuccessListener(this::onUserDataFetchSuccess)
                     .addOnFailureListener(this::onUserDataFetchFail);
+        }
+        else {
+            firebaseModel.getUserFromDB(auth.getCurrentUser().getEmail())
+                    .addOnSuccessListener(this::onUserDataFetchSuccess)
+                    .addOnFailureListener(this::onUserDataFetchFail);
+        }
     }
 
     private void onUserDataFetchFail(Exception e) {
@@ -93,18 +97,18 @@ public class MainActivity extends AppCompatActivity {
         emailTw = findViewById(R.id.tw_email);
         usernameTw = findViewById(R.id.tw_username);
 
-        emailTw.setText(extras.getString(values.KEY_EMAIL));
+        if (extras != null) {
+            emailTw.setText(extras.getString(values.KEY_EMAIL));
+        } else {
+            emailTw.setText(auth.getCurrentUser().getEmail());
+        }
+
         usernameTw.setText(user.getUsername());
     }
 
     public void onPost(View view) {
         FragmentBlogPost fragment = new FragmentBlogPost();
         fragment.show(getSupportFragmentManager(),"PostDialog");
-    }
-
-    public void onProfileClick(View view) {
-        FragmentProfile profile = new FragmentProfile();
-        profile.show(getSupportFragmentManager(), "ProfileDialog");
     }
 
     @Override
